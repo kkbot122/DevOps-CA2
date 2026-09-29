@@ -1,0 +1,16 @@
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: shortly
+  namespace: urlshortener
+  labels:
+    app.kubernetes.io/name: shortly
+    app.kubernetes.io/part-of: shortly
+    app.kubernetes.io/component: api
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: shortly
+      app.kubernetes.io/part-of: shortly
+      app.kubernetes.io/component: api
