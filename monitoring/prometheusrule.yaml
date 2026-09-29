@@ -1,0 +1,80 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: shortly-alerts
+  namespace: monitoring
+  labels:
+    app.kubernetes.io/name: shortly
+    app.kubernetes.io/part-of: shortly
+    app.kubernetes.io/component: monitoring
+    release: kube-prometheus-stack
+spec:
+  groups:
+    - name: shortly.rules
+      interval: 15s
+      rules:
+        - alert: ShortlyHighErrorRate
+          expr: |
+            (
+              sum(rate(http_requests_total{job="shortly",namespace="urlshortener",handler!~"/healthz|/readyz",status=~"5.."}[5m]))
+              / clamp_min(sum(rate(http_requests_total{job="shortly",namespace="urlshortener",handler!~"/healthz|/readyz"}[5m])), 1e-9)
+            ) > 0.05
+            and sum(rate(http_requests_total{job="shortly",namespace="urlshortener",handler!~"/healthz|/readyz"}[5m])) > 0.5
+          for: 1m
+          labels:
+            severity: critical
+            app: shortly
+          annotations:
+            summary: Shortly is returning too many server errors
+            description: More than 5% of real requests returned 5xx with sustained traffic. Inspect `make logs`; roll back an errors release with `make rollback`.
+        - alert: ShortlyHighLatencyP95
+          expr: |
+            histogram_quantile(0.95, sum by (le) (rate(http_request_duration_seconds_bucket{job="shortly",namespace="urlshortener",handler!~"/healthz|/readyz"}[1m]))) > 0.5
+            and sum(rate(http_requests_total{job="shortly",namespace="urlshortener",handler!~"/healthz|/readyz"}[1m])) > 0.5
+          for: 1m
+          labels:
+            severity: warning
+            app: shortly
+          annotations:
+            summary: Shortly p95 latency is above 500 ms
+            description: 'Real request p95 latency exceeded 0.5 seconds with sustained traffic. Check Redis and reset demo chaos with `curl -X DELETE "$BASE/admin/chaos" -H "X-Admin-Token: $ADMIN_TOKEN"`.'
+        - alert: ShortlyPodsNotReady
+          expr: kube_deployment_status_replicas_unavailable{namespace="urlshortener",deployment="shortly"} > 0
+          for: 1m
+          labels:
+            severity: critical
+            app: shortly
+          annotations:
+            summary: Shortly has unavailable deployment replicas
+            description: At least one desired Shortly replica has been unavailable for one minute. Check `kubectl -n urlshortener get pods`; restore Redis with `make redis-up` or roll back with `make rollback`.
+        - alert: ShortlyPodCrashLooping
+          expr: increase(kube_pod_container_status_restarts_total{namespace="urlshortener",pod=~"shortly-.*",container="shortly"}[5m]) > 0
+          for: 1m
+          labels:
+            severity: critical
+            app: shortly
+          annotations:
+            summary: A Shortly container is crash looping or restarting
+            description: The app container restart count increased during the last five minutes. Inspect `kubectl -n urlshortener get pods` and recover with `make rollback`.
+        - alert: ShortlyRedisDown
+          expr: |
+            (min(shortly_redis_up{job="shortly",namespace="urlshortener"}) == 0)
+            or absent(shortly_redis_up{job="shortly",namespace="urlshortener"})
+          for: 30s
+          labels:
+            severity: critical
+            app: shortly
+          annotations:
+            summary: Shortly cannot reach Redis
+            description: Redis is unreachable or the app scrape disappeared while Redis readiness failed. Restore the Redis pod with `make redis-up`.
+        - alert: ShortlyTargetDown
+          expr: |
+            (up{job="shortly",namespace="urlshortener"} == 0)
+            or absent(up{job="shortly",namespace="urlshortener"})
+          for: 1m
+          labels:
+            severity: critical
+            app: shortly
+          annotations:
+            summary: Prometheus cannot scrape Shortly
+            description: No Shortly app metrics target is healthy. Check the ServiceMonitor labels and app endpoints with `make monitoring-status`.
