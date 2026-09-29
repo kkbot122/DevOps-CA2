@@ -1,0 +1,17 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - servicemonitor.yaml
+  - prometheusrule.yaml
+configMapGenerator:
+  - name: shortly-dashboard
+    namespace: monitoring
+    files:
+      - dashboards/shortly-overview.json
+    options:
+      disableNameSuffixHash: true
+      labels:
+        grafana_dashboard: "1"
+        app.kubernetes.io/name: shortly
+        app.kubernetes.io/part-of: shortly
+        app.kubernetes.io/component: dashboard
