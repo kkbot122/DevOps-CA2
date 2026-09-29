@@ -1,0 +1,1 @@
+"""Shortly URL shortener."""

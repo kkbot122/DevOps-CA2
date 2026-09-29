@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark"><title>shortly — links, made smaller</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root { font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    @media (prefers-color-scheme: dark) { body { background:#0b1020; color:#eef2ff } .surface { background:#111a2e; border-color:#25324b } .muted { color:#9aabc5 } input,select { background:#0b1020!important;color:#eef2ff!important } }
+    .focus-ring:focus { outline:3px solid #93c5fd; outline-offset:2px }
+  </style>
+</head>
+<body class="min-h-full bg-slate-50 text-slate-900 antialiased">
+  <main class="mx-auto max-w-3xl px-4 py-10 sm:py-16">
+    <section class="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-xl shadow-slate-200/50 surface">
+      <header class="bg-gradient-to-br from-indigo-600 via-violet-600 to-fuchsia-600 px-6 py-9 text-white sm:px-10">
+        <div class="mb-5 inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-white/15 text-xl font-black">s</div>
+        <h1 class="text-4xl font-bold tracking-tight">shortly<span class="text-indigo-200">.</span></h1>
+        <p class="mt-2 text-indigo-100">Make every link a little more memorable.</p>
+      </header>
+      <div class="p-6 sm:p-10">
+        <form id="shorten-form" class="space-y-5">
+          <div><label for="url" class="mb-2 block text-sm font-semibold">Destination URL</label><input id="url" name="url" type="url" required placeholder="https://example.com/your-long-link" class="focus-ring w-full rounded-xl border border-slate-300 px-4 py-3 outline-none" /></div>
+          <div class="grid gap-4 sm:grid-cols-2">
+            <div><label for="alias" class="mb-2 block text-sm font-semibold">Custom alias <span class="font-normal text-slate-500">(optional)</span></label><div class="flex overflow-hidden rounded-xl border border-slate-300"><span id="origin" class="flex items-center bg-slate-100 px-3 text-sm text-slate-500"></span><input id="alias" name="alias" maxlength="32" placeholder="my-link" class="focus-ring min-w-0 flex-1 px-3 py-3 outline-none" /></div></div>
+            <div><label for="expiry" class="mb-2 block text-sm font-semibold">Link expires</label><select id="expiry" class="focus-ring w-full rounded-xl border border-slate-300 bg-white px-4 py-3 outline-none"><option value="">Never</option><option value="60">In 1 minute</option><option value="3600">In 1 hour</option><option value="86400">In 1 day</option><option value="604800">In 7 days</option></select></div>
+          </div>
+          <p id="error" role="alert" aria-live="polite" class="hidden text-sm font-medium text-rose-600"></p>
+          <button id="submit" class="focus-ring flex w-full items-center justify-center gap-2 rounded-xl bg-indigo-600 px-5 py-3.5 font-semibold text-white transition hover:bg-indigo-700 disabled:cursor-wait disabled:opacity-70"><span id="spinner" class="hidden h-4 w-4 animate-spin rounded-full border-2 border-white/40 border-t-white"></span><span id="button-label">Shorten link</span></button>
+        </form>
+        <div id="result" class="surface mt-5 hidden rounded-2xl border border-indigo-100 bg-indigo-50 p-4" aria-live="polite"><p class="text-xs font-bold uppercase tracking-wider text-indigo-600">Your short link</p><div class="mt-2 flex flex-wrap items-center gap-2"><a id="short-url" class="min-w-0 flex-1 break-all text-lg font-semibold text-indigo-700" target="_blank" rel="noopener"></a><button id="copy" class="focus-ring rounded-lg border border-indigo-200 px-3 py-2 text-sm font-semibold">Copy</button><a id="open" class="focus-ring rounded-lg bg-indigo-600 px-3 py-2 text-sm font-semibold text-white" target="_blank" rel="noopener">Open</a></div></div>
+      </div>
+      <section class="border-t border-slate-200 px-6 py-6 sm:px-10"><div class="mb-4 flex items-center justify-between"><h2 class="font-semibold">Recent links</h2><span class="muted text-xs">Refreshes automatically</span></div><div class="overflow-x-auto"><table class="w-full text-left text-sm"><thead class="muted text-xs uppercase"><tr><th class="pb-3">Short link</th><th class="pb-3">Destination</th><th class="pb-3 text-right">Clicks</th><th class="pb-3 text-right">Expiry</th></tr></thead><tbody id="recent" class="divide-y divide-slate-100"></tbody></table><p id="empty" class="muted hidden py-6 text-center">Your links will show up here.</p></div></section>
+      <footer class="muted border-t border-slate-200 px-6 py-4 text-center text-xs sm:px-10" id="version">v{{ version }}</footer>
+    </section>
+    <p class="muted mt-6 text-center text-xs">Simple links. A little more room to share.</p>
+  </main>
+<script>
+const form=document.querySelector('#shorten-form'), errorBox=document.querySelector('#error'), result=document.querySelector('#result'), btn=document.querySelector('#submit');
+document.querySelector('#origin').textContent=location.host+'/';
+function friendly(status,data){if(status===422)return data.detail?.[0]?.msg||'Please check the URL and try again';if(status===403)return 'This domain is blocked';if(status===409)return 'That alias is taken';if(status===429)return `Slow down, try again in ${data.retry||'a few'} seconds`;return status>=500?'Something went wrong on our side, please retry':'Please check your details and try again'}
+form.addEventListener('submit',async e=>{e.preventDefault();errorBox.classList.add('hidden');result.classList.add('hidden');btn.disabled=true;document.querySelector('#spinner').classList.remove('hidden');document.querySelector('#button-label').textContent='Shortening…';const body={url:document.querySelector('#url').value,alias:document.querySelector('#alias').value||null,expires_in_seconds:document.querySelector('#expiry').value?Number(document.querySelector('#expiry').value):null};try{const r=await fetch('/api/shorten',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});const d=await r.json();if(!r.ok){errorBox.textContent=friendly(r.status,{...d,retry:r.headers.get('Retry-After')});errorBox.classList.remove('hidden');return}document.querySelector('#short-url').textContent=d.short_url;document.querySelector('#short-url').href=d.short_url;document.querySelector('#open').href=d.short_url;result.classList.remove('hidden');refreshRecent()}catch(_){errorBox.textContent='Something went wrong on our side, please retry';errorBox.classList.remove('hidden')}finally{btn.disabled=false;document.querySelector('#spinner').classList.add('hidden');document.querySelector('#button-label').textContent='Shorten link'}});
+document.querySelector('#copy').addEventListener('click',async()=>{const text=document.querySelector('#short-url').textContent;try{await navigator.clipboard.writeText(text)}catch(_){const el=document.createElement('textarea');el.value=text;document.body.append(el);el.select();document.execCommand('copy');el.remove()}const b=document.querySelector('#copy');b.textContent='Copied!';setTimeout(()=>b.textContent='Copy',1500)});
+function expiry(value){if(!value)return 'never';const seconds=Math.ceil((new Date(value)-Date.now())/1000);if(seconds<=0)return 'expired';if(seconds<60)return `in ${seconds}s`;if(seconds<3600)return `in ${Math.ceil(seconds/60)}m`;if(seconds<86400)return `in ${Math.ceil(seconds/3600)}h`;return `in ${Math.ceil(seconds/86400)}d`}
+async function refreshRecent(){try{const rows=await(await fetch('/api/links/recent?limit=10')).json();const tbody=document.querySelector('#recent');tbody.replaceChildren();document.querySelector('#empty').classList.toggle('hidden',rows.length>0);for(const x of rows){const tr=document.createElement('tr');tr.className='align-top';const short=document.createElement('a');short.href='/'+encodeURIComponent(x.code);short.textContent=x.code;short.className='font-semibold text-indigo-600';const original=document.createElement('td');original.className='max-w-[16rem] truncate py-3 pl-3 pr-4';original.title=x.url;original.textContent=x.url;const clicks=document.createElement('td');clicks.className='py-3 text-right';clicks.textContent=x.clicks;const exp=document.createElement('td');exp.className='py-3 pl-3 text-right';exp.textContent=expiry(x.expires_at);const code=document.createElement('td');code.className='py-3';code.append(short);tr.append(code,original,clicks,exp);tbody.append(tr)}}catch(_){}}
+async function version(){try{const x=await(await fetch('/version')).json();document.querySelector('#version').textContent=`v${x.version} · served by ${x.hostname}`}catch(_){}}
+refreshRecent();version();setInterval(()=>{if(!document.hidden)refreshRecent()},5000);
+</script></body></html>
