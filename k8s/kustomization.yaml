@@ -1,0 +1,12 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: urlshortener
+resources:
+  - 00-namespace.yaml
+  - configmap.yaml
+  - redis.yaml
+  - app-deployment.yaml
+  - app-service.yaml
+  - ingress.yaml
+  - hpa.yaml
+  - pdb.yaml

@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: shortly-config
+  namespace: urlshortener
+  labels:
+    app.kubernetes.io/name: shortly
+    app.kubernetes.io/part-of: shortly
+    app.kubernetes.io/component: api
+data:
+  REDIS_URL: redis://redis:6379/0
+  RATE_LIMIT_PER_MIN: "10"
+  TRUST_XFF: "true"
+  BLOCKED_DOMAINS: evil.example,malware.test,phishing.test
+  LOG_LEVEL: INFO
+# APP_VERSION and BAD_RELEASE_MODE are deliberately omitted. The image environment
+# supplies these values per tag; Kubernetes env overrides would mask release variants.

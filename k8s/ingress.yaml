@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: shortly
+  namespace: urlshortener
+  labels:
+    app.kubernetes.io/name: shortly
+    app.kubernetes.io/part-of: shortly
+    app.kubernetes.io/component: api
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: short.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: shortly
+                port:
+                  name: http
