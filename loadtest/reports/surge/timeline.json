@@ -1,0 +1,29 @@
+[
+  {
+    "timestamp": "2026-09-30T19:43:41.902+00:00",
+    "event": "preflight complete",
+    "changes": [
+      "chaos reset",
+      "deployment already on shortly:v1"
+    ]
+  },
+  {
+    "timestamp": "2026-09-30T19:43:41.908+00:00",
+    "event": "load started",
+    "shape": true,
+    "settings": {
+      "SURGE_USERS": "200",
+      "THINK_TIME_SCALE": "1.0"
+    }
+  },
+  {
+    "timestamp": "2026-09-30T19:46:22.886+00:00",
+    "event": "hpa scaled above two",
+    "replicas": 3
+  },
+  {
+    "timestamp": "2026-09-30T19:50:04.592+00:00",
+    "event": "cleanup complete",
+    "firing_alerts": []
+  }
+]

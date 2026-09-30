@@ -1,4 +1,4 @@
-.PHONY: install dev test lint fmt redis k8s-up ingress-config build-all load-all secret deploy release good-release bad-release-crash bad-release-errors rollback history redis-down redis-up status logs pf probe smoke k8s-down k8s-reset monitoring-up monitoring-apply monitoring-status monitoring-down grafana prometheus alertmanager promq alerts traffic check-dashboard
+.PHONY: install dev test lint fmt redis k8s-up ingress-config build-all load-all secret deploy release good-release bad-release-crash bad-release-errors rollback history redis-down redis-up status logs pf probe smoke k8s-down k8s-reset monitoring-up monitoring-apply monitoring-status monitoring-down grafana prometheus alertmanager promq alerts traffic check-dashboard load-install load-ui load load-local load-smoke scenario-baseline scenario-latency scenario-errors scenario-redis-down scenario-good-release scenario-bad-release-crash scenario-bad-release-errors scenario-surge scenario-abuse scenario-all scenarios-list
 
 IMAGE ?= shortly
 TAG ?= v1
@@ -13,6 +13,11 @@ PROM_SVC ?= kube-prometheus-stack-prometheus
 GRAFANA_SVC ?= kube-prometheus-stack-grafana
 ALERTMANAGER_SVC ?= kube-prometheus-stack-alertmanager
 HOST_HEADER ?=
+USERS ?= 30
+SPAWN ?= 5
+DURATION ?= 3m
+LOAD_BIN := .venv-load/bin
+REPORT_DIR ?= loadtest/reports/adhoc
 
 PYTHON ?= python3.12
 VENV ?= .venv
@@ -173,3 +178,31 @@ traffic:
 
 check-dashboard:
 	python3 scripts/check_dashboard.py
+
+load-install:
+	python3 -m venv .venv-load
+	$(LOAD_BIN)/python -m pip install -r requirements-loadtest.txt
+	$(LOAD_BIN)/locust --version
+
+load-ui:
+	BASE=$(BASE) HOST_HEADER=$(HOST_HEADER) $(LOAD_BIN)/locust -f loadtest/locustfile.py --host $(BASE)
+
+load:
+	mkdir -p $(REPORT_DIR)
+	BASE=$(BASE) HOST_HEADER=$(HOST_HEADER) $(LOAD_BIN)/locust -f loadtest/locustfile.py --headless --host $(BASE) -u $(USERS) -r $(SPAWN) -t $(DURATION) --csv $(REPORT_DIR)/locust --csv-full-history --html $(REPORT_DIR)/report.html --logfile $(REPORT_DIR)/locust.log --exit-code-on-error 1
+
+load-local:
+	$(MAKE) load BASE=http://localhost:8000 HOST_HEADER= USERS=20 SPAWN=5 DURATION=30s REPORT_DIR=loadtest/reports/local
+
+load-smoke:
+	mkdir -p loadtest/reports/smoke
+	BASE=$(BASE) HOST_HEADER=$(HOST_HEADER) $(LOAD_BIN)/locust -f loadtest/locustfile.py --headless --host $(BASE) -u 10 -r 5 -t 20s --csv loadtest/reports/smoke/locust --csv-full-history --html loadtest/reports/smoke/report.html --logfile loadtest/reports/smoke/locust.log --exit-code-on-error 1
+
+scenario-baseline scenario-latency scenario-errors scenario-redis-down scenario-good-release scenario-bad-release-crash scenario-bad-release-errors scenario-surge scenario-abuse:
+	BASE=$(BASE) HOST_HEADER=$(HOST_HEADER) $(LOAD_BIN)/python loadtest/scenario_runner.py $(@:scenario-%=%)
+
+scenario-all:
+	BASE=$(BASE) HOST_HEADER=$(HOST_HEADER) $(LOAD_BIN)/python loadtest/scenario_runner.py all
+
+scenarios-list:
+	$(LOAD_BIN)/python loadtest/scenario_runner.py list
