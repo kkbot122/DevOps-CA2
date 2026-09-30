@@ -1,0 +1,54 @@
+[
+  {
+    "timestamp": "2026-09-30T19:03:53.502+00:00",
+    "event": "preflight complete",
+    "changes": [
+      "chaos reset",
+      "deployment already on shortly:v1"
+    ]
+  },
+  {
+    "timestamp": "2026-09-30T19:03:53.504+00:00",
+    "event": "load started",
+    "users": 30
+  },
+  {
+    "timestamp": "2026-09-30T19:04:38.511+00:00",
+    "event": "warmup complete"
+  },
+  {
+    "timestamp": "2026-09-30T19:04:38.522+00:00",
+    "event": "fault injected",
+    "fault": {
+      "latency_ms": 800,
+      "error_pct": 0
+    },
+    "status": 200
+  },
+  {
+    "timestamp": "2026-09-30T19:04:53.770+00:00",
+    "event": "alert pending",
+    "alert": "ShortlyHighLatencyP95",
+    "seconds": 15.247521792014595
+  },
+  {
+    "timestamp": "2026-09-30T19:05:54.490+00:00",
+    "event": "alert firing",
+    "alert": "ShortlyHighLatencyP95",
+    "seconds": 75.96830433301511
+  },
+  {
+    "timestamp": "2026-09-30T19:06:24.506+00:00",
+    "event": "fault reset",
+    "status": 200
+  },
+  {
+    "timestamp": "2026-09-30T19:08:10.297+00:00",
+    "event": "recovered"
+  },
+  {
+    "timestamp": "2026-09-30T19:08:10.456+00:00",
+    "event": "cleanup complete",
+    "firing_alerts": []
+  }
+]

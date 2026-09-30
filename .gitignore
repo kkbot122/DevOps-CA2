@@ -6,3 +6,6 @@ __pycache__/
 htmlcov/
 .env
 .DS_Store
+loadtest/reports/**/locust*
+loadtest/reports/**/request-times.csv
+loadtest/reports/**/report.html

@@ -1,0 +1,51 @@
+[
+  {
+    "timestamp": "2026-09-30T19:35:22.580+00:00",
+    "event": "preflight complete",
+    "changes": [
+      "chaos reset",
+      "deployment already on shortly:v1"
+    ]
+  },
+  {
+    "timestamp": "2026-09-30T19:35:22.586+00:00",
+    "event": "load started",
+    "users": 30
+  },
+  {
+    "timestamp": "2026-09-30T19:36:07.596+00:00",
+    "event": "warmup complete"
+  },
+  {
+    "timestamp": "2026-09-30T19:36:07.596+00:00",
+    "event": "release started",
+    "image": "shortly:v2-bad-crash"
+  },
+  {
+    "timestamp": "2026-09-30T19:36:37.038+00:00",
+    "event": "alert pending",
+    "alert": "ShortlyPodCrashLooping",
+    "seconds": 29.441452458006097
+  },
+  {
+    "timestamp": "2026-09-30T19:37:37.758+00:00",
+    "event": "alert firing",
+    "alert": "ShortlyPodCrashLooping",
+    "seconds": 90.16114520799601
+  },
+  {
+    "timestamp": "2026-09-30T19:37:39.823+00:00",
+    "event": "release command returned",
+    "exit_code": 2
+  },
+  {
+    "timestamp": "2026-09-30T19:37:39.975+00:00",
+    "event": "reset",
+    "action": "rollback to v1"
+  },
+  {
+    "timestamp": "2026-09-30T19:42:41.621+00:00",
+    "event": "cleanup complete",
+    "firing_alerts": []
+  }
+]

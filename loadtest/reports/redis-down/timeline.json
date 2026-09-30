@@ -1,0 +1,65 @@
+[
+  {
+    "timestamp": "2026-09-30T19:18:25.582+00:00",
+    "event": "preflight complete",
+    "changes": [
+      "chaos reset",
+      "deployment already on shortly:v1"
+    ]
+  },
+  {
+    "timestamp": "2026-09-30T19:18:25.624+00:00",
+    "event": "load started",
+    "users": 30,
+    "durability_code": "9uSE6J"
+  },
+  {
+    "timestamp": "2026-09-30T19:19:10.629+00:00",
+    "event": "warmup complete"
+  },
+  {
+    "timestamp": "2026-09-30T19:19:10.696+00:00",
+    "event": "fault injected",
+    "fault": "Redis scaled to zero"
+  },
+  {
+    "timestamp": "2026-09-30T19:19:22.924+00:00",
+    "event": "alert pending",
+    "alert": "ShortlyRedisDown",
+    "seconds": 10.197793750005076
+  },
+  {
+    "timestamp": "2026-09-30T19:19:38.113+00:00",
+    "event": "alert pending",
+    "alert": "ShortlyPodsNotReady",
+    "seconds": 25.386750542005757
+  },
+  {
+    "timestamp": "2026-09-30T19:19:53.298+00:00",
+    "event": "alert firing",
+    "alert": "ShortlyRedisDown",
+    "seconds": 40.57208129198989
+  },
+  {
+    "timestamp": "2026-09-30T19:20:38.781+00:00",
+    "event": "alert firing",
+    "alert": "ShortlyPodsNotReady",
+    "seconds": 86.05437425000127
+  },
+  {
+    "timestamp": "2026-09-30T19:21:10.338+00:00",
+    "event": "reset",
+    "fault": "Redis restored"
+  },
+  {
+    "timestamp": "2026-09-30T19:22:12.075+00:00",
+    "event": "recovered",
+    "ready_status": 503,
+    "durable_redirect": 302
+  },
+  {
+    "timestamp": "2026-09-30T19:22:12.194+00:00",
+    "event": "cleanup complete",
+    "firing_alerts": []
+  }
+]
