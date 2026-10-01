@@ -104,7 +104,7 @@ jobs:
           INPUT_VARIANT: ${{ inputs.variant }}
           SHA: ${{ github.sha }}
         run: scripts/ci/resolve-variant.sh
-      - uses: docker/metadata-action@v5.8.0 # v5.8.0
+      - uses: docker/metadata-action@v6.2.0 # v5.8.0
         id: meta
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
