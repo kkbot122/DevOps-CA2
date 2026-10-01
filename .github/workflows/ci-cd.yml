@@ -70,7 +70,7 @@ jobs:
       - name: Install dependencies
         run: python -m pip install -r requirements.txt -r requirements-dev.txt
       - name: Test with coverage
-        run: pytest --cov=app --cov-report=xml --cov-fail-under=90
+        run: python -m pytest --cov=app --cov-report=xml --cov-fail-under=90
       - name: Coverage summary
         if: always()
         run: scripts/ci/coverage-summary.sh coverage.xml
