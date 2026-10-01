@@ -74,7 +74,7 @@ jobs:
       - name: Coverage summary
         if: always()
         run: scripts/ci/coverage-summary.sh coverage.xml
-      - uses: actions/upload-artifact@v6.0.0 # v6.0.0
+      - uses: actions/upload-artifact@v7.0.1 # v6.0.0
         if: always()
         with:
           name: coverage
@@ -170,7 +170,7 @@ jobs:
           format: cyclonedx
           output: sbom.cdx.json
           exit-code: '0'
-      - uses: actions/upload-artifact@v6.0.0 # v6.0.0
+      - uses: actions/upload-artifact@v7.0.1 # v6.0.0
         with:
           name: shortly-sbom
           path: sbom.cdx.json
