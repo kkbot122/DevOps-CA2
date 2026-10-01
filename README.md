@@ -1,5 +1,7 @@
 # shortly
 
+[![CI/CD](https://github.com/kkbot122/DevOps-CA2/actions/workflows/ci-cd.yml/badge.svg?branch=main)](https://github.com/kkbot122/DevOps-CA2/actions/workflows/ci-cd.yml)
+
 **shortly** is a small, production-style URL shortener built with FastAPI and Redis. It stores links, click counts, recent-link data, rate limits, and demo chaos settings in Redis so multiple app replicas can share state.
 
 ## Features
@@ -104,3 +106,27 @@ The first `taken` request returns 201 and the second returns 409. The 410 exampl
 `/admin/chaos` is intended only for demos. It requires `X-Admin-Token`; `GET` reads the current `latency_ms` and `error_pct`, `POST` sets them, and `DELETE` resets both to zero. The chaos middleware skips liveness, readiness, metrics, admin, and static paths, and fails open if Redis cannot supply its settings.
 
 `BAD_RELEASE_MODE=crash` raises during startup to simulate a crash loop. `BAD_RELEASE_MODE=errors` injects failures for a configured percentage of shorten and redirect requests while health probes continue to pass, demonstrating why health checks alone do not detect application failures. These modes are for demo only.
+
+## CI/CD pipeline
+
+The hosted pipeline runs lint, tests, image and configuration scans, and pushes SHA-tagged images to GHCR. Only the protected `main` push path uses the labeled self-hosted runner to update local minikube. See [the pipeline guide](docs/cicd.md) for runner setup, security details, demos, and troubleshooting.
+
+```mermaid
+flowchart LR
+  subgraph Hosted[GitHub-hosted runners]
+    L[Lint] --> B[Build image]
+    T[Test and coverage] --> B
+    B --> S[Trivy scans and SBOM]
+    S --> P[Push scanned image to GHCR]
+  end
+  subgraph Local[Self-hosted runner: minikube]
+    P --> F[Preflight and context guard]
+    F --> D[Pull and verify digest]
+    D --> K[Load image and apply CI overlay]
+    K --> R[Rollout and probes]
+    R --> V[Smoke, load-smoke, version checks]
+    V -->|pass| OK[Deployed]
+    V -->|fail| U[Automatic rollout undo]
+    R -->|rollout fails| U
+  end
+```

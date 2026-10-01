@@ -1,0 +1,2 @@
+failure-threshold: warning
+# No rules are ignored; resolve warnings in the Dockerfile instead of suppressing them.

@@ -1,0 +1,39 @@
+name: Shortly manual rollback
+
+on:
+  workflow_dispatch:
+    inputs:
+      to_revision:
+        description: Deployment revision number (blank means previous revision)
+        type: string
+        required: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-minikube
+  cancel-in-progress: false
+
+jobs:
+  rollback:
+    runs-on: [self-hosted, minikube]
+    environment: minikube-local
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v6.0.2 # v6.0.2
+      - name: Preflight
+        run: scripts/ci/preflight.sh
+      - name: Roll back deployment and verify
+        env:
+          TO_REVISION: ${{ inputs.to_revision }}
+          EXPECTED_VERSION: ''
+        run: scripts/ci/rollback.sh
+      - name: Summary
+        if: always()
+        run: scripts/ci/summary.sh
+      - name: Stop preflight port-forward
+        if: always()
+        run: scripts/ci/cleanup.sh
