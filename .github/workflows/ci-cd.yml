@@ -39,7 +39,7 @@ jobs:
       group: ci-${{ github.ref }}-lint
       cancel-in-progress: true
     steps:
-      - uses: actions/checkout@v6.0.2 # v6.0.2
+      - uses: actions/checkout@v7.0.1 # v6.0.2
       - uses: actions/setup-python@v6.1.0 # v6.1.0
         with:
           python-version: '3.12'
@@ -61,7 +61,7 @@ jobs:
       group: ci-${{ github.ref }}-test
       cancel-in-progress: true
     steps:
-      - uses: actions/checkout@v6.0.2 # v6.0.2
+      - uses: actions/checkout@v7.0.1 # v6.0.2
       - uses: actions/setup-python@v6.1.0 # v6.1.0
         with:
           python-version: '3.12'
@@ -96,7 +96,7 @@ jobs:
       digest: ${{ steps.push.outputs.digest }}
       variant: ${{ steps.variant.outputs.variant }}
     steps:
-      - uses: actions/checkout@v6.0.2 # v6.0.2
+      - uses: actions/checkout@v7.0.1 # v6.0.2
       - id: variant
         name: Resolve release variant
         env:
@@ -203,7 +203,7 @@ jobs:
       AUTO_ROLLBACK: ${{ github.event_name != 'workflow_dispatch' || inputs.auto_rollback }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: actions/checkout@v6.0.2 # v6.0.2
+      - uses: actions/checkout@v7.0.1 # v6.0.2
       - name: Prepare noninteractive Docker credentials
         run: |
           # The launchd runner cannot unlock macOS Keychain. Keep Docker on PATH,

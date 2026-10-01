@@ -23,7 +23,7 @@ jobs:
     permissions:
       contents: read
     steps:
-      - uses: actions/checkout@v6.0.2 # v6.0.2
+      - uses: actions/checkout@v7.0.1 # v6.0.2
       - name: Preflight
         run: scripts/ci/preflight.sh
       - name: Roll back deployment and verify
