@@ -1,0 +1,17 @@
+flowchart LR
+  subgraph Hosted[GitHub-hosted runners]
+    L[Lint] --> B[Build image]
+    T[Test and coverage] --> B
+    B --> S[Trivy scans and SBOM]
+    S --> P[Push scanned image to GHCR]
+  end
+  subgraph Local[Self-hosted runner: minikube]
+    P --> F[Preflight and context guard]
+    F --> D[Pull and verify digest]
+    D --> K[Load image and apply CI overlay]
+    K --> R[Rollout and probes]
+    R --> V[Smoke, load-smoke, version checks]
+    V -->|pass| OK[Deployed]
+    V -->|fail| U[Automatic rollout undo]
+    R -->|rollout fails| U
+  end

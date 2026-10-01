@@ -1,4 +1,4 @@
-.PHONY: install dev test lint fmt redis k8s-up ingress-config build-all load-all secret deploy release good-release bad-release-crash bad-release-errors rollback history redis-down redis-up status logs pf probe smoke k8s-down k8s-reset monitoring-up monitoring-apply monitoring-status monitoring-down grafana prometheus alertmanager promq alerts traffic check-dashboard load-install load-ui load load-local load-smoke scenario-baseline scenario-latency scenario-errors scenario-redis-down scenario-good-release scenario-bad-release-crash scenario-bad-release-errors scenario-surge scenario-abuse scenario-all scenarios-list
+.PHONY: install dev test lint fmt redis k8s-up ingress-config build-all load-all secret deploy release good-release bad-release-crash bad-release-errors rollback history redis-down redis-up status logs pf probe smoke k8s-down k8s-reset monitoring-up monitoring-apply monitoring-status monitoring-down grafana prometheus alertmanager promq alerts traffic check-dashboard load-install load-ui load load-local load-smoke scenario-baseline scenario-latency scenario-errors scenario-redis-down scenario-good-release scenario-bad-release-crash scenario-bad-release-errors scenario-surge scenario-abuse scenario-all scenarios-list ci-local ci-deploy-local runner-check ci-run ci-status
 
 IMAGE ?= shortly
 TAG ?= v1
@@ -18,6 +18,9 @@ SPAWN ?= 5
 DURATION ?= 3m
 LOAD_BIN := .venv-load/bin
 REPORT_DIR ?= loadtest/reports/adhoc
+VARIANT ?= good
+SHA7 ?= $(shell git rev-parse --short=7 HEAD 2>/dev/null || echo local)
+LOCAL_TAG = $(SHA7)$(if $(filter bad-errors,$(VARIANT)),-bad-errors)$(if $(filter bad-crash,$(VARIANT)),-bad-crash)
 
 PYTHON ?= python3.12
 VENV ?= .venv
@@ -206,3 +209,47 @@ scenario-all:
 
 scenarios-list:
 	$(LOAD_BIN)/python loadtest/scenario_runner.py list
+
+ci-local:
+	@set -eu; fail=0; \
+	stage() { name=$$1; shift; printf '\n== %s ==\n' "$$name"; if "$$@"; then printf 'PASS %s\n' "$$name"; else printf 'FAIL %s\n' "$$name"; fail=1; fi; }; \
+	stage ruff-check $(BIN)/ruff check .; \
+	stage ruff-format $(BIN)/ruff format --check .; \
+	stage tests $(BIN)/python -m pytest --cov=app --cov-report=term-missing --cov-report=xml --cov-fail-under=90; \
+	stage hadolint hadolint --config .hadolint.yaml Dockerfile; \
+	stage kubeconform kubeconform -strict -ignore-missing-schemas k8s/; \
+	stage build-image docker build -t shortly:ci-local .; \
+	stage save-image docker save -o /tmp/shortly-ci-local.tar shortly:ci-local; \
+	mkdir -p /tmp/shortly-trivy-cache; \
+	stage trivy-critical docker run --rm -v /tmp:/work -v "$$PWD:/repo" -v /tmp/shortly-trivy-cache:/root/.cache/trivy aquasec/trivy:0.69.2 image --input /work/shortly-ci-local.tar --ignorefile /repo/.trivyignore --exit-code 1 --ignore-unfixed --severity CRITICAL; \
+	stage trivy-high docker run --rm -v /tmp:/work -v "$$PWD:/repo" -v /tmp/shortly-trivy-cache:/root/.cache/trivy aquasec/trivy:0.69.2 image --input /work/shortly-ci-local.tar --ignorefile /repo/.trivyignore --exit-code 0 --ignore-unfixed --severity HIGH; \
+	stage trivy-secrets docker run --rm -v "$$PWD:/repo" -v /tmp/shortly-trivy-cache:/root/.cache/trivy aquasec/trivy:0.69.2 fs --scanners secret --exit-code 1 /repo; \
+	stage trivy-config-dockerfile docker run --rm -v "$$PWD:/repo" -v /tmp/shortly-trivy-cache:/root/.cache/trivy aquasec/trivy:0.69.2 config --exit-code 0 /repo/Dockerfile; \
+	stage trivy-config-k8s docker run --rm -v "$$PWD:/repo" -v /tmp/shortly-trivy-cache:/root/.cache/trivy aquasec/trivy:0.69.2 config --exit-code 0 /repo/k8s; \
+	stage sbom docker run --rm -v /tmp:/work -v /tmp/shortly-trivy-cache:/root/.cache/trivy aquasec/trivy:0.69.2 image --input /work/shortly-ci-local.tar --format cyclonedx --output /work/shortly-ci-local.cdx.json; \
+	rm -f /tmp/shortly-ci-local.tar /tmp/shortly-ci-local.cdx.json; \
+	if [ $$fail -ne 0 ]; then exit 1; fi; docker image ls shortly:ci-local --format 'Image size: {{.Size}}'
+
+ci-deploy-local:
+	docker build -t ghcr.io/local/shortly-devops:$(LOCAL_TAG) --build-arg APP_VERSION=$(LOCAL_TAG) --build-arg BAD_RELEASE_MODE=$(if $(filter good,$(VARIANT)),none,$(patsubst bad-%,%,$(VARIANT))) .
+	@set -eu; envfile=$$(mktemp); \
+	trap 'pid=$$(grep "^CI_PORT_FORWARD_PID=" "$$envfile" | cut -d= -f2); test -z "$$pid" || kill "$$pid" 2>/dev/null || true; rm -f "$$envfile"' EXIT; \
+	digest=$$(docker image inspect ghcr.io/local/shortly-devops:$(LOCAL_TAG) --format '{{index .RepoDigests 0}}' 2>/dev/null || echo local); \
+	BASE=$(BASE) PROFILE=$(PROFILE) GITHUB_ENV=$$envfile IMAGE_REF=ghcr.io/local/shortly-devops:$(LOCAL_TAG) EXPECTED_DIGEST=$$digest LOCAL=1 VARIANT=$(VARIANT) scripts/ci/preflight.sh; \
+	ci_base=$$(awk -F= '$$1=="BASE" {print $$2}' $$envfile); ci_base=$${ci_base:-$(BASE)}; \
+	set -a; . $$envfile; set +a; \
+	BASE=$$ci_base PROFILE=$(PROFILE) GITHUB_ENV=$$envfile LOCAL=1 GITHUB_SHA=$(SHA7) GITHUB_RUN_ID=local GITHUB_ACTOR=$$(id -un) VARIANT=$(VARIANT) scripts/ci/deploy.sh ghcr.io/local/shortly-devops:$(LOCAL_TAG) $$digest $(if $(filter false,$(AUTO_ROLLBACK)),--no-auto-rollback,); \
+	set -a; . $$envfile; set +a; \
+	BASE=$$ci_base LOCAL=1 GITHUB_ENV=$$envfile EXPECTED_VERSION=$(LOCAL_TAG) VARIANT=$(VARIANT) AUTO_ROLLBACK=$(if $(filter false,$(AUTO_ROLLBACK)),false,true) scripts/ci/verify.sh $(if $(filter false,$(AUTO_ROLLBACK)),--no-auto-rollback,)
+
+runner-check:
+	@set -eu; envfile=$$(mktemp); \
+	trap 'pid=$$(grep "^CI_PORT_FORWARD_PID=" "$$envfile" | cut -d= -f2); test -z "$$pid" || kill "$$pid" 2>/dev/null || true; rm -f "$$envfile"' EXIT; \
+	PROFILE=$(PROFILE) GITHUB_ENV=$$envfile scripts/ci/preflight.sh
+	scripts/ci/runner-checklist.sh
+
+ci-run:
+	@if command -v gh >/dev/null 2>&1; then gh workflow run ci-cd.yml -f variant=$(VARIANT) && gh run watch; else echo 'gh is not installed. Push to main or use GitHub Actions > ci-cd.yml > Run workflow.'; fi
+
+ci-status:
+	@if command -v gh >/dev/null 2>&1; then gh run list --limit 5; else echo 'Open https://github.com/kkbot122/DevOps-CA2/actions to view workflow runs.'; fi

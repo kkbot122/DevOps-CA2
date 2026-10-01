@@ -1,0 +1,15 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../00-namespace.yaml
+  - ../../configmap.yaml
+  - ../../redis.yaml
+  - ../../app-deployment.yaml
+  - ../../app-service.yaml
+  - ../../ingress.yaml
+  - ../../hpa.yaml
+  - ../../pdb.yaml
+images:
+  - name: shortly
+    newName: ghcr.io/kkbot122/devops-ca2
+    newTag: example-sha

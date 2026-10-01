@@ -11,7 +11,6 @@ import sys
 from pathlib import Path
 from urllib.parse import quote
 
-
 PROM_NS = os.environ.get("MON_NS", "monitoring")
 PROM_SVC = os.environ.get("PROM_SVC", "kube-prometheus-stack-prometheus")
 DASHBOARD = Path(__file__).resolve().parents[1] / "monitoring/dashboards/shortly-overview.json"
