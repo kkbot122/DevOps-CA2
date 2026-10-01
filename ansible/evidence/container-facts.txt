@@ -1,0 +1,28 @@
+uid=2001(deploy) gid=2001(deploy) groups=2001(deploy),1001(docker)
+drwxr-xr-x 2 root   root   4096 Oct  1 19:59 /etc/shortly
+drwx------ 2 deploy deploy 4096 Oct  1 19:59 /home/deploy/.kube
+drwxr-xr-x 2 deploy deploy 4096 Oct  1 19:59 /home/deploy/.local/bin
+drwx------ 2 deploy deploy 4096 Oct  1 19:59 /home/deploy/.ssh
+drwxr-xr-x 2 deploy deploy 4096 Oct  1 19:59 /home/deploy/shortly
+drwxr-xr-x 2 root   root   4096 Oct  1 19:59 /var/log/shortly
+-r--r----- 1 root root  190 Oct  1 19:59 /etc/sudoers.d/90-deploy
+
+/etc/shortly:
+total 4
+-rw-r----- 1 root deploy 232 Oct  1 19:59 shortly.env
+Client Version: v1.36.5
+Kustomize Version: v5.8.1
+version.BuildInfo{Version:"v4.2.2", GitCommit:"b05881cf967a5a09e19866799d0edfd40675803a", GitTreeState:"clean", GoVersion:"go1.26.4", KubeClientVersion:"v1.36"}
+minikube version: v1.39.0
+commit: 7a9f6a841470a207de8cf4bafcccee0969d8ba10
+shortly runtime doctor
+docker: Docker version 29.8.2, build 7fc2dff
+kubectl: v1.36.5
+helm: v4.2.2+gb05881c
+minikube: v1.39.0
+docker daemon: unavailable
+* Profile "shortly" not found. Run "minikube profile list" to view all profiles.
+  To start a cluster, run: "minikube start -p shortly"
+kubectl context: unavailable
+short.local: 127.0.0.1       short.local
+/healthz: unavailable

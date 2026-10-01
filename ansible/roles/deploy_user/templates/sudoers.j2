@@ -1,0 +1,2 @@
+# Narrow read-only status access lets CI inspect services without broad root access.
+{{ deploy_user }} ALL=(root) NOPASSWD: {{ systemctl_binary }} status docker, {{ systemctl_binary }} status actions.runner.*

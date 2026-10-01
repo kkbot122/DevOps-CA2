@@ -1,0 +1,83 @@
+---
+- name: Create the dedicated deploy group with its fixed GID
+  ansible.builtin.group:
+    name: "{{ deploy_user }}"
+    gid: "{{ deploy_gid }}"
+    state: present
+  tags: [users]
+
+- name: Create the locked deploy account without changing any existing user
+  ansible.builtin.user:
+    name: "{{ deploy_user }}"
+    uid: "{{ deploy_uid }}"
+    group: "{{ deploy_user }}"
+    groups: docker
+    append: true
+    home: "{{ deploy_home }}"
+    create_home: true
+    shell: /bin/bash
+    password_lock: true
+    comment: shortly CI/CD deploy user
+    state: present
+  tags: [users]
+
+- name: Ensure deploy user's Kubernetes and project directories exist
+  ansible.builtin.file:
+    path: "{{ item.path }}"
+    state: directory
+    owner: "{{ deploy_user }}"
+    group: "{{ deploy_user }}"
+    mode: "{{ item.mode }}"
+  loop:
+    - {path: "{{ deploy_home }}/.kube", mode: '0700'}
+    - {path: "{{ deploy_home }}/.local/bin", mode: '0755'}
+    - {path: "{{ deploy_home }}/shortly", mode: '0755'}
+    - {path: "{{ deploy_home }}/.ssh", mode: '0700'}
+    - {path: "{{ deploy_home }}/.bashrc.d", mode: '0755'}
+    - {path: "{{ deploy_home }}/.minikube/config", mode: '0700'}
+  tags: [users, files]
+
+- name: Install an optional deploy SSH public key
+  ansible.posix.authorized_key:
+    user: "{{ deploy_user }}"
+    key: "{{ deploy_authorized_key }}"
+    state: present
+    manage_dir: false
+  when: deploy_authorized_key | length > 0
+  tags: [users, files]
+
+- name: Install validated narrow sudoers permissions for deploy
+  ansible.builtin.template:
+    src: sudoers.j2
+    dest: "{{ deploy_sudoers_file }}"
+    owner: root
+    group: root
+    mode: '0440'
+    backup: false
+    validate: "{{ visudo_binary }} -cf %s"
+  tags: [users, files]
+
+- name: Install deploy user's shortly shell environment snippet
+  ansible.builtin.template:
+    src: bashrc-shortly.sh.j2
+    dest: "{{ deploy_shell_snippet }}"
+    owner: "{{ deploy_user }}"
+    group: "{{ deploy_user }}"
+    mode: '0644'
+    backup: false
+  tags: [users, files]
+
+- name: Load the shortly shell snippet from deploy user's bashrc
+  ansible.builtin.blockinfile:
+    path: "{{ deploy_bashrc_file }}"
+    create: true
+    owner: "{{ deploy_user }}"
+    group: "{{ deploy_user }}"
+    mode: '0644'
+    marker: "# {mark} ANSIBLE MANAGED: shortly shell setup"
+    block: |
+      if [ -r "{{ deploy_home }}/.bashrc.d/shortly.sh" ]; then
+          . "{{ deploy_shell_snippet }}"
+      fi
+    backup: false
+  tags: [users, files]

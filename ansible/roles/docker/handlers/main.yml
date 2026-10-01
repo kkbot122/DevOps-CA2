@@ -1,0 +1,9 @@
+---
+- name: Restart Docker only after managed daemon settings change
+  ansible.builtin.service:
+    name: docker
+    state: restarted
+  when:
+    - ansible_facts.service_mgr == 'systemd'
+    - not ansible_check_mode
+  listen: restart docker after daemon config change

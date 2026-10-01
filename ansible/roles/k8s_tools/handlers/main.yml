@@ -1,0 +1,5 @@
+---
+- name: K8s tools role has no restart handlers
+  ansible.builtin.debug:
+    msg: "CLI tools do not require a running service restart."
+  listen: k8s tools changed

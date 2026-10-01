@@ -1,0 +1,11 @@
+---
+galaxy_info:
+  author: shortly project maintainers
+  role_name: common
+  description: Install base runtime packages and gather host tool facts.
+  min_ansible_version: '2.16'
+  license: MIT
+  platforms:
+    - name: Debian
+      versions: [all]
+dependencies: []

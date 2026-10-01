@@ -1,0 +1,1233 @@
+
+PLAY [Preflight verification OS support without privilege escalation] **********
+
+TASK [Gathering Facts] *********************************************************
+ok: [ansible-target]
+
+TASK [Resolve effective OS values while allowing the documented negative-test override] ***
+ok: [ansible-target]
+
+TASK [Refuse unsupported operating systems before verification starts] *********
+ok: [ansible-target] => {
+    "changed": false,
+    "msg": "Supported target: Ubuntu 24.04"
+}
+
+PLAY [Verify shortly runtime state without changing it] ************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [ansible-target]
+
+TASK [Gather installed package facts] ******************************************
+ok: [ansible-target]
+
+TASK [Assert base packages are installed] **************************************
+ok: [ansible-target] => (item=ca-certificates) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": "ca-certificates",
+    "msg": "PASS package ca-certificates installed"
+}
+ok: [ansible-target] => (item=curl) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": "curl",
+    "msg": "PASS package curl installed"
+}
+ok: [ansible-target] => (item=gnupg) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": "gnupg",
+    "msg": "PASS package gnupg installed"
+}
+ok: [ansible-target] => (item=git) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": "git",
+    "msg": "PASS package git installed"
+}
+ok: [ansible-target] => (item=jq) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": "jq",
+    "msg": "PASS package jq installed"
+}
+ok: [ansible-target] => (item=make) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": "make",
+    "msg": "PASS package make installed"
+}
+ok: [ansible-target] => (item=unzip) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": "unzip",
+    "msg": "PASS package unzip installed"
+}
+ok: [ansible-target] => (item=python3-pip) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": "python3-pip",
+    "msg": "PASS package python3-pip installed"
+}
+ok: [ansible-target] => (item=python3-venv) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": "python3-venv",
+    "msg": "PASS package python3-venv installed"
+}
+ok: [ansible-target] => (item=apt-transport-https) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": "apt-transport-https",
+    "msg": "PASS package apt-transport-https installed"
+}
+ok: [ansible-target] => (item=net-tools) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": "net-tools",
+    "msg": "PASS package net-tools installed"
+}
+ok: [ansible-target] => (item=dnsutils) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": "dnsutils",
+    "msg": "PASS package dnsutils installed"
+}
+ok: [ansible-target] => (item=python3-debian) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": "python3-debian",
+    "msg": "PASS package python3-debian installed"
+}
+
+TASK [Read deploy account identity] ********************************************
+ok: [ansible-target]
+
+TASK [Read deploy group memberships] *******************************************
+ok: [ansible-target]
+
+TASK [Read locked deploy account shadow status without logging it] *************
+ok: [ansible-target]
+
+TASK [Assert deploy user identity and locked password state] *******************
+ok: [ansible-target]
+
+TASK [Inspect managed paths for ownership and mode verification] ***************
+ok: [ansible-target] => (item={'path': '/etc/shortly', 'owner': 'root', 'group': 'root', 'mode': '0755', 'kind': 'directory'})
+ok: [ansible-target] => (item={'path': '/etc/shortly/shortly.env', 'owner': 'root', 'group': 'deploy', 'mode': '0640', 'kind': 'file'})
+ok: [ansible-target] => (item={'path': '/etc/sudoers.d/90-deploy', 'owner': 'root', 'group': 'root', 'mode': '0440', 'kind': 'file'})
+ok: [ansible-target] => (item={'path': '/home/deploy/.kube', 'owner': 'deploy', 'group': 'deploy', 'mode': '0700', 'kind': 'directory'})
+ok: [ansible-target] => (item={'path': '/home/deploy/.local/bin', 'owner': 'deploy', 'group': 'deploy', 'mode': '0755', 'kind': 'directory'})
+ok: [ansible-target] => (item={'path': '/home/deploy/shortly', 'owner': 'deploy', 'group': 'deploy', 'mode': '0755', 'kind': 'directory'})
+ok: [ansible-target] => (item={'path': '/home/deploy/.ssh', 'owner': 'deploy', 'group': 'deploy', 'mode': '0700', 'kind': 'directory'})
+ok: [ansible-target] => (item={'path': '/home/deploy/.bashrc', 'owner': 'deploy', 'group': 'deploy', 'mode': '0644', 'kind': 'file'})
+ok: [ansible-target] => (item={'path': '/home/deploy/.bashrc.d/shortly.sh', 'owner': 'deploy', 'group': 'deploy', 'mode': '0644', 'kind': 'file'})
+ok: [ansible-target] => (item={'path': '/home/deploy/.minikube/config/config.json', 'owner': 'deploy', 'group': 'deploy', 'mode': '0600', 'kind': 'file'})
+ok: [ansible-target] => (item={'path': '/var/log/shortly', 'owner': 'root', 'group': 'root', 'mode': '0755', 'kind': 'directory'})
+ok: [ansible-target] => (item={'path': '/etc/logrotate.d/shortly', 'owner': 'root', 'group': 'root', 'mode': '0644', 'kind': 'file'})
+ok: [ansible-target] => (item={'path': '/usr/local/bin/shortly-doctor', 'owner': 'root', 'group': 'root', 'mode': '0755', 'kind': 'file'})
+
+TASK [Assert every managed path has its expected type, owner, group, and mode] ***
+ok: [ansible-target] => (item=/etc/shortly) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": {
+        "ansible_loop_var": "item",
+        "changed": false,
+        "failed": false,
+        "item": {
+            "group": "root",
+            "kind": "directory",
+            "mode": "0755",
+            "owner": "root",
+            "path": "/etc/shortly"
+        },
+        "stat": {
+            "atime": 1790884751.755279,
+            "attr_flags": "",
+            "attributes": [],
+            "block_size": 4096,
+            "blocks": 8,
+            "charset": "unknown",
+            "ctime": 1790884752.525279,
+            "dev": 61,
+            "device_type": 0,
+            "disk_usage_bytes": 4096,
+            "executable": true,
+            "exists": true,
+            "gid": 0,
+            "gr_name": "root",
+            "inode": 1925359,
+            "isblk": false,
+            "ischr": false,
+            "isdir": true,
+            "isfifo": false,
+            "isgid": false,
+            "islnk": false,
+            "isreg": false,
+            "issock": false,
+            "isuid": false,
+            "mimetype": "unknown",
+            "mode": "0755",
+            "mtime": 1790884752.525279,
+            "nlink": 2,
+            "path": "/etc/shortly",
+            "pw_name": "root",
+            "readable": true,
+            "rgrp": true,
+            "roth": true,
+            "rusr": true,
+            "size": 4096,
+            "uid": 0,
+            "version": null,
+            "wgrp": false,
+            "woth": false,
+            "writeable": true,
+            "wusr": true,
+            "xgrp": true,
+            "xoth": true,
+            "xusr": true
+        }
+    },
+    "msg": "PASS /etc/shortly owner/mode/type"
+}
+ok: [ansible-target] => (item=/etc/shortly/shortly.env) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": {
+        "ansible_loop_var": "item",
+        "changed": false,
+        "failed": false,
+        "item": {
+            "group": "deploy",
+            "kind": "file",
+            "mode": "0640",
+            "owner": "root",
+            "path": "/etc/shortly/shortly.env"
+        },
+        "stat": {
+            "atime": 1790884772.753867,
+            "attr_flags": "",
+            "attributes": [],
+            "block_size": 4096,
+            "blocks": 8,
+            "charset": "unknown",
+            "checksum": "17164c8327affce357d1b7e6f5d07112a96a9db6",
+            "ctime": 1790884752.525279,
+            "dev": 61,
+            "device_type": 0,
+            "disk_usage_bytes": 4096,
+            "executable": false,
+            "exists": true,
+            "gid": 2001,
+            "gr_name": "deploy",
+            "inode": 1925341,
+            "isblk": false,
+            "ischr": false,
+            "isdir": false,
+            "isfifo": false,
+            "isgid": false,
+            "islnk": false,
+            "isreg": true,
+            "issock": false,
+            "isuid": false,
+            "mimetype": "unknown",
+            "mode": "0640",
+            "mtime": 1790884752.256279,
+            "nlink": 1,
+            "path": "/etc/shortly/shortly.env",
+            "pw_name": "root",
+            "readable": true,
+            "rgrp": true,
+            "roth": false,
+            "rusr": true,
+            "size": 232,
+            "uid": 0,
+            "version": null,
+            "wgrp": false,
+            "woth": false,
+            "writeable": true,
+            "wusr": true,
+            "xgrp": false,
+            "xoth": false,
+            "xusr": false
+        }
+    },
+    "msg": "PASS /etc/shortly/shortly.env owner/mode/type"
+}
+ok: [ansible-target] => (item=/etc/sudoers.d/90-deploy) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": {
+        "ansible_loop_var": "item",
+        "changed": false,
+        "failed": false,
+        "item": {
+            "group": "root",
+            "kind": "file",
+            "mode": "0440",
+            "owner": "root",
+            "path": "/etc/sudoers.d/90-deploy"
+        },
+        "stat": {
+            "atime": 1790884770.563867,
+            "attr_flags": "",
+            "attributes": [],
+            "block_size": 4096,
+            "blocks": 8,
+            "charset": "unknown",
+            "checksum": "a002d3e94a2ec27bb88d5650ad640f191ee46c73",
+            "ctime": 1790884750.035279,
+            "dev": 61,
+            "device_type": 0,
+            "disk_usage_bytes": 4096,
+            "executable": false,
+            "exists": true,
+            "gid": 0,
+            "gr_name": "root",
+            "inode": 1922395,
+            "isblk": false,
+            "ischr": false,
+            "isdir": false,
+            "isfifo": false,
+            "isgid": false,
+            "islnk": false,
+            "isreg": true,
+            "issock": false,
+            "isuid": false,
+            "mimetype": "unknown",
+            "mode": "0440",
+            "mtime": 1790884749.782279,
+            "nlink": 1,
+            "path": "/etc/sudoers.d/90-deploy",
+            "pw_name": "root",
+            "readable": true,
+            "rgrp": true,
+            "roth": false,
+            "rusr": true,
+            "size": 190,
+            "uid": 0,
+            "version": null,
+            "wgrp": false,
+            "woth": false,
+            "writeable": true,
+            "wusr": false,
+            "xgrp": false,
+            "xoth": false,
+            "xusr": false
+        }
+    },
+    "msg": "PASS /etc/sudoers.d/90-deploy owner/mode/type"
+}
+ok: [ansible-target] => (item=/home/deploy/.kube) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": {
+        "ansible_loop_var": "item",
+        "changed": false,
+        "failed": false,
+        "item": {
+            "group": "deploy",
+            "kind": "directory",
+            "mode": "0700",
+            "owner": "deploy",
+            "path": "/home/deploy/.kube"
+        },
+        "stat": {
+            "atime": 1790884747.294279,
+            "attr_flags": "",
+            "attributes": [],
+            "block_size": 4096,
+            "blocks": 8,
+            "charset": "unknown",
+            "ctime": 1790884747.294279,
+            "dev": 61,
+            "device_type": 0,
+            "disk_usage_bytes": 4096,
+            "executable": true,
+            "exists": true,
+            "gid": 2001,
+            "gr_name": "deploy",
+            "inode": 1925345,
+            "isblk": false,
+            "ischr": false,
+            "isdir": true,
+            "isfifo": false,
+            "isgid": false,
+            "islnk": false,
+            "isreg": false,
+            "issock": false,
+            "isuid": false,
+            "mimetype": "unknown",
+            "mode": "0700",
+            "mtime": 1790884747.294279,
+            "nlink": 2,
+            "path": "/home/deploy/.kube",
+            "pw_name": "deploy",
+            "readable": true,
+            "rgrp": false,
+            "roth": false,
+            "rusr": true,
+            "size": 4096,
+            "uid": 2001,
+            "version": null,
+            "wgrp": false,
+            "woth": false,
+            "writeable": true,
+            "wusr": true,
+            "xgrp": false,
+            "xoth": false,
+            "xusr": true
+        }
+    },
+    "msg": "PASS /home/deploy/.kube owner/mode/type"
+}
+ok: [ansible-target] => (item=/home/deploy/.local/bin) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": {
+        "ansible_loop_var": "item",
+        "changed": false,
+        "failed": false,
+        "item": {
+            "group": "deploy",
+            "kind": "directory",
+            "mode": "0755",
+            "owner": "deploy",
+            "path": "/home/deploy/.local/bin"
+        },
+        "stat": {
+            "atime": 1790884747.709279,
+            "attr_flags": "",
+            "attributes": [],
+            "block_size": 4096,
+            "blocks": 8,
+            "charset": "unknown",
+            "ctime": 1790884747.709279,
+            "dev": 61,
+            "device_type": 0,
+            "disk_usage_bytes": 4096,
+            "executable": true,
+            "exists": true,
+            "gid": 2001,
+            "gr_name": "deploy",
+            "inode": 1925352,
+            "isblk": false,
+            "ischr": false,
+            "isdir": true,
+            "isfifo": false,
+            "isgid": false,
+            "islnk": false,
+            "isreg": false,
+            "issock": false,
+            "isuid": false,
+            "mimetype": "unknown",
+            "mode": "0755",
+            "mtime": 1790884747.709279,
+            "nlink": 2,
+            "path": "/home/deploy/.local/bin",
+            "pw_name": "deploy",
+            "readable": true,
+            "rgrp": true,
+            "roth": true,
+            "rusr": true,
+            "size": 4096,
+            "uid": 2001,
+            "version": null,
+            "wgrp": false,
+            "woth": false,
+            "writeable": true,
+            "wusr": true,
+            "xgrp": true,
+            "xoth": true,
+            "xusr": true
+        }
+    },
+    "msg": "PASS /home/deploy/.local/bin owner/mode/type"
+}
+ok: [ansible-target] => (item=/home/deploy/shortly) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": {
+        "ansible_loop_var": "item",
+        "changed": false,
+        "failed": false,
+        "item": {
+            "group": "deploy",
+            "kind": "directory",
+            "mode": "0755",
+            "owner": "deploy",
+            "path": "/home/deploy/shortly"
+        },
+        "stat": {
+            "atime": 1790884748.100279,
+            "attr_flags": "",
+            "attributes": [],
+            "block_size": 4096,
+            "blocks": 8,
+            "charset": "unknown",
+            "ctime": 1790884748.100279,
+            "dev": 61,
+            "device_type": 0,
+            "disk_usage_bytes": 4096,
+            "executable": true,
+            "exists": true,
+            "gid": 2001,
+            "gr_name": "deploy",
+            "inode": 1925353,
+            "isblk": false,
+            "ischr": false,
+            "isdir": true,
+            "isfifo": false,
+            "isgid": false,
+            "islnk": false,
+            "isreg": false,
+            "issock": false,
+            "isuid": false,
+            "mimetype": "unknown",
+            "mode": "0755",
+            "mtime": 1790884748.100279,
+            "nlink": 2,
+            "path": "/home/deploy/shortly",
+            "pw_name": "deploy",
+            "readable": true,
+            "rgrp": true,
+            "roth": true,
+            "rusr": true,
+            "size": 4096,
+            "uid": 2001,
+            "version": null,
+            "wgrp": false,
+            "woth": false,
+            "writeable": true,
+            "wusr": true,
+            "xgrp": true,
+            "xoth": true,
+            "xusr": true
+        }
+    },
+    "msg": "PASS /home/deploy/shortly owner/mode/type"
+}
+ok: [ansible-target] => (item=/home/deploy/.ssh) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": {
+        "ansible_loop_var": "item",
+        "changed": false,
+        "failed": false,
+        "item": {
+            "group": "deploy",
+            "kind": "directory",
+            "mode": "0700",
+            "owner": "deploy",
+            "path": "/home/deploy/.ssh"
+        },
+        "stat": {
+            "atime": 1790884748.493279,
+            "attr_flags": "",
+            "attributes": [],
+            "block_size": 4096,
+            "blocks": 8,
+            "charset": "unknown",
+            "ctime": 1790884748.493279,
+            "dev": 61,
+            "device_type": 0,
+            "disk_usage_bytes": 4096,
+            "executable": true,
+            "exists": true,
+            "gid": 2001,
+            "gr_name": "deploy",
+            "inode": 1925354,
+            "isblk": false,
+            "ischr": false,
+            "isdir": true,
+            "isfifo": false,
+            "isgid": false,
+            "islnk": false,
+            "isreg": false,
+            "issock": false,
+            "isuid": false,
+            "mimetype": "unknown",
+            "mode": "0700",
+            "mtime": 1790884748.493279,
+            "nlink": 2,
+            "path": "/home/deploy/.ssh",
+            "pw_name": "deploy",
+            "readable": true,
+            "rgrp": false,
+            "roth": false,
+            "rusr": true,
+            "size": 4096,
+            "uid": 2001,
+            "version": null,
+            "wgrp": false,
+            "woth": false,
+            "writeable": true,
+            "wusr": true,
+            "xgrp": false,
+            "xoth": false,
+            "xusr": true
+        }
+    },
+    "msg": "PASS /home/deploy/.ssh owner/mode/type"
+}
+ok: [ansible-target] => (item=/home/deploy/.bashrc) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": {
+        "ansible_loop_var": "item",
+        "changed": false,
+        "failed": false,
+        "item": {
+            "group": "deploy",
+            "kind": "file",
+            "mode": "0644",
+            "owner": "deploy",
+            "path": "/home/deploy/.bashrc"
+        },
+        "stat": {
+            "atime": 1790884771.903867,
+            "attr_flags": "",
+            "attributes": [],
+            "block_size": 4096,
+            "blocks": 8,
+            "charset": "unknown",
+            "checksum": "e658de437ea6158b38c21e1307370c95dddee776",
+            "ctime": 1790884751.314279,
+            "dev": 61,
+            "device_type": 0,
+            "disk_usage_bytes": 4096,
+            "executable": false,
+            "exists": true,
+            "gid": 2001,
+            "gr_name": "deploy",
+            "inode": 1925360,
+            "isblk": false,
+            "ischr": false,
+            "isdir": false,
+            "isfifo": false,
+            "isgid": false,
+            "islnk": false,
+            "isreg": true,
+            "issock": false,
+            "isuid": false,
+            "mimetype": "unknown",
+            "mode": "0644",
+            "mtime": 1790884751.3158653,
+            "nlink": 1,
+            "path": "/home/deploy/.bashrc",
+            "pw_name": "deploy",
+            "readable": true,
+            "rgrp": true,
+            "roth": true,
+            "rusr": true,
+            "size": 3956,
+            "uid": 2001,
+            "version": null,
+            "wgrp": false,
+            "woth": false,
+            "writeable": true,
+            "wusr": true,
+            "xgrp": false,
+            "xoth": false,
+            "xusr": false
+        }
+    },
+    "msg": "PASS /home/deploy/.bashrc owner/mode/type"
+}
+ok: [ansible-target] => (item=/home/deploy/.bashrc.d/shortly.sh) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": {
+        "ansible_loop_var": "item",
+        "changed": false,
+        "failed": false,
+        "item": {
+            "group": "deploy",
+            "kind": "file",
+            "mode": "0644",
+            "owner": "deploy",
+            "path": "/home/deploy/.bashrc.d/shortly.sh"
+        },
+        "stat": {
+            "atime": 1790884771.192867,
+            "attr_flags": "",
+            "attributes": [],
+            "block_size": 4096,
+            "blocks": 8,
+            "charset": "unknown",
+            "checksum": "5bbf9de05c3cbbbf07494d685294815dfc8acaa0",
+            "ctime": 1790884750.814279,
+            "dev": 61,
+            "device_type": 0,
+            "disk_usage_bytes": 4096,
+            "executable": false,
+            "exists": true,
+            "gid": 2001,
+            "gr_name": "deploy",
+            "inode": 1922413,
+            "isblk": false,
+            "ischr": false,
+            "isdir": false,
+            "isfifo": false,
+            "isgid": false,
+            "islnk": false,
+            "isreg": true,
+            "issock": false,
+            "isuid": false,
+            "mimetype": "unknown",
+            "mode": "0644",
+            "mtime": 1790884750.546279,
+            "nlink": 1,
+            "path": "/home/deploy/.bashrc.d/shortly.sh",
+            "pw_name": "deploy",
+            "readable": true,
+            "rgrp": true,
+            "roth": true,
+            "rusr": true,
+            "size": 162,
+            "uid": 2001,
+            "version": null,
+            "wgrp": false,
+            "woth": false,
+            "writeable": true,
+            "wusr": true,
+            "xgrp": false,
+            "xoth": false,
+            "xusr": false
+        }
+    },
+    "msg": "PASS /home/deploy/.bashrc.d/shortly.sh owner/mode/type"
+}
+ok: [ansible-target] => (item=/home/deploy/.minikube/config/config.json) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": {
+        "ansible_loop_var": "item",
+        "changed": false,
+        "failed": false,
+        "item": {
+            "group": "deploy",
+            "kind": "file",
+            "mode": "0600",
+            "owner": "deploy",
+            "path": "/home/deploy/.minikube/config/config.json"
+        },
+        "stat": {
+            "atime": 1790884773.404867,
+            "attr_flags": "",
+            "attributes": [],
+            "block_size": 4096,
+            "blocks": 8,
+            "charset": "unknown",
+            "checksum": "677eaff1177db2a1ab36f08eeb67f005b9c58cc0",
+            "ctime": 1790884753.7412791,
+            "dev": 61,
+            "device_type": 0,
+            "disk_usage_bytes": 4096,
+            "executable": false,
+            "exists": true,
+            "gid": 2001,
+            "gr_name": "deploy",
+            "inode": 1925358,
+            "isblk": false,
+            "ischr": false,
+            "isdir": false,
+            "isfifo": false,
+            "isgid": false,
+            "islnk": false,
+            "isreg": true,
+            "issock": false,
+            "isuid": false,
+            "mimetype": "unknown",
+            "mode": "0600",
+            "mtime": 1790884753.451279,
+            "nlink": 1,
+            "path": "/home/deploy/.minikube/config/config.json",
+            "pw_name": "deploy",
+            "readable": true,
+            "rgrp": false,
+            "roth": false,
+            "rusr": true,
+            "size": 164,
+            "uid": 2001,
+            "version": null,
+            "wgrp": false,
+            "woth": false,
+            "writeable": true,
+            "wusr": true,
+            "xgrp": false,
+            "xoth": false,
+            "xusr": false
+        }
+    },
+    "msg": "PASS /home/deploy/.minikube/config/config.json owner/mode/type"
+}
+ok: [ansible-target] => (item=/var/log/shortly) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": {
+        "ansible_loop_var": "item",
+        "changed": false,
+        "failed": false,
+        "item": {
+            "group": "root",
+            "kind": "directory",
+            "mode": "0755",
+            "owner": "root",
+            "path": "/var/log/shortly"
+        },
+        "stat": {
+            "atime": 1790884754.196279,
+            "attr_flags": "",
+            "attributes": [],
+            "block_size": 4096,
+            "blocks": 8,
+            "charset": "unknown",
+            "ctime": 1790884754.196279,
+            "dev": 61,
+            "device_type": 0,
+            "disk_usage_bytes": 4096,
+            "executable": true,
+            "exists": true,
+            "gid": 0,
+            "gr_name": "root",
+            "inode": 1925364,
+            "isblk": false,
+            "ischr": false,
+            "isdir": true,
+            "isfifo": false,
+            "isgid": false,
+            "islnk": false,
+            "isreg": false,
+            "issock": false,
+            "isuid": false,
+            "mimetype": "unknown",
+            "mode": "0755",
+            "mtime": 1790884754.196279,
+            "nlink": 2,
+            "path": "/var/log/shortly",
+            "pw_name": "root",
+            "readable": true,
+            "rgrp": true,
+            "roth": true,
+            "rusr": true,
+            "size": 4096,
+            "uid": 0,
+            "version": null,
+            "wgrp": false,
+            "woth": false,
+            "writeable": true,
+            "wusr": true,
+            "xgrp": true,
+            "xoth": true,
+            "xusr": true
+        }
+    },
+    "msg": "PASS /var/log/shortly owner/mode/type"
+}
+ok: [ansible-target] => (item=/etc/logrotate.d/shortly) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": {
+        "ansible_loop_var": "item",
+        "changed": false,
+        "failed": false,
+        "item": {
+            "group": "root",
+            "kind": "file",
+            "mode": "0644",
+            "owner": "root",
+            "path": "/etc/logrotate.d/shortly"
+        },
+        "stat": {
+            "atime": 1790884774.282867,
+            "attr_flags": "",
+            "attributes": [],
+            "block_size": 4096,
+            "blocks": 8,
+            "charset": "unknown",
+            "checksum": "8c74d4e1870ec4f81024abd3162aeb8222573298",
+            "ctime": 1790884754.939279,
+            "dev": 61,
+            "device_type": 0,
+            "disk_usage_bytes": 4096,
+            "executable": false,
+            "exists": true,
+            "gid": 0,
+            "gr_name": "root",
+            "inode": 1925361,
+            "isblk": false,
+            "ischr": false,
+            "isdir": false,
+            "isfifo": false,
+            "isgid": false,
+            "islnk": false,
+            "isreg": true,
+            "issock": false,
+            "isuid": false,
+            "mimetype": "unknown",
+            "mode": "0644",
+            "mtime": 1790884754.656279,
+            "nlink": 1,
+            "path": "/etc/logrotate.d/shortly",
+            "pw_name": "root",
+            "readable": true,
+            "rgrp": true,
+            "roth": true,
+            "rusr": true,
+            "size": 232,
+            "uid": 0,
+            "version": null,
+            "wgrp": false,
+            "woth": false,
+            "writeable": true,
+            "wusr": true,
+            "xgrp": false,
+            "xoth": false,
+            "xusr": false
+        }
+    },
+    "msg": "PASS /etc/logrotate.d/shortly owner/mode/type"
+}
+ok: [ansible-target] => (item=/usr/local/bin/shortly-doctor) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": {
+        "ansible_loop_var": "item",
+        "changed": false,
+        "failed": false,
+        "item": {
+            "group": "root",
+            "kind": "file",
+            "mode": "0755",
+            "owner": "root",
+            "path": "/usr/local/bin/shortly-doctor"
+        },
+        "stat": {
+            "atime": 1790884776.808867,
+            "attr_flags": "",
+            "attributes": [],
+            "block_size": 4096,
+            "blocks": 8,
+            "charset": "unknown",
+            "checksum": "a526f5c6b2c5975b88ce5cd06f9d424d3bdade6e",
+            "ctime": 1790884756.646279,
+            "dev": 61,
+            "device_type": 0,
+            "disk_usage_bytes": 4096,
+            "executable": true,
+            "exists": true,
+            "gid": 0,
+            "gr_name": "root",
+            "inode": 1925362,
+            "isblk": false,
+            "ischr": false,
+            "isdir": false,
+            "isfifo": false,
+            "isgid": false,
+            "islnk": false,
+            "isreg": true,
+            "issock": false,
+            "isuid": false,
+            "mimetype": "unknown",
+            "mode": "0755",
+            "mtime": 1790884756.379279,
+            "nlink": 1,
+            "path": "/usr/local/bin/shortly-doctor",
+            "pw_name": "root",
+            "readable": true,
+            "rgrp": true,
+            "roth": true,
+            "rusr": true,
+            "size": 1154,
+            "uid": 0,
+            "version": null,
+            "wgrp": false,
+            "woth": false,
+            "writeable": true,
+            "wusr": true,
+            "xgrp": true,
+            "xoth": true,
+            "xusr": true
+        }
+    },
+    "msg": "PASS /usr/local/bin/shortly-doctor owner/mode/type"
+}
+
+TASK [Validate sudoers drop-in syntax] *****************************************
+ok: [ansible-target]
+
+TASK [Assert sudoers validates] ************************************************
+ok: [ansible-target] => {
+    "changed": false,
+    "msg": "PASS sudoers syntax"
+}
+
+TASK [Check required command line tools are executable and report versions] ****
+ok: [ansible-target] => (item=kubectl version --client --output=yaml)
+ok: [ansible-target] => (item=helm version --short)
+ok: [ansible-target] => (item=minikube version --short)
+
+TASK [Assert kubectl, Helm, and minikube report versions] **********************
+ok: [ansible-target] => (item=kubectl version --client --output=yaml) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": {
+        "ansible_loop_var": "item",
+        "changed": false,
+        "changed_when_result": false,
+        "cmd": [
+            "kubectl",
+            "version",
+            "--client",
+            "--output=yaml"
+        ],
+        "delta": "0:00:00.015939",
+        "end": "2026-10-01 19:59:47.341128",
+        "failed": false,
+        "item": "kubectl version --client --output=yaml",
+        "msg": "",
+        "rc": 0,
+        "start": "2026-10-01 19:59:47.325189",
+        "stderr": "",
+        "stderr_lines": [],
+        "stdout": "clientVersion:\n  buildDate: \"2026-09-23T17:10:05Z\"\n  compiler: gc\n  gitCommit: ad950d1cc78b0183c476bd4d3f1934c104229727\n  gitTreeState: clean\n  gitVersion: v1.36.5\n  goVersion: go1.26.8\n  major: \"1\"\n  minor: \"36\"\n  platform: linux/arm64\nkustomizeVersion: v5.8.1",
+        "stdout_lines": [
+            "clientVersion:",
+            "  buildDate: \"2026-09-23T17:10:05Z\"",
+            "  compiler: gc",
+            "  gitCommit: ad950d1cc78b0183c476bd4d3f1934c104229727",
+            "  gitTreeState: clean",
+            "  gitVersion: v1.36.5",
+            "  goVersion: go1.26.8",
+            "  major: \"1\"",
+            "  minor: \"36\"",
+            "  platform: linux/arm64",
+            "kustomizeVersion: v5.8.1"
+        ]
+    },
+    "msg": "PASS kubectl version --client --output=yaml"
+}
+ok: [ansible-target] => (item=helm version --short) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": {
+        "ansible_loop_var": "item",
+        "changed": false,
+        "changed_when_result": false,
+        "cmd": [
+            "helm",
+            "version",
+            "--short"
+        ],
+        "delta": "0:00:00.017358",
+        "end": "2026-10-01 19:59:47.746539",
+        "failed": false,
+        "item": "helm version --short",
+        "msg": "",
+        "rc": 0,
+        "start": "2026-10-01 19:59:47.729181",
+        "stderr": "",
+        "stderr_lines": [],
+        "stdout": "v4.2.2+gb05881c",
+        "stdout_lines": [
+            "v4.2.2+gb05881c"
+        ]
+    },
+    "msg": "PASS helm version --short"
+}
+ok: [ansible-target] => (item=minikube version --short) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": {
+        "ansible_loop_var": "item",
+        "changed": false,
+        "changed_when_result": false,
+        "cmd": [
+            "minikube",
+            "version",
+            "--short"
+        ],
+        "delta": "0:00:00.016454",
+        "end": "2026-10-01 19:59:48.146952",
+        "failed": false,
+        "item": "minikube version --short",
+        "msg": "",
+        "rc": 0,
+        "start": "2026-10-01 19:59:48.130498",
+        "stderr": "",
+        "stderr_lines": [],
+        "stdout": "v1.39.0",
+        "stdout_lines": [
+            "v1.39.0"
+        ]
+    },
+    "msg": "PASS minikube version --short"
+}
+
+TASK [Check managed headers without returning file contents] *******************
+ok: [ansible-target] => (item=/etc/shortly/shortly.env)
+ok: [ansible-target] => (item=/etc/logrotate.d/shortly)
+ok: [ansible-target] => (item=/usr/local/bin/shortly-doctor)
+ok: [ansible-target] => (item=/home/deploy/.bashrc.d/shortly.sh)
+
+TASK [Assert managed-file header appears in every Ansible-owned file] **********
+ok: [ansible-target] => (item=/etc/shortly/shortly.env) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": {
+        "ansible_loop_var": "item",
+        "changed": false,
+        "changed_when_result": false,
+        "cmd": [
+            "grep",
+            "-Fq",
+            "Managed by Ansible (role shortly_config)",
+            "/etc/shortly/shortly.env"
+        ],
+        "delta": "0:00:00.000866",
+        "end": "2026-10-01 19:59:48.590239",
+        "failed": false,
+        "failed_when_result": false,
+        "item": {
+            "marker": "Managed by Ansible (role shortly_config)",
+            "path": "/etc/shortly/shortly.env"
+        },
+        "msg": "",
+        "rc": 0,
+        "start": "2026-10-01 19:59:48.589373",
+        "stderr": "",
+        "stderr_lines": [],
+        "stdout": "",
+        "stdout_lines": []
+    },
+    "msg": "PASS managed header /etc/shortly/shortly.env"
+}
+ok: [ansible-target] => (item=/etc/logrotate.d/shortly) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": {
+        "ansible_loop_var": "item",
+        "changed": false,
+        "changed_when_result": false,
+        "cmd": [
+            "grep",
+            "-Fq",
+            "Managed by Ansible (role shortly_config)",
+            "/etc/logrotate.d/shortly"
+        ],
+        "delta": "0:00:00.000855",
+        "end": "2026-10-01 19:59:48.933411",
+        "failed": false,
+        "failed_when_result": false,
+        "item": {
+            "marker": "Managed by Ansible (role shortly_config)",
+            "path": "/etc/logrotate.d/shortly"
+        },
+        "msg": "",
+        "rc": 0,
+        "start": "2026-10-01 19:59:48.932556",
+        "stderr": "",
+        "stderr_lines": [],
+        "stdout": "",
+        "stdout_lines": []
+    },
+    "msg": "PASS managed header /etc/logrotate.d/shortly"
+}
+ok: [ansible-target] => (item=/usr/local/bin/shortly-doctor) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": {
+        "ansible_loop_var": "item",
+        "changed": false,
+        "changed_when_result": false,
+        "cmd": [
+            "grep",
+            "-Fq",
+            "Managed by Ansible (role shortly_config)",
+            "/usr/local/bin/shortly-doctor"
+        ],
+        "delta": "0:00:00.000844",
+        "end": "2026-10-01 19:59:49.316119",
+        "failed": false,
+        "failed_when_result": false,
+        "item": {
+            "marker": "Managed by Ansible (role shortly_config)",
+            "path": "/usr/local/bin/shortly-doctor"
+        },
+        "msg": "",
+        "rc": 0,
+        "start": "2026-10-01 19:59:49.315275",
+        "stderr": "",
+        "stderr_lines": [],
+        "stdout": "",
+        "stdout_lines": []
+    },
+    "msg": "PASS managed header /usr/local/bin/shortly-doctor"
+}
+ok: [ansible-target] => (item=/home/deploy/.bashrc.d/shortly.sh) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": {
+        "ansible_loop_var": "item",
+        "changed": false,
+        "changed_when_result": false,
+        "cmd": [
+            "grep",
+            "-Fq",
+            "Managed by Ansible (role deploy_user)",
+            "/home/deploy/.bashrc.d/shortly.sh"
+        ],
+        "delta": "0:00:01.001656",
+        "end": "2026-10-01 19:59:50.702427",
+        "failed": false,
+        "failed_when_result": false,
+        "item": {
+            "marker": "Managed by Ansible (role deploy_user)",
+            "path": "/home/deploy/.bashrc.d/shortly.sh"
+        },
+        "msg": "",
+        "rc": 0,
+        "start": "2026-10-01 19:59:49.700771",
+        "stderr": "",
+        "stderr_lines": [],
+        "stdout": "",
+        "stdout_lines": []
+    },
+    "msg": "PASS managed header /home/deploy/.bashrc.d/shortly.sh"
+}
+
+TASK [Confirm the deploy shell loads its marked shortly snippet] ***************
+ok: [ansible-target]
+
+TASK [Assert the deploy bashrc marker is present] ******************************
+ok: [ansible-target] => {
+    "changed": false,
+    "msg": "PASS deploy bashrc block"
+}
+
+TASK [Assert managed short.local hosts block exists when enabled] **************
+ok: [ansible-target]
+
+TASK [Confirm managed hosts marker when enabled] *******************************
+ok: [ansible-target] => {
+    "changed": false,
+    "msg": "PASS short.local hosts block"
+}
+
+TASK [Print compact verification result table] *********************************
+ok: [ansible-target] => {
+    "msg": [
+        "PASS packages: 13 base packages",
+        "PASS deploy: uid=2001, shell=/bin/bash, home=/home/deploy, locked",
+        "PASS managed paths: 13 owner/mode/type checks",
+        "PASS tools: kubectl, helm, minikube",
+        "PASS sudoers and managed headers",
+        "PASS short.local hosts block"
+    ]
+}
+
+PLAY RECAP *********************************************************************
+ansible-target             : ok=23   changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0

@@ -1,0 +1,45 @@
+--- versions ---
+$ docker --version
+Docker version 29.5.3, build d1c06ef
+
+exit=0
+$ kubectl version --client
+Client Version: v1.36.3
+Kustomize Version: v5.8.1
+
+exit=0
+$ helm version --short
+v4.3.0+gbec5b06
+
+exit=0
+$ minikube version --short
+v1.38.1
+
+exit=0
+--- docker ps ---
+$ docker ps --format table {{.Names}}\t{{.Status}}
+NAMES     STATUS
+shortly   Up 3 hours
+
+exit=0
+--- minikube status ---
+$ minikube status -p shortly
+* minikube 1.39.0 is available! Download it: https://github.com/kubernetes/minikube/releases/tag/v1.39.0
+* To disable this notice, run: 'minikube config set WantUpdateNotification false'
+
+shortly
+type: Control Plane
+host: Running
+kubelet: Running
+apiserver: Running
+kubeconfig: Configured
+
+exit=0
+--- urlshortener pods ---
+$ kubectl -n urlshortener get pods -o wide
+NAME                       READY   STATUS    RESTARTS      AGE   IP             NODE      NOMINATED NODE   READINESS GATES
+redis-787c44d897-chvt5     1/1     Running   1 (23h ago)   24h   10.244.0.127   shortly   <none>           <none>
+shortly-797d9c89c6-6rnb6   1/1     Running   0             97m   10.244.0.159   shortly   <none>           <none>
+shortly-797d9c89c6-nwj66   1/1     Running   0             97m   10.244.0.160   shortly   <none>           <none>
+
+exit=0

@@ -1,0 +1,5 @@
+---
+- name: Deploy account role has no restart handlers
+  ansible.builtin.debug:
+    msg: "Deploy account files do not require a service restart."
+  listen: deploy user changed

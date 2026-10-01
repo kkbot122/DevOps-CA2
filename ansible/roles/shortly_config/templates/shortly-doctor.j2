@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# Managed by Ansible (role shortly_config). Manual edits will be overwritten.
+set +e
+printf '%s\n' 'shortly runtime doctor'
+for tool in docker kubectl helm minikube; do
+  if command -v "$tool" >/dev/null 2>&1; then
+    printf '%s: ' "$tool"
+    case "$tool" in
+      docker) docker --version ;;
+      kubectl) kubectl version --client --output=yaml 2>/dev/null | awk '/gitVersion:/{print $2; exit}' ;;
+      helm) helm version --short ;;
+      minikube) minikube version --short ;;
+    esac
+  else
+    printf '%s: missing\n' "$tool"
+  fi
+done
+if command -v docker >/dev/null 2>&1 && docker info >/dev/null 2>&1; then echo 'docker daemon: reachable'; else echo 'docker daemon: unavailable'; fi
+if command -v minikube >/dev/null 2>&1; then minikube -p {{ minikube_profile }} status || true; fi
+if command -v kubectl >/dev/null 2>&1; then printf 'kubectl context: '; kubectl config current-context 2>/dev/null || echo unavailable; fi
+printf 'short.local: '; getent hosts short.local 2>/dev/null || echo unresolved
+if curl -fsS --max-time 3 '{{ project_base }}/healthz' >/dev/null 2>&1; then echo '/healthz: PASS'; else echo '/healthz: unavailable'; fi

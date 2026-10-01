@@ -1,0 +1,21 @@
+---
+deploy_user: deploy
+deploy_home: /home/deploy
+project_base: http://short.local
+shortly_namespace: urlshortener
+shortly_image: shortly
+registry: ghcr.io/kkbot122/devops-ca2
+minikube_cpus: 4
+minikube_memory: 6144
+shortly_admin_token: demo-admin-token
+short_local_ip: auto
+manage_hosts: true
+runner_dir: /home/deploy/actions-runner
+minikube_profile: shortly
+shortly_config_dir: /etc/shortly
+shortly_env_file: /etc/shortly/shortly.env
+shortly_log_dir: /var/log/shortly
+shortly_logrotate_file: /etc/logrotate.d/shortly
+shortly_hosts_file: /etc/hosts
+shortly_doctor_file: /usr/local/bin/shortly-doctor
+deploy_minikube_config_file: /home/deploy/.minikube/config/config.json

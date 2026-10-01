@@ -1,0 +1,57 @@
+---
+- name: Preflight operating system support without privilege escalation
+  hosts: shortly
+  gather_facts: true
+  tasks:
+    - name: Resolve effective OS values while allowing the documented negative-test override
+      ansible.builtin.set_fact:
+        shortly_os_family: "{{ ansible_os_family | default(ansible_facts.os_family) }}"
+        shortly_distribution: "{{ ansible_distribution | default(ansible_facts.distribution) }}"
+        shortly_distribution_version: "{{ ansible_distribution_version | default(ansible_facts.distribution_version) }}"
+      tags: [always]
+
+    - name: Refuse unsupported operating systems before configuration starts
+      ansible.builtin.assert:
+        that:
+          - shortly_os_family == 'Debian'
+          - shortly_distribution in ['Debian', 'Ubuntu']
+        fail_msg: >-
+          Unsupported operating system {{ shortly_distribution }} {{ shortly_distribution_version }}
+          ({{ shortly_os_family }}). This playbook supports Debian/Ubuntu hosts and WSL2 based on them;
+          macOS, RHEL-family, and other systems are refused before any changes.
+        success_msg: "Supported target: {{ shortly_distribution }} {{ shortly_distribution_version }}"
+      tags: [always]
+
+- name: Configure shortly runtime on supported Debian and Ubuntu hosts
+  hosts: shortly
+  gather_facts: false
+  become: true
+  pre_tasks:
+    - name: Record existing runtime tools without modifying the host
+      ansible.builtin.shell: "command -v {{ item }}"
+      args:
+        executable: /bin/bash
+      loop: [docker, kubectl, helm, minikube]
+      register: tool_presence
+      changed_when: false
+      failed_when: false
+      check_mode: false
+      tags: [always]
+      # command -v is a portable read-only PATH probe; its results gate installs.
+
+    - name: Save discovered runtime tool paths for role decisions
+      ansible.builtin.set_fact:
+        shortly_tool_paths: "{{ dict(tool_presence.results | map(attribute='item') | zip(tool_presence.results | map(attribute='stdout'))) }}"
+      tags: [always]
+
+  roles:
+    - role: common
+      tags: [common, packages]
+    - role: docker
+      tags: [docker, packages, files]
+    - role: k8s_tools
+      tags: [tools, packages, files]
+    - role: deploy_user
+      tags: [users, files]
+    - role: shortly_config
+      tags: [config, files]

@@ -1,0 +1,11 @@
+---
+deploy_user: deploy
+deploy_uid: 2001
+deploy_gid: 2001
+deploy_home: /home/deploy
+deploy_authorized_key: ""
+deploy_sudoers_file: /etc/sudoers.d/90-deploy
+deploy_bashrc_file: /home/deploy/.bashrc
+deploy_shell_snippet: /home/deploy/.bashrc.d/shortly.sh
+systemctl_binary: /usr/bin/systemctl
+visudo_binary: /usr/sbin/visudo

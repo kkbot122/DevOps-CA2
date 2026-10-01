@@ -1,0 +1,156 @@
+---
+- name: Ensure shortly configuration directory exists
+  ansible.builtin.file:
+    path: "{{ shortly_config_dir }}"
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+  tags: [config, files]
+
+- name: Install shortly environment values without exposing token diffs or logs
+  ansible.builtin.template:
+    src: shortly.env.j2
+    dest: "{{ shortly_env_file }}"
+    owner: root
+    group: "{{ deploy_user }}"
+    mode: '0640'
+    backup: false
+  no_log: true
+  diff: false
+  tags: [config, files]
+
+- name: Check whether deploy already has a minikube configuration
+  ansible.builtin.stat:
+    path: "{{ deploy_minikube_config_file }}"
+  register: deploy_minikube_config
+  tags: [config, files]
+
+- name: Create deploy user's minikube defaults only when its config is absent
+  ansible.builtin.template:
+    src: minikube-config.json.j2
+    dest: "{{ deploy_minikube_config_file }}"
+    owner: "{{ deploy_user }}"
+    group: "{{ deploy_user }}"
+    mode: '0600'
+    backup: false
+  when: not deploy_minikube_config.stat.exists
+  tags: [config, files]
+
+- name: Explain preservation of an existing deploy minikube configuration
+  ansible.builtin.debug:
+    msg: "Preserving existing {{ deploy_minikube_config_file }}."
+  when: deploy_minikube_config.stat.exists
+  tags: [config]
+
+- name: Ensure shortly log directory exists
+  ansible.builtin.file:
+    path: "{{ shortly_log_dir }}"
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+  tags: [config, files]
+
+- name: Install shortly logrotate policy
+  ansible.builtin.template:
+    src: logrotate-shortly.j2
+    dest: "{{ shortly_logrotate_file }}"
+    owner: root
+    group: root
+    mode: '0644'
+    backup: false
+  tags: [config, files]
+
+- name: Read minikube profile details for short.local address selection
+  ansible.builtin.command: minikube profile list -o json
+  register: minikube_profiles
+  changed_when: false
+  failed_when: false
+  check_mode: false
+  when: shortly_tool_paths.minikube | default('') | length > 0
+  tags: [hosts]
+  # This is a read-only query used to avoid mapping a tunneled profile to its internal IP.
+
+- name: Read minikube profile IP for short.local address selection
+  ansible.builtin.command: "minikube -p {{ minikube_profile }} ip"
+  register: minikube_profile_ip
+  changed_when: false
+  failed_when: false
+  check_mode: false
+  when: shortly_tool_paths.minikube | default('') | length > 0
+  tags: [hosts]
+  # minikube ip is a read-only query; failure means use localhost for tunnel/WSL cases.
+
+- name: Detect a Linux-native Docker driver from minikube profile data
+  ansible.builtin.set_fact:
+    minikube_uses_docker_driver: "{{ '\"Driver\":\"docker\"' in (minikube_profiles.stdout | default('') | regex_replace('\\s+', '')) }}"
+  tags: [hosts]
+
+- name: Choose the short.local address
+  ansible.builtin.set_fact:
+    shortly_hosts_ip: >-
+      {{ short_local_ip if short_local_ip != 'auto' else
+      (minikube_profile_ip.stdout if ansible_facts.system == 'Linux' and
+      ansible_facts.env.WSL_INTEROP is not defined and minikube_uses_docker_driver and
+      (minikube_profile_ip.stdout | default('') | length > 0) else '127.0.0.1') }}
+  tags: [hosts]
+
+- name: Manage the short.local hosts entry using a marked block
+  ansible.builtin.blockinfile:
+    path: "{{ shortly_hosts_file }}"
+    marker: "# {mark} ANSIBLE MANAGED: shortly"
+    block: |
+      # Managed by Ansible (role shortly_config). Manual edits will be overwritten.
+      {{ shortly_hosts_ip }} short.local
+    owner: root
+    group: root
+    mode: '0644'
+    backup: false
+    unsafe_writes: "{{ ansible_connection == 'community.docker.docker' }}"
+  when: manage_hosts | bool
+  tags: [hosts, files]
+  # Docker mounts /etc/hosts as a file that cannot be atomically renamed; use an in-place write only for that throwaway target.
+
+- name: Explain disabled short.local hosts management
+  ansible.builtin.debug:
+    msg: "manage_hosts=false; leaving {{ shortly_hosts_file }} unchanged."
+  when: not manage_hosts | bool
+  tags: [hosts]
+
+- name: Check whether the GitHub Actions runner directory exists
+  ansible.builtin.stat:
+    path: "{{ runner_dir }}"
+  register: actions_runner_directory
+  tags: [runner]
+
+- name: Configure GitHub Actions runner PATH and environment files
+  ansible.builtin.template:
+    src: "{{ item.src }}"
+    dest: "{{ runner_dir }}/{{ item.dest }}"
+    owner: "{{ deploy_user }}"
+    group: "{{ deploy_user }}"
+    mode: '0644'
+    backup: false
+  loop:
+    - {src: runner.path.j2, dest: .path}
+    - {src: runner.env.j2, dest: .env}
+  when: actions_runner_directory.stat.isdir | default(false)
+  notify: runner environment changed
+  tags: [runner, files]
+
+- name: Explain skipped runner environment because the runner is not installed
+  ansible.builtin.debug:
+    msg: "Skipping GitHub runner environment because {{ runner_dir }} does not exist."
+  when: not actions_runner_directory.stat.isdir | default(false)
+  tags: [runner]
+
+- name: Install shortly-doctor operator helper
+  ansible.builtin.template:
+    src: shortly-doctor.j2
+    dest: "{{ shortly_doctor_file }}"
+    owner: root
+    group: root
+    mode: '0755'
+    backup: false
+  tags: [config, files]
