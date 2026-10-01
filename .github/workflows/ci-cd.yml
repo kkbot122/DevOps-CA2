@@ -204,6 +204,15 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v6.0.2 # v6.0.2
+      - name: Prepare noninteractive Docker credentials
+        run: |
+          docker_host=$(docker context inspect "$(docker context show)" --format '{{.Endpoints.docker.Host}}')
+          config_dir="$RUNNER_TEMP/docker-config"
+          mkdir -p "$config_dir"
+          chmod 700 "$config_dir"
+          printf '{"auths":{}}\n' > "$config_dir/config.json"
+          chmod 600 "$config_dir/config.json"
+          printf 'DOCKER_CONFIG=%s\nDOCKER_HOST=%s\n' "$config_dir" "$docker_host" >> "$GITHUB_ENV"
       - name: Preflight
         run: scripts/ci/preflight.sh
       - name: Deploy
@@ -219,3 +228,6 @@ jobs:
       - name: Logout from GHCR
         if: always()
         run: docker logout ghcr.io
+      - name: Remove temporary Docker credentials
+        if: always()
+        run: if [[ -n "${DOCKER_CONFIG:-}" && -d "$DOCKER_CONFIG" ]]; then rm -rf -- "$DOCKER_CONFIG"; fi
