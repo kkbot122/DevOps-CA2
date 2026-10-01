@@ -1,0 +1,27 @@
+
+PLAY [Preflight operating system support without privilege escalation] *********
+
+TASK [Gathering Facts] *********************************************************
+ok: [localhost]
+
+TASK [Resolve effective OS values while allowing the documented negative-test override] ***
+ok: [localhost]
+
+TASK [Refuse unsupported operating systems before configuration starts] ********
+[ERROR]: Task failed: Action failed: Unsupported operating system Fedora 27.0.1 (RedHat). This playbook supports Debian/Ubuntu hosts and WSL2 based on them; macOS, RHEL-family, and other systems are refused before any changes.
+Origin: /Users/kisna/College/DevOps/DevOps-CA2/ansible/site.yml:13:7
+
+11       tags: [always]
+12
+13     - name: Refuse unsupported operating systems before configuration starts
+         ^ column 7
+
+fatal: [localhost]: FAILED! => {
+    "assertion": "shortly_os_family == 'Debian'",
+    "changed": false,
+    "evaluated_to": false,
+    "msg": "Unsupported operating system Fedora 27.0.1 (RedHat). This playbook supports Debian/Ubuntu hosts and WSL2 based on them; macOS, RHEL-family, and other systems are refused before any changes."
+}
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=2    changed=0    unreachable=0    failed=1    skipped=0    rescued=0    ignored=0

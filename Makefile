@@ -1,4 +1,5 @@
-.PHONY: install dev test lint fmt redis k8s-up ingress-config build-all load-all secret deploy release good-release bad-release-crash bad-release-errors rollback history redis-down redis-up status logs pf probe smoke k8s-down k8s-reset monitoring-up monitoring-apply monitoring-status monitoring-down grafana prometheus alertmanager promq alerts traffic check-dashboard load-install load-ui load load-local load-smoke scenario-baseline scenario-latency scenario-errors scenario-redis-down scenario-good-release scenario-bad-release-crash scenario-bad-release-errors scenario-surge scenario-abuse scenario-all scenarios-list ci-local ci-deploy-local runner-check ci-run ci-status
+.PHONY: install dev test lint fmt redis k8s-up ingress-config build-all load-all secret deploy release good-release bad-release-crash bad-release-errors rollback history redis-down redis-up status logs pf probe smoke k8s-down k8s-reset monitoring-up monitoring-apply monitoring-status monitoring-down grafana prometheus alertmanager promq alerts traffic check-dashboard load-install load-ui load load-local load-smoke scenario-baseline scenario-latency scenario-errors scenario-redis-down scenario-good-release scenario-bad-release-crash scenario-bad-release-errors scenario-surge scenario-abuse scenario-all scenarios-list ci-local ci-deploy-local runner-check ci-run ci-status ansible-install ansible-lint ansible-check ansible-apply ansible-idempotence ansible-verify ansible-drift-demo ansible-test-container ansible-tags
+SHELL := /bin/bash
 
 IMAGE ?= shortly
 TAG ?= v1
@@ -25,6 +26,11 @@ LOCAL_TAG = $(SHA7)$(if $(filter bad-errors,$(VARIANT)),-bad-errors)$(if $(filte
 PYTHON ?= python3.12
 VENV ?= .venv
 BIN := $(VENV)/bin
+ANSIBLE_DIR ?= ansible
+ANSIBLE_VENV ?= .venv-ansible
+ANSIBLE_HOME_DIR ?= /tmp/shortly-ansible-home
+ANSIBLE_COLLECTIONS_DIR ?= $(ANSIBLE_DIR)/.ansible/collections
+ANSIBLE_BIN := $(ANSIBLE_VENV)/bin
 
 install:
 	$(PYTHON) -m venv $(VENV)
@@ -209,6 +215,45 @@ scenario-all:
 
 scenarios-list:
 	$(LOAD_BIN)/python loadtest/scenario_runner.py list
+
+ansible-install:
+	mkdir -p $(ANSIBLE_HOME_DIR)
+	mkdir -p $(ANSIBLE_COLLECTIONS_DIR)
+	python3 -m venv $(ANSIBLE_VENV)
+	PIP_NO_CACHE_DIR=1 $(ANSIBLE_BIN)/python -m pip install -r requirements-ansible.txt
+	HOME=$(ANSIBLE_HOME_DIR) ANSIBLE_CONFIG=$(ANSIBLE_DIR)/ansible.cfg ANSIBLE_COLLECTIONS_PATH=$(CURDIR)/$(ANSIBLE_COLLECTIONS_DIR) $(ANSIBLE_BIN)/ansible-galaxy collection install -p $(ANSIBLE_COLLECTIONS_DIR) -r $(ANSIBLE_DIR)/requirements.yml
+	$(ANSIBLE_BIN)/ansible --version
+	$(ANSIBLE_BIN)/ansible-lint --version
+	$(ANSIBLE_BIN)/yamllint --version
+
+ansible-lint:
+	$(ANSIBLE_BIN)/yamllint -c $(ANSIBLE_DIR)/.yamllint $(ANSIBLE_DIR)
+	HOME=$(ANSIBLE_HOME_DIR) ANSIBLE_HOME=$(ANSIBLE_HOME_DIR) ANSIBLE_CONFIG=$(ANSIBLE_DIR)/ansible.cfg ANSIBLE_COLLECTIONS_PATH=$(CURDIR)/$(ANSIBLE_COLLECTIONS_DIR) XDG_CACHE_HOME=/tmp/shortly-ansible-cache $(ANSIBLE_BIN)/ansible-lint -c $(ANSIBLE_DIR)/.ansible-lint --profile production $(ANSIBLE_DIR)/site.yml $(ANSIBLE_DIR)/verify.yml
+	HOME=$(ANSIBLE_HOME_DIR) ANSIBLE_CONFIG=$(ANSIBLE_DIR)/ansible.cfg ANSIBLE_COLLECTIONS_PATH=$(CURDIR)/$(ANSIBLE_COLLECTIONS_DIR) $(ANSIBLE_BIN)/ansible-playbook -i $(ANSIBLE_DIR)/inventory/hosts.ini $(ANSIBLE_DIR)/site.yml --syntax-check
+	HOME=$(ANSIBLE_HOME_DIR) ANSIBLE_CONFIG=$(ANSIBLE_DIR)/ansible.cfg ANSIBLE_COLLECTIONS_PATH=$(CURDIR)/$(ANSIBLE_COLLECTIONS_DIR) $(ANSIBLE_BIN)/ansible-playbook -i $(ANSIBLE_DIR)/inventory/hosts.ini $(ANSIBLE_DIR)/verify.yml --syntax-check
+
+ansible-check:
+	@set -o pipefail; if [[ "$$(uname -s)" == Darwin ]] || sudo -n true 2>/dev/null; then become_flag=; else become_flag=--ask-become-pass; fi; HOME=$(ANSIBLE_HOME_DIR) ANSIBLE_CONFIG=$(ANSIBLE_DIR)/ansible.cfg $(ANSIBLE_BIN)/ansible-playbook -i $(ANSIBLE_DIR)/inventory/hosts.ini $(ANSIBLE_DIR)/site.yml --check --diff $$become_flag $(ANSIBLE_ARGS) 2>&1 | tee $(ANSIBLE_DIR)/evidence/check.txt
+
+ansible-apply:
+	@set -o pipefail; if [[ "$$(uname -s)" == Darwin ]] || sudo -n true 2>/dev/null; then become_flag=; else become_flag=--ask-become-pass; fi; HOME=$(ANSIBLE_HOME_DIR) ANSIBLE_CONFIG=$(ANSIBLE_DIR)/ansible.cfg $(ANSIBLE_BIN)/ansible-playbook -i $(ANSIBLE_DIR)/inventory/hosts.ini $(ANSIBLE_DIR)/site.yml $$become_flag $(ANSIBLE_ARGS) 2>&1 | tee $(ANSIBLE_DIR)/evidence/run-1-apply.txt
+
+ansible-idempotence:
+	@set -o pipefail; if [[ "$$(uname -s)" == Darwin ]] || sudo -n true 2>/dev/null; then become_flag=; else become_flag=--ask-become-pass; fi; HOME=$(ANSIBLE_HOME_DIR) ANSIBLE_CONFIG=$(ANSIBLE_DIR)/ansible.cfg $(ANSIBLE_BIN)/ansible-playbook -i $(ANSIBLE_DIR)/inventory/hosts.ini $(ANSIBLE_DIR)/site.yml $$become_flag $(ANSIBLE_ARGS) 2>&1 | tee $(ANSIBLE_DIR)/evidence/run-2-idempotence.txt
+	@python3 scripts/ansible-assert-recap.py $(ANSIBLE_DIR)/evidence/run-2-idempotence.txt --changed 0
+
+ansible-verify:
+	@set -o pipefail; if [[ "$$(uname -s)" == Darwin ]] || sudo -n true 2>/dev/null; then become_flag=; else become_flag=--ask-become-pass; fi; HOME=$(ANSIBLE_HOME_DIR) ANSIBLE_CONFIG=$(ANSIBLE_DIR)/ansible.cfg $(ANSIBLE_BIN)/ansible-playbook -i $(ANSIBLE_DIR)/inventory/hosts.ini $(ANSIBLE_DIR)/verify.yml $$become_flag 2>&1 | tee $(ANSIBLE_DIR)/evidence/verify.txt
+
+ansible-drift-demo:
+	bash scripts/ansible-drift-demo.sh
+
+ansible-test-container:
+	bash scripts/ansible-container-test.sh
+
+ansible-tags:
+	HOME=$(ANSIBLE_HOME_DIR) ANSIBLE_CONFIG=$(ANSIBLE_DIR)/ansible.cfg $(ANSIBLE_BIN)/ansible-playbook -i $(ANSIBLE_DIR)/inventory/hosts.ini $(ANSIBLE_DIR)/site.yml --list-tags
+	HOME=$(ANSIBLE_HOME_DIR) ANSIBLE_CONFIG=$(ANSIBLE_DIR)/ansible.cfg $(ANSIBLE_BIN)/ansible-playbook -i $(ANSIBLE_DIR)/inventory/hosts.ini $(ANSIBLE_DIR)/site.yml --list-tasks
 
 ci-local:
 	@set -eu; fail=0; \

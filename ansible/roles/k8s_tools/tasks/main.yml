@@ -1,0 +1,163 @@
+---
+- name: Map the host CPU architecture to upstream binary names
+  ansible.builtin.set_fact:
+    k8s_tool_arch: "{{ k8s_tool_arch_map[ansible_facts.architecture] | default('unsupported') }}"
+    kubectl_binary: "{{ shortly_tool_paths.kubectl | default(k8s_tool_bin_dir + '/kubectl', true) }}"
+    helm_binary: "{{ shortly_tool_paths.helm | default(k8s_tool_bin_dir + '/helm', true) }}"
+    minikube_binary: "{{ shortly_tool_paths.minikube | default(k8s_tool_bin_dir + '/minikube', true) }}"
+  tags: [tools]
+
+- name: Refuse tool installation for an unsupported CPU architecture
+  ansible.builtin.assert:
+    that: k8s_tool_arch != 'unsupported'
+    fail_msg: "No kubectl, Helm, or minikube download architecture is mapped for {{ ansible_facts.architecture }}."
+  tags: [tools]
+
+- name: Download pinned kubectl with its published checksum when needed
+  ansible.builtin.get_url:
+    url: "https://dl.k8s.io/release/{{ kubectl_version }}/bin/linux/{{ k8s_tool_arch }}/kubectl"
+    dest: "{{ k8s_tool_tmp }}/kubectl-{{ kubectl_version }}"
+    checksum: "sha256:https://dl.k8s.io/release/{{ kubectl_version }}/bin/linux/{{ k8s_tool_arch }}/kubectl.sha256"
+    mode: '0644'
+    timeout: 120
+  when: tools_enforce_versions or shortly_tool_paths.kubectl | default('') | length == 0
+  tags: [tools, packages]
+
+- name: Install pinned kubectl binary with executable permissions
+  ansible.builtin.copy:
+    src: "{{ k8s_tool_tmp }}/kubectl-{{ kubectl_version }}"
+    dest: "{{ k8s_tool_bin_dir }}/kubectl"
+    remote_src: true
+    owner: root
+    group: root
+    mode: '0755'
+    backup: false
+  when: tools_enforce_versions or shortly_tool_paths.kubectl | default('') | length == 0
+  tags: [tools, files]
+
+- name: Download pinned Helm tarball with its published checksum when needed
+  ansible.builtin.get_url:
+    url: "https://get.helm.sh/helm-{{ helm_version }}-linux-{{ k8s_tool_arch }}.tar.gz"
+    dest: "{{ k8s_tool_tmp }}/helm-{{ helm_version }}-linux-{{ k8s_tool_arch }}.tar.gz"
+    checksum: "sha256:https://get.helm.sh/helm-{{ helm_version }}-linux-{{ k8s_tool_arch }}.tar.gz.sha256sum"
+    mode: '0644'
+    timeout: 120
+  when: tools_enforce_versions or shortly_tool_paths.helm | default('') | length == 0
+  tags: [tools, packages]
+
+- name: Extract pinned Helm binary under a temporary versioned directory
+  ansible.builtin.unarchive:
+    src: "{{ k8s_tool_tmp }}/helm-{{ helm_version }}-linux-{{ k8s_tool_arch }}.tar.gz"
+    dest: "{{ k8s_tool_tmp }}"
+    remote_src: true
+    creates: "{{ k8s_tool_tmp }}/linux-{{ k8s_tool_arch }}/helm"
+  when: tools_enforce_versions or shortly_tool_paths.helm | default('') | length == 0
+  tags: [tools, packages]
+
+- name: Install pinned Helm binary with executable permissions
+  ansible.builtin.copy:
+    src: "{{ k8s_tool_tmp }}/linux-{{ k8s_tool_arch }}/helm"
+    dest: "{{ k8s_tool_bin_dir }}/helm"
+    remote_src: true
+    owner: root
+    group: root
+    mode: '0755'
+    backup: false
+  when: tools_enforce_versions or shortly_tool_paths.helm | default('') | length == 0
+  tags: [tools, files]
+
+- name: Download pinned minikube with its published checksum when needed
+  ansible.builtin.get_url:
+    url: "https://storage.googleapis.com/minikube/releases/{{ minikube_version }}/minikube-linux-{{ k8s_tool_arch }}"
+    dest: "{{ k8s_tool_tmp }}/minikube-{{ minikube_version }}"
+    checksum: "sha256:https://storage.googleapis.com/minikube/releases/{{ minikube_version }}/minikube-linux-{{ k8s_tool_arch }}.sha256"
+    mode: '0644'
+    timeout: 120
+  when: tools_enforce_versions or shortly_tool_paths.minikube | default('') | length == 0
+  tags: [tools, packages]
+
+- name: Install pinned minikube binary with executable permissions
+  ansible.builtin.copy:
+    src: "{{ k8s_tool_tmp }}/minikube-{{ minikube_version }}"
+    dest: "{{ k8s_tool_bin_dir }}/minikube"
+    remote_src: true
+    owner: root
+    group: root
+    mode: '0755'
+    backup: false
+  when: tools_enforce_versions or shortly_tool_paths.minikube | default('') | length == 0
+  tags: [tools, files]
+
+- name: Ensure bash completion directory exists
+  ansible.builtin.file:
+    path: "{{ k8s_tool_completion_dir }}"
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+  tags: [tools, files]
+
+- name: Generate kubectl bash completion only when kubectl is executable
+  ansible.builtin.shell: >-
+    {{ kubectl_binary }} completion bash > {{ k8s_tool_completion_dir }}/kubectl
+  args:
+    creates: "{{ k8s_tool_completion_dir }}/kubectl"
+  when: tools_enforce_versions or k8s_tool_arch != 'unsupported'
+  tags: [tools, files]
+  # The CLI's completion generator writes a file and has no Ansible module equivalent.
+
+- name: Generate Helm bash completion only when Helm is executable
+  ansible.builtin.shell: >-
+    {{ helm_binary }} completion bash > {{ k8s_tool_completion_dir }}/helm
+  args:
+    creates: "{{ k8s_tool_completion_dir }}/helm"
+  when: tools_enforce_versions or k8s_tool_arch != 'unsupported'
+  tags: [tools, files]
+  # The CLI's completion generator writes a file and has no Ansible module equivalent.
+
+- name: Generate minikube bash completion only when minikube is executable
+  ansible.builtin.shell: >-
+    {{ minikube_binary }} completion bash > {{ k8s_tool_completion_dir }}/minikube
+  args:
+    creates: "{{ k8s_tool_completion_dir }}/minikube"
+  when: tools_enforce_versions or k8s_tool_arch != 'unsupported'
+  tags: [tools, files]
+  # The CLI's completion generator writes a file and has no Ansible module equivalent.
+
+- name: Read kubectl client version without changing host state
+  ansible.builtin.command:
+    argv: ["{{ kubectl_binary }}", version, --client, --output=yaml]
+  register: kubectl_version_output
+  changed_when: false
+  failed_when: false
+  check_mode: false
+  tags: [tools]
+  # Version flags are read-only and the client binary may be supplied by PATH.
+
+- name: Read Helm version without changing host state
+  ansible.builtin.command:
+    argv: ["{{ helm_binary }}", version, --short]
+  register: helm_version_output
+  changed_when: false
+  failed_when: false
+  check_mode: false
+  tags: [tools]
+  # Version flags are read-only and the client binary may be supplied by PATH.
+
+- name: Read minikube version without changing host state
+  ansible.builtin.command:
+    argv: ["{{ minikube_binary }}", version, --short]
+  register: minikube_version_output
+  changed_when: false
+  failed_when: false
+  check_mode: false
+  tags: [tools]
+  # Version flags are read-only and the client binary may be supplied by PATH.
+
+- name: Print the detected tool versions
+  ansible.builtin.debug:
+    msg:
+      - "kubectl: {{ kubectl_version_output.stdout | default('missing') }}"
+      - "helm: {{ helm_version_output.stdout | default('missing') }}"
+      - "minikube: {{ minikube_version_output.stdout | default('missing') }}"
+  tags: [tools]

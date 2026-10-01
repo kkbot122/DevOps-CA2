@@ -1,0 +1,11 @@
+---
+galaxy_info:
+  author: shortly project maintainers
+  role_name: docker
+  description: Install Docker only when absent and preserve existing daemon settings.
+  min_ansible_version: '2.16'
+  license: MIT
+  platforms:
+    - name: Debian
+      versions: [all]
+dependencies: []

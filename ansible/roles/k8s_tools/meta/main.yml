@@ -1,0 +1,11 @@
+---
+galaxy_info:
+  author: shortly project maintainers
+  role_name: k8s_tools
+  description: Install checksum-verified kubectl, Helm, and minikube only when absent.
+  min_ansible_version: '2.16'
+  license: MIT
+  platforms:
+    - name: Debian
+      versions: [all]
+dependencies: []

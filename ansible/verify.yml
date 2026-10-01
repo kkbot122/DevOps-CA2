@@ -1,0 +1,204 @@
+---
+- name: Preflight verification OS support without privilege escalation
+  hosts: shortly
+  gather_facts: true
+  tasks:
+    - name: Resolve effective OS values while allowing the documented negative-test override
+      ansible.builtin.set_fact:
+        shortly_os_family: "{{ ansible_os_family | default(ansible_facts.os_family) }}"
+        shortly_distribution: "{{ ansible_distribution | default(ansible_facts.distribution) }}"
+        shortly_distribution_version: "{{ ansible_distribution_version | default(ansible_facts.distribution_version) }}"
+      tags: [always]
+
+    - name: Refuse unsupported operating systems before verification starts
+      ansible.builtin.assert:
+        that:
+          - shortly_os_family == 'Debian'
+          - shortly_distribution in ['Debian', 'Ubuntu']
+        fail_msg: >-
+          Unsupported operating system {{ shortly_distribution }} {{ shortly_distribution_version }}
+          ({{ shortly_os_family }}). This playbook supports Debian/Ubuntu hosts and WSL2 based on them;
+          macOS, RHEL-family, and other systems are refused before any changes.
+        success_msg: "Supported target: {{ shortly_distribution }} {{ shortly_distribution_version }}"
+      tags: [always]
+
+- name: Verify shortly runtime state without changing it
+  hosts: shortly
+  gather_facts: true
+  become: true
+  tasks:
+    - name: Gather installed package facts
+      ansible.builtin.package_facts:
+        manager: auto
+
+    - name: Assert base packages are installed
+      ansible.builtin.assert:
+        that: item in ansible_facts.packages
+        success_msg: "PASS package {{ item }} installed"
+        fail_msg: "FAIL required package {{ item }} is missing"
+      loop: "{{ base_packages }}"
+
+    - name: Read deploy account identity
+      ansible.builtin.getent:
+        database: passwd
+        key: "{{ deploy_user }}"
+
+    - name: Read deploy group memberships
+      ansible.builtin.command: "id -nG {{ deploy_user }}"
+      register: deploy_groups
+      changed_when: false
+      check_mode: false
+      # id -nG reads group membership only; it does not modify account state.
+
+    - name: Read locked deploy account shadow status without logging it
+      ansible.builtin.getent:
+        database: shadow
+        key: "{{ deploy_user }}"
+      no_log: true
+
+    - name: Assert deploy user identity and locked password state
+      ansible.builtin.assert:
+        that:
+          - ansible_facts.getent_passwd[deploy_user][1] | int == deploy_uid
+          - ansible_facts.getent_passwd[deploy_user][4] == deploy_home
+          - ansible_facts.getent_passwd[deploy_user][5] == '/bin/bash'
+          - deploy_user in deploy_groups.stdout.split()
+          - "'docker' in deploy_groups.stdout.split()"
+          - ansible_facts.getent_shadow[deploy_user][0] is match('^!')
+        success_msg: "PASS deploy user UID, home, shell, groups, and locked password"
+        fail_msg: "FAIL deploy user identity or password-lock state is incorrect"
+      no_log: true
+
+    - name: Inspect managed paths for ownership and mode verification
+      ansible.builtin.stat:
+        path: "{{ item.path }}"
+      loop:
+        - {path: "{{ shortly_config_dir }}", owner: root, group: root, mode: '0755', kind: directory}
+        - {path: "{{ shortly_env_file }}", owner: root, group: "{{ deploy_user }}", mode: '0640', kind: file}
+        - {path: "{{ deploy_sudoers_file }}", owner: root, group: root, mode: '0440', kind: file}
+        - {path: "{{ deploy_home }}/.kube", owner: "{{ deploy_user }}", group: "{{ deploy_user }}", mode: '0700', kind: directory}
+        - {path: "{{ deploy_home }}/.local/bin", owner: "{{ deploy_user }}", group: "{{ deploy_user }}", mode: '0755', kind: directory}
+        - {path: "{{ deploy_home }}/shortly", owner: "{{ deploy_user }}", group: "{{ deploy_user }}", mode: '0755', kind: directory}
+        - {path: "{{ deploy_home }}/.ssh", owner: "{{ deploy_user }}", group: "{{ deploy_user }}", mode: '0700', kind: directory}
+        - {path: "{{ deploy_bashrc_file }}", owner: "{{ deploy_user }}", group: "{{ deploy_user }}", mode: '0644', kind: file}
+        - {path: "{{ deploy_shell_snippet }}", owner: "{{ deploy_user }}", group: "{{ deploy_user }}", mode: '0644', kind: file}
+        - {path: "{{ deploy_minikube_config_file }}", owner: "{{ deploy_user }}", group: "{{ deploy_user }}", mode: '0600', kind: file}
+        - {path: "{{ shortly_log_dir }}", owner: root, group: root, mode: '0755', kind: directory}
+        - {path: "{{ shortly_logrotate_file }}", owner: root, group: root, mode: '0644', kind: file}
+        - {path: "{{ shortly_doctor_file }}", owner: root, group: root, mode: '0755', kind: file}
+      register: managed_path_stats
+
+    - name: Assert every managed path has its expected type, owner, group, and mode
+      ansible.builtin.assert:
+        that:
+          - item.stat.exists
+          - item.stat.pw_name == item.item.owner
+          - item.stat.gr_name == item.item.group
+          - item.stat.mode == item.item.mode
+          - (item.stat.isdir and item.item.kind == 'directory') or (item.stat.isreg and item.item.kind == 'file')
+        success_msg: "PASS {{ item.item.path }} owner/mode/type"
+        fail_msg: "FAIL {{ item.item.path }} owner/mode/type"
+      loop: "{{ managed_path_stats.results }}"
+      loop_control:
+        label: "{{ item.item.path }}"
+
+    - name: Validate sudoers drop-in syntax
+      ansible.builtin.command:
+        argv: ["{{ visudo_binary }}", -cf, "{{ deploy_sudoers_file }}"]
+      register: sudoers_check
+      changed_when: false
+      check_mode: false
+      # visudo -cf parses only and validates the managed drop-in.
+
+    - name: Assert sudoers validates
+      ansible.builtin.assert:
+        that: sudoers_check.rc == 0
+        success_msg: "PASS sudoers syntax"
+        fail_msg: "FAIL sudoers syntax: {{ sudoers_check.stderr }}"
+
+    - name: Check required command line tools are executable and report versions
+      ansible.builtin.command: "{{ item }}"
+      loop:
+        - kubectl version --client --output=yaml
+        - helm version --short
+        - minikube version --short
+      register: tool_versions
+      changed_when: false
+      check_mode: false
+      # Each command is a read-only version query, not a cluster operation.
+
+    - name: Assert kubectl, Helm, and minikube report versions
+      ansible.builtin.assert:
+        that: item.rc == 0 and item.stdout | length > 0
+        success_msg: "PASS {{ item.item }}"
+        fail_msg: "FAIL {{ item.item }}: {{ item.stderr }}"
+      loop: "{{ tool_versions.results }}"
+      loop_control:
+        label: "{{ item.item }}"
+
+    - name: Check managed headers without returning file contents
+      ansible.builtin.command:
+        argv: [grep, -Fq, "{{ item.marker }}", "{{ item.path }}"]
+      loop:
+        - {path: "{{ shortly_env_file }}", marker: 'Managed by Ansible (role shortly_config)'}
+        - {path: "{{ shortly_logrotate_file }}", marker: 'Managed by Ansible (role shortly_config)'}
+        - {path: "{{ shortly_doctor_file }}", marker: 'Managed by Ansible (role shortly_config)'}
+        - {path: "{{ deploy_shell_snippet }}", marker: 'Managed by Ansible (role deploy_user)'}
+      register: managed_header_checks
+      changed_when: false
+      failed_when: false
+      check_mode: false
+      loop_control:
+        label: "{{ item.path }}"
+      # grep only returns a status code, so secret-bearing file contents never enter the log.
+
+    - name: Assert managed-file header appears in every Ansible-owned file
+      ansible.builtin.assert:
+        that: item.rc == 0
+        success_msg: "PASS managed header {{ item.item.path }}"
+        fail_msg: "FAIL managed header {{ item.item.path }}"
+      loop: "{{ managed_header_checks.results }}"
+      loop_control:
+        label: "{{ item.item.path }}"
+
+    - name: Confirm the deploy shell loads its marked shortly snippet
+      ansible.builtin.command:
+        argv: [grep, -Fq, 'ANSIBLE MANAGED: shortly shell setup', "{{ deploy_bashrc_file }}"]
+      register: deploy_bashrc_marker
+      changed_when: false
+      failed_when: false
+      check_mode: false
+      # grep only reads the managed block marker from the shell startup file.
+
+    - name: Assert the deploy bashrc marker is present
+      ansible.builtin.assert:
+        that: deploy_bashrc_marker.rc == 0
+        success_msg: "PASS deploy bashrc block"
+        fail_msg: "FAIL deploy bashrc block"
+
+    - name: Assert managed short.local hosts block exists when enabled
+      ansible.builtin.command:
+        argv: [grep, -Fq, '# BEGIN ANSIBLE MANAGED: shortly', "{{ shortly_hosts_file }}"]
+      register: hosts_marker
+      changed_when: false
+      failed_when: false
+      check_mode: false
+      when: manage_hosts | bool
+      # grep only reads the configured hosts file to locate the blockinfile marker.
+
+    - name: Confirm managed hosts marker when enabled
+      ansible.builtin.assert:
+        that: hosts_marker.rc == 0
+        success_msg: "PASS short.local hosts block"
+        fail_msg: "FAIL short.local hosts block is absent"
+      when: manage_hosts | bool
+
+    - name: Print compact verification result table
+      ansible.builtin.debug:
+        msg:
+          - "PASS packages: {{ base_packages | length }} base packages"
+          - "PASS deploy: uid={{ deploy_uid }}, shell=/bin/bash, home={{ deploy_home }}, locked"
+          - "PASS managed paths: {{ managed_path_stats.results | length }} owner/mode/type checks"
+          - "PASS tools: kubectl, helm, minikube"
+          - "PASS sudoers and managed headers"
+          - "{{ 'PASS short.local hosts block' if manage_hosts else 'SKIP hosts block (manage_hosts=false)' }}"

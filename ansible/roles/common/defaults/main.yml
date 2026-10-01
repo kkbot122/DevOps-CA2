@@ -1,0 +1,16 @@
+---
+base_packages:
+  - ca-certificates
+  - curl
+  - gnupg
+  - git
+  - jq
+  - make
+  - unzip
+  - python3-pip
+  - python3-venv
+  - apt-transport-https
+  - net-tools
+  - dnsutils
+  - python3-debian
+timezone: Asia/Kolkata

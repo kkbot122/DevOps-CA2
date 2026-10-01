@@ -1,0 +1,5 @@
+---
+- name: Common role has no restart handlers
+  ansible.builtin.debug:
+    msg: "No common services require restart."
+  listen: common role changed

@@ -1,0 +1,260 @@
+
+PLAY [Preflight operating system support without privilege escalation] *********
+
+TASK [Gathering Facts] *********************************************************
+ok: [ansible-target]
+
+TASK [Resolve effective OS values while allowing the documented negative-test override] ***
+ok: [ansible-target]
+
+TASK [Refuse unsupported operating systems before configuration starts] ********
+ok: [ansible-target] => {
+    "changed": false,
+    "msg": "Supported target: Ubuntu 24.04"
+}
+
+PLAY [Configure shortly runtime on supported Debian and Ubuntu hosts] **********
+
+TASK [Record existing runtime tools without modifying the host] ****************
+ok: [ansible-target] => (item=docker)
+ok: [ansible-target] => (item=kubectl)
+ok: [ansible-target] => (item=helm)
+ok: [ansible-target] => (item=minikube)
+
+TASK [Save discovered runtime tool paths for role decisions] *******************
+ok: [ansible-target]
+
+TASK [common : Refresh apt metadata when cache is older than one hour] *********
+ok: [ansible-target]
+
+TASK [common : Install required base and troubleshooting packages] *************
+changed: [ansible-target]
+
+TASK [common : Set the configured system timezone when systemd is available] ***
+skipping: [ansible-target]
+
+TASK [common : Explain timezone skip on systems without systemd] ***************
+ok: [ansible-target] => {
+    "msg": "Skipping timezone management because sleep is not systemd."
+}
+
+TASK [docker : Check whether Docker is already on PATH] ************************
+ok: [ansible-target]
+
+TASK [docker : Check whether the Docker daemon package exists] *****************
+ok: [ansible-target]
+
+TASK [docker : Detect Docker Desktop WSL integration] **************************
+ok: [ansible-target]
+
+TASK [docker : Explain Docker Desktop WSL integration detection] ***************
+skipping: [ansible-target]
+
+TASK [docker : Decide whether this play should install Docker Engine] **********
+ok: [ansible-target]
+
+TASK [docker : Ensure the Docker group exists for the deploy account] **********
+changed: [ansible-target]
+
+TASK [docker : Map supported Debian architectures to Docker repository names] ***
+ok: [ansible-target]
+
+TASK [docker : Refuse Docker installation on an unsupported CPU architecture] ***
+ok: [ansible-target] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+
+TASK [docker : Create apt keyring directory for Docker's signing key] **********
+ok: [ansible-target]
+
+TASK [docker : Download Docker's official signing key] *************************
+changed: [ansible-target]
+
+TASK [docker : Read the downloaded Docker signing key fingerprint] *************
+ok: [ansible-target]
+
+TASK [docker : Show public Docker key fingerprint records for audit evidence] ***
+ok: [ansible-target] => {
+    "msg": "Docker key fingerprint records: ['fpr:::::::::9DC858229FC7DD38854AE2D88D81803C0EBFCD88:', 'fpr:::::::::D3306A018370199E527AE7997EA0A9C3F273FCD8:']"
+}
+
+TASK [docker : Verify Docker's official signing key fingerprint] ***************
+ok: [ansible-target] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+
+TASK [docker : Dearmor Docker's verified apt signing key] **********************
+changed: [ansible-target]
+
+TASK [docker : Set permissions on Docker apt keyring] **************************
+ok: [ansible-target]
+
+TASK [docker : Add Docker's signed deb822 apt repository] **********************
+changed: [ansible-target]
+
+TASK [docker : Install Docker Engine packages without upgrading existing packages] ***
+changed: [ansible-target]
+
+TASK [docker : Inspect existing Docker daemon configuration] *******************
+ok: [ansible-target]
+
+TASK [docker : Read existing Docker daemon configuration for ownership marker] ***
+skipping: [ansible-target]
+
+TASK [docker : Manage Docker daemon log rotation only when absent or owned by this role] ***
+changed: [ansible-target]
+
+TASK [docker : Mark managed Docker daemon configuration ownership] *************
+changed: [ansible-target]
+
+TASK [docker : Ensure Docker service is enabled and running under systemd] *****
+skipping: [ansible-target]
+
+TASK [docker : Add configured existing users to the Docker group] **************
+skipping: [ansible-target]
+
+TASK [k8s_tools : Map the host CPU architecture to upstream binary names] ******
+ok: [ansible-target]
+
+TASK [k8s_tools : Refuse tool installation for an unsupported CPU architecture] ***
+ok: [ansible-target] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+
+TASK [k8s_tools : Download pinned kubectl with its published checksum when needed] ***
+changed: [ansible-target]
+
+TASK [k8s_tools : Install pinned kubectl binary with executable permissions] ***
+changed: [ansible-target]
+
+TASK [k8s_tools : Download pinned Helm tarball with its published checksum when needed] ***
+changed: [ansible-target]
+
+TASK [k8s_tools : Extract pinned Helm binary under a temporary versioned directory] ***
+changed: [ansible-target]
+
+TASK [k8s_tools : Install pinned Helm binary with executable permissions] ******
+changed: [ansible-target]
+
+TASK [k8s_tools : Download pinned minikube with its published checksum when needed] ***
+changed: [ansible-target]
+
+TASK [k8s_tools : Install pinned minikube binary with executable permissions] ***
+changed: [ansible-target]
+
+TASK [k8s_tools : Ensure bash completion directory exists] *********************
+ok: [ansible-target]
+
+TASK [k8s_tools : Generate kubectl bash completion only when kubectl is executable] ***
+changed: [ansible-target]
+
+TASK [k8s_tools : Generate Helm bash completion only when Helm is executable] ***
+changed: [ansible-target]
+
+TASK [k8s_tools : Generate minikube bash completion only when minikube is executable] ***
+changed: [ansible-target]
+
+TASK [k8s_tools : Read kubectl client version without changing host state] *****
+ok: [ansible-target]
+
+TASK [k8s_tools : Read Helm version without changing host state] ***************
+ok: [ansible-target]
+
+TASK [k8s_tools : Read minikube version without changing host state] ***********
+ok: [ansible-target]
+
+TASK [k8s_tools : Print the detected tool versions] ****************************
+ok: [ansible-target] => {
+    "msg": [
+        "kubectl: clientVersion:\n  buildDate: \"2026-09-23T17:10:05Z\"\n  compiler: gc\n  gitCommit: ad950d1cc78b0183c476bd4d3f1934c104229727\n  gitTreeState: clean\n  gitVersion: v1.36.5\n  goVersion: go1.26.8\n  major: \"1\"\n  minor: \"36\"\n  platform: linux/arm64\nkustomizeVersion: v5.8.1",
+        "helm: v4.2.2+gb05881c",
+        "minikube: v1.39.0"
+    ]
+}
+
+TASK [deploy_user : Create the dedicated deploy group with its fixed GID] ******
+changed: [ansible-target]
+
+TASK [deploy_user : Create the locked deploy account without changing any existing user] ***
+changed: [ansible-target]
+
+TASK [deploy_user : Ensure deploy user's Kubernetes and project directories exist] ***
+changed: [ansible-target] => (item={'path': '/home/deploy/.kube', 'mode': '0700'})
+changed: [ansible-target] => (item={'path': '/home/deploy/.local/bin', 'mode': '0755'})
+changed: [ansible-target] => (item={'path': '/home/deploy/shortly', 'mode': '0755'})
+changed: [ansible-target] => (item={'path': '/home/deploy/.ssh', 'mode': '0700'})
+changed: [ansible-target] => (item={'path': '/home/deploy/.bashrc.d', 'mode': '0755'})
+changed: [ansible-target] => (item={'path': '/home/deploy/.minikube/config', 'mode': '0700'})
+
+TASK [deploy_user : Install an optional deploy SSH public key] *****************
+skipping: [ansible-target]
+
+TASK [deploy_user : Install validated narrow sudoers permissions for deploy] ***
+changed: [ansible-target]
+
+TASK [deploy_user : Install deploy user's shortly shell environment snippet] ***
+changed: [ansible-target]
+
+TASK [deploy_user : Load the shortly shell snippet from deploy user's bashrc] ***
+changed: [ansible-target]
+
+TASK [shortly_config : Ensure shortly configuration directory exists] **********
+changed: [ansible-target]
+
+TASK [shortly_config : Install shortly environment values without exposing token diffs or logs] ***
+changed: [ansible-target]
+
+TASK [shortly_config : Check whether deploy already has a minikube configuration] ***
+ok: [ansible-target]
+
+TASK [shortly_config : Create deploy user's minikube defaults only when its config is absent] ***
+changed: [ansible-target]
+
+TASK [shortly_config : Explain preservation of an existing deploy minikube configuration] ***
+skipping: [ansible-target]
+
+TASK [shortly_config : Ensure shortly log directory exists] ********************
+changed: [ansible-target]
+
+TASK [shortly_config : Install shortly logrotate policy] ***********************
+changed: [ansible-target]
+
+TASK [shortly_config : Read minikube profile details for short.local address selection] ***
+skipping: [ansible-target]
+
+TASK [shortly_config : Read minikube profile IP for short.local address selection] ***
+skipping: [ansible-target]
+
+TASK [shortly_config : Detect a Linux-native Docker driver from minikube profile data] ***
+ok: [ansible-target]
+
+TASK [shortly_config : Choose the short.local address] *************************
+ok: [ansible-target]
+
+TASK [shortly_config : Manage the short.local hosts entry using a marked block] ***
+changed: [ansible-target]
+
+TASK [shortly_config : Explain disabled short.local hosts management] **********
+skipping: [ansible-target]
+
+TASK [shortly_config : Check whether the GitHub Actions runner directory exists] ***
+ok: [ansible-target]
+
+TASK [shortly_config : Configure GitHub Actions runner PATH and environment files] ***
+skipping: [ansible-target] => (item={'src': 'runner.path.j2', 'dest': '.path'})
+skipping: [ansible-target] => (item={'src': 'runner.env.j2', 'dest': '.env'})
+skipping: [ansible-target]
+
+TASK [shortly_config : Explain skipped runner environment because the runner is not installed] ***
+ok: [ansible-target] => {
+    "msg": "Skipping GitHub runner environment because /home/deploy/actions-runner does not exist."
+}
+
+TASK [shortly_config : Install shortly-doctor operator helper] *****************
+changed: [ansible-target]
+
+PLAY RECAP *********************************************************************
+ansible-target             : ok=62   changed=31   unreachable=0    failed=0    skipped=11   rescued=0    ignored=0

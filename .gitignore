@@ -1,4 +1,6 @@
 .venv*/
+ansible/.ansible/
+ansible/.cache/
 __pycache__/
 .pytest_cache/
 .ruff_cache/

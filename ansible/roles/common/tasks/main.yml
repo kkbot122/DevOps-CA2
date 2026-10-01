@@ -1,0 +1,24 @@
+---
+- name: Refresh apt metadata when cache is older than one hour
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 3600
+  tags: [common, packages]
+
+- name: Install required base and troubleshooting packages
+  ansible.builtin.apt:
+    name: "{{ base_packages }}"
+    state: present
+  tags: [common, packages]
+
+- name: Set the configured system timezone when systemd is available
+  community.general.timezone:
+    name: "{{ timezone }}"
+  when: ansible_facts.service_mgr == 'systemd'
+  tags: [common]
+
+- name: Explain timezone skip on systems without systemd
+  ansible.builtin.debug:
+    msg: "Skipping timezone management because {{ ansible_facts.service_mgr }} is not systemd."
+  when: ansible_facts.service_mgr != 'systemd'
+  tags: [common]

@@ -1,0 +1,45 @@
+--- versions ---
+Docker version 29.5.3, build d1c06ef
+Client Version: v1.36.3
+Kustomize Version: v5.8.1
+v4.3.0+gbec5b06
+v1.38.1
+--- docker ps ---
+CONTAINER ID   IMAGE                                 COMMAND                  CREATED      STATUS       PORTS                                                                                                                                  NAMES
+95e317d8a2aa   gcr.io/k8s-minikube/kicbase:v0.0.50   "/usr/local/bin/entr…"   2 days ago   Up 3 hours   127.0.0.1:49707->22/tcp, 127.0.0.1:49708->2376/tcp, 127.0.0.1:49710->5000/tcp, 127.0.0.1:49711->8443/tcp, 127.0.0.1:49709->32443/tcp   shortly
+--- minikube status ---
+shortly
+type: Control Plane
+host: Running
+kubelet: Running
+apiserver: Running
+kubeconfig: Configured
+
+--- urlshortener pods ---
+NAME                       READY   STATUS    RESTARTS      AGE   IP             NODE      NOMINATED NODE   READINESS GATES
+redis-787c44d897-chvt5     1/1     Running   1 (23h ago)   23h   10.244.0.127   shortly   <none>           <none>
+shortly-797d9c89c6-6rnb6   1/1     Running   0             62m   10.244.0.159   shortly   <none>           <none>
+shortly-797d9c89c6-nwj66   1/1     Running   0             61m   10.244.0.160   shortly   <none>           <none>
+--- smoke ---
+BASE=http://short.local HOST_HEADER= bash scripts/smoke.sh
+curl: (6) Could not resolve host: short.local
+FAIL home page (expected HTTP 200, got 000)
+FAIL home page content
+curl: (6) Could not resolve host: short.local
+FAIL liveness (expected HTTP 200, got 000)
+curl: (6) Could not resolve host: short.local
+FAIL readiness (expected HTTP 200, got 000)
+curl: (6) Could not resolve host: short.local
+FAIL shorten (expected HTTP 201, got 000)
+FAIL redirect skipped because link creation failed
+curl: (6) Could not resolve host: short.local
+FAIL unknown code (expected HTTP 404, got 000)
+curl: (6) Could not resolve host: short.local
+FAIL duplicate alias (expected HTTP 409, got 000)
+curl: (6) Could not resolve host: short.local
+FAIL invalid URL (expected HTTP 422, got 000)
+curl: (6) Could not resolve host: short.local
+FAIL blocked domain (expected HTTP 403, got 000)
+10 smoke check(s) failed
+make: *** [smoke] Error 1
+smoke_exit=2

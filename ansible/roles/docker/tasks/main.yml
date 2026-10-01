@@ -1,0 +1,190 @@
+---
+- name: Check whether Docker is already on PATH
+  ansible.builtin.set_fact:
+    docker_binary_present: "{{ shortly_tool_paths.docker | default('') | length > 0 }}"
+  tags: [docker, packages]
+
+- name: Check whether the Docker daemon package exists
+  ansible.builtin.package_facts:
+    manager: auto
+  tags: [docker, packages]
+
+- name: Detect Docker Desktop WSL integration
+  ansible.builtin.set_fact:
+    docker_desktop_wsl: >-
+      {{ (ansible_facts.env.WSL_INTEROP is defined or 'microsoft' in (ansible_facts.kernel | lower)) and
+      docker_binary_present and 'docker-ce' not in ansible_facts.packages and
+      'docker.io' not in ansible_facts.packages }}
+  tags: [docker, packages]
+
+- name: Explain Docker Desktop WSL integration detection
+  ansible.builtin.debug:
+    msg: "Docker is on PATH through Docker Desktop WSL integration; no dockerd package exists, so package installation is skipped."
+  when: docker_desktop_wsl
+  tags: [docker, packages]
+
+- name: Decide whether this play should install Docker Engine
+  ansible.builtin.set_fact:
+    docker_should_install: >-
+      {{ not docker_desktop_wsl and
+      (docker_install | bool if docker_install is not string or docker_install != 'auto' else not docker_binary_present) }}
+  tags: [docker, packages]
+
+- name: Ensure the Docker group exists for the deploy account
+  ansible.builtin.group:
+    name: "{{ docker_repository_name }}"
+    state: present
+  tags: [docker, users]
+
+- name: Map supported Debian architectures to Docker repository names
+  ansible.builtin.set_fact:
+    docker_repository_arch: "{{ docker_arch_map[ansible_facts.architecture] | default('unsupported') }}"
+  when: docker_should_install
+  tags: [docker, packages]
+
+- name: Refuse Docker installation on an unsupported CPU architecture
+  ansible.builtin.assert:
+    that: docker_repository_arch != 'unsupported'
+    fail_msg: "Docker repository architecture mapping is missing for {{ ansible_facts.architecture }}."
+  when: docker_should_install
+  tags: [docker, packages]
+
+- name: Create apt keyring directory for Docker's signing key
+  ansible.builtin.file:
+    path: "{{ docker_keyring_dir }}"
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+  when: docker_should_install
+  tags: [docker, packages, files]
+
+- name: Download Docker's official signing key
+  ansible.builtin.get_url:
+    url: "https://download.docker.com/linux/{{ ansible_facts.distribution | lower }}/gpg"
+    dest: "{{ docker_key_download_path }}"
+    mode: '0644'
+  when: docker_should_install
+  tags: [docker, packages]
+
+- name: Read the downloaded Docker signing key fingerprint
+  ansible.builtin.command: "gpg --show-keys --with-colons {{ docker_key_download_path }}"
+  register: docker_signing_key
+  changed_when: false
+  check_mode: false
+  when: docker_should_install
+  tags: [docker, packages]
+  # gpg --show-keys only reads the downloaded public key to verify its identity.
+
+- name: Show public Docker key fingerprint records for audit evidence
+  ansible.builtin.debug:
+    msg: "Docker key fingerprint records: {{ docker_signing_key.stdout_lines | select('match', '^fpr:') | list }}"
+  when: docker_should_install
+  tags: [docker, packages]
+
+- name: Verify Docker's official signing key fingerprint
+  ansible.builtin.assert:
+    that: "'9DC858229FC7DD38854AE2D88D81803C0EBFCD88' in (docker_signing_key.stdout | upper | replace(' ', ''))"
+    fail_msg: "The downloaded Docker apt key fingerprint is not the expected official key."
+  when: docker_should_install
+  tags: [docker, packages]
+
+- name: Dearmor Docker's verified apt signing key
+  ansible.builtin.command:
+    argv: [gpg, --dearmor, --yes, --output, "{{ docker_keyring_path }}", "{{ docker_key_download_path }}"]
+    creates: "{{ docker_keyring_path }}"
+  changed_when: true
+  when: docker_should_install
+  tags: [docker, packages]
+
+- name: Set permissions on Docker apt keyring
+  ansible.builtin.file:
+    path: "{{ docker_keyring_path }}"
+    owner: root
+    group: root
+    mode: '0644'
+  when: docker_should_install
+  tags: [docker, packages, files]
+
+- name: Add Docker's signed deb822 apt repository
+  ansible.builtin.deb822_repository:
+    name: docker
+    types: deb
+    uris: "https://download.docker.com/linux/{{ ansible_facts.distribution | lower }}"
+    suites: "{{ ansible_facts.distribution_release }}"
+    components: [stable]
+    architectures: "{{ docker_repository_arch }}"
+    signed_by: "{{ docker_keyring_path }}"
+    state: present
+  when: docker_should_install
+  tags: [docker, packages]
+
+- name: Install Docker Engine packages without upgrading existing packages
+  ansible.builtin.apt:
+    name: [docker-ce, docker-ce-cli, containerd.io, docker-buildx-plugin, docker-compose-plugin]
+    state: present
+    update_cache: true
+  when: docker_should_install
+  tags: [docker, packages]
+
+- name: Inspect existing Docker daemon configuration
+  ansible.builtin.stat:
+    path: "{{ docker_daemon_config }}"
+  register: docker_daemon_stat
+  when: docker_should_install
+  tags: [docker, files]
+
+- name: Read existing Docker daemon configuration for ownership marker
+  ansible.builtin.slurp:
+    src: "{{ docker_daemon_config }}"
+  register: docker_daemon_content
+  when:
+    - docker_should_install
+    - docker_daemon_stat.stat.exists
+  tags: [docker, files]
+
+- name: Manage Docker daemon log rotation only when absent or owned by this role
+  ansible.builtin.template:
+    src: daemon.json.j2
+    dest: "{{ docker_daemon_config }}"
+    owner: root
+    group: root
+    mode: '0644'
+    backup: false
+  when:
+    - docker_should_install
+    - not docker_daemon_stat.stat.exists or 'managed by ansible' in (docker_daemon_content.content | default('') | b64decode)
+  notify: "{{ ['restart docker after daemon config change'] if ansible_facts.service_mgr == 'systemd' else [] }}"
+  tags: [docker, files]
+
+- name: Mark managed Docker daemon configuration ownership
+  ansible.builtin.copy:
+    content: "managed by ansible: Docker daemon log rotation\n"
+    dest: "{{ docker_daemon_config }}.ansible-managed"
+    owner: root
+    group: root
+    mode: '0644'
+    backup: false
+  when:
+    - docker_should_install
+    - not docker_daemon_stat.stat.exists or 'managed by ansible' in (docker_daemon_content.content | default('') | b64decode)
+  tags: [docker, files]
+
+- name: Ensure Docker service is enabled and running under systemd
+  ansible.builtin.service:
+    name: docker
+    enabled: true
+    state: started
+  when:
+    - docker_should_install
+    - ansible_facts.service_mgr == 'systemd'
+  tags: [docker]
+
+- name: Add configured existing users to the Docker group
+  ansible.builtin.user:
+    name: "{{ item }}"
+    groups: docker
+    append: true
+  loop: "{{ docker_extra_users }}"
+  when: docker_extra_users | length > 0
+  tags: [docker, users]

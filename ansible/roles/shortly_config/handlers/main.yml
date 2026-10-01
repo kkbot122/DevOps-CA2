@@ -1,0 +1,5 @@
+---
+- name: Tell the operator to restart the GitHub runner service
+  ansible.builtin.debug:
+    msg: "restart the runner service to apply"
+  listen: runner environment changed

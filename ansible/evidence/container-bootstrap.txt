@@ -1,0 +1,244 @@
+Get:1 http://ports.ubuntu.com/ubuntu-ports noble InRelease [256 kB]
+Get:2 http://ports.ubuntu.com/ubuntu-ports noble-updates InRelease [126 kB]
+Get:3 http://ports.ubuntu.com/ubuntu-ports noble-backports InRelease [126 kB]
+Get:4 http://ports.ubuntu.com/ubuntu-ports noble-security InRelease [126 kB]
+Get:5 http://ports.ubuntu.com/ubuntu-ports noble/main arm64 Packages [1776 kB]
+Get:6 http://ports.ubuntu.com/ubuntu-ports noble/restricted arm64 Packages [113 kB]
+Get:7 http://ports.ubuntu.com/ubuntu-ports noble/universe arm64 Packages [19.0 MB]
+Get:8 http://ports.ubuntu.com/ubuntu-ports noble/multiverse arm64 Packages [274 kB]
+Get:9 http://ports.ubuntu.com/ubuntu-ports noble-updates/main arm64 Packages [1753 kB]
+Get:10 http://ports.ubuntu.com/ubuntu-ports noble-updates/universe arm64 Packages [2201 kB]
+Get:11 http://ports.ubuntu.com/ubuntu-ports noble-updates/multiverse arm64 Packages [94.8 kB]
+Get:12 http://ports.ubuntu.com/ubuntu-ports noble-updates/restricted arm64 Packages [3122 kB]
+Get:13 http://ports.ubuntu.com/ubuntu-ports noble-backports/main arm64 Packages [49.0 kB]
+Get:14 http://ports.ubuntu.com/ubuntu-ports noble-backports/multiverse arm64 Packages [671 B]
+Get:15 http://ports.ubuntu.com/ubuntu-ports noble-backports/universe arm64 Packages [36.3 kB]
+Get:16 http://ports.ubuntu.com/ubuntu-ports noble-security/main arm64 Packages [1388 kB]
+Get:17 http://ports.ubuntu.com/ubuntu-ports noble-security/universe arm64 Packages [1624 kB]
+Get:18 http://ports.ubuntu.com/ubuntu-ports noble-security/restricted arm64 Packages [2886 kB]
+Get:19 http://ports.ubuntu.com/ubuntu-ports noble-security/multiverse arm64 Packages [89.7 kB]
+Fetched 35.1 MB in 9s (3744 kB/s)
+Reading package lists...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following additional packages will be installed:
+  ca-certificates libapparmor1 libexpat1 libpython3-stdlib
+  libpython3.12-minimal libpython3.12-stdlib libreadline8t64 libsqlite3-0
+  libssl3t64 media-types netbase openssl python3-minimal python3.12
+  python3.12-minimal readline-common tzdata
+Suggested packages:
+  python3-doc python3-tk python3-venv python3.12-venv python3.12-doc binutils
+  binfmt-support readline-doc
+The following NEW packages will be installed:
+  ca-certificates libapparmor1 libexpat1 libpython3-stdlib
+  libpython3.12-minimal libpython3.12-stdlib libreadline8t64 libsqlite3-0
+  media-types netbase openssl python3 python3-minimal python3.12
+  python3.12-minimal readline-common sudo tzdata
+The following packages will be upgraded:
+  libssl3t64
+1 upgraded, 18 newly installed, 0 to remove and 3 not upgraded.
+Need to get 11.1 MB of archives.
+After this operation, 35.9 MB of additional disk space will be used.
+Get:1 http://ports.ubuntu.com/ubuntu-ports noble-updates/main arm64 libssl3t64 arm64 3.0.13-0ubuntu3.16 [1838 kB]
+Get:2 http://ports.ubuntu.com/ubuntu-ports noble-updates/main arm64 libpython3.12-minimal arm64 3.12.3-1ubuntu0.17 [835 kB]
+Get:3 http://ports.ubuntu.com/ubuntu-ports noble-updates/main arm64 libexpat1 arm64 2.6.1-2ubuntu0.6 [89.8 kB]
+Get:4 http://ports.ubuntu.com/ubuntu-ports noble-updates/main arm64 python3.12-minimal arm64 3.12.3-1ubuntu0.17 [2253 kB]
+Get:5 http://ports.ubuntu.com/ubuntu-ports noble-updates/main arm64 python3-minimal arm64 3.12.3-0ubuntu2.1 [27.4 kB]
+Get:6 http://ports.ubuntu.com/ubuntu-ports noble/main arm64 media-types all 10.1.0 [27.5 kB]
+Get:7 http://ports.ubuntu.com/ubuntu-ports noble/main arm64 netbase all 6.4 [13.1 kB]
+Get:8 http://ports.ubuntu.com/ubuntu-ports noble-updates/main arm64 tzdata all 2026c-0ubuntu0.24.04.1 [280 kB]
+Get:9 http://ports.ubuntu.com/ubuntu-ports noble/main arm64 readline-common all 8.2-4build1 [56.5 kB]
+Get:10 http://ports.ubuntu.com/ubuntu-ports noble/main arm64 libreadline8t64 arm64 8.2-4build1 [153 kB]
+Get:11 http://ports.ubuntu.com/ubuntu-ports noble-updates/main arm64 libsqlite3-0 arm64 3.45.1-1ubuntu2.8 [691 kB]
+Get:12 http://ports.ubuntu.com/ubuntu-ports noble-updates/main arm64 libpython3.12-stdlib arm64 3.12.3-1ubuntu0.17 [2039 kB]
+Get:13 http://ports.ubuntu.com/ubuntu-ports noble-updates/main arm64 python3.12 arm64 3.12.3-1ubuntu0.17 [651 kB]
+Get:14 http://ports.ubuntu.com/ubuntu-ports noble-updates/main arm64 libpython3-stdlib arm64 3.12.3-0ubuntu2.1 [10.1 kB]
+Get:15 http://ports.ubuntu.com/ubuntu-ports noble-updates/main arm64 python3 arm64 3.12.3-0ubuntu2.1 [23.0 kB]
+Get:16 http://ports.ubuntu.com/ubuntu-ports noble-updates/main arm64 openssl arm64 3.0.13-0ubuntu3.16 [985 kB]
+Get:17 http://ports.ubuntu.com/ubuntu-ports noble-updates/main arm64 ca-certificates all 20260601~24.04.1 [139 kB]
+Get:18 http://ports.ubuntu.com/ubuntu-ports noble-updates/main arm64 libapparmor1 arm64 4.0.1really4.0.1-0ubuntu0.24.04.8 [51.9 kB]
+Get:19 http://ports.ubuntu.com/ubuntu-ports noble-updates/main arm64 sudo arm64 1.9.15p5-3ubuntu5.24.04.3 [930 kB]
+debconf: delaying package configuration, since apt-utils is not installed
+Fetched 11.1 MB in 4s (2818 kB/s)
+(Reading database ...
+(Reading database ... 5%
+(Reading database ... 10%
+(Reading database ... 15%
+(Reading database ... 20%
+(Reading database ... 25%
+(Reading database ... 30%
+(Reading database ... 35%
+(Reading database ... 40%
+(Reading database ... 45%
+(Reading database ... 50%
+(Reading database ... 55%
+(Reading database ... 60%
+(Reading database ... 65%
+(Reading database ... 70%
+(Reading database ... 75%
+(Reading database ... 80%
+(Reading database ... 85%
+(Reading database ... 90%
+(Reading database ... 95%
+(Reading database ... 100%
+(Reading database ... 4376 files and directories currently installed.)
+Preparing to unpack .../libssl3t64_3.0.13-0ubuntu3.16_arm64.deb ...
+Unpacking libssl3t64:arm64 (3.0.13-0ubuntu3.16) over (3.0.13-0ubuntu3.15) ...
+Setting up libssl3t64:arm64 (3.0.13-0ubuntu3.16) ...
+Selecting previously unselected package libpython3.12-minimal:arm64.
+(Reading database ...
+(Reading database ... 5%
+(Reading database ... 10%
+(Reading database ... 15%
+(Reading database ... 20%
+(Reading database ... 25%
+(Reading database ... 30%
+(Reading database ... 35%
+(Reading database ... 40%
+(Reading database ... 45%
+(Reading database ... 50%
+(Reading database ... 55%
+(Reading database ... 60%
+(Reading database ... 65%
+(Reading database ... 70%
+(Reading database ... 75%
+(Reading database ... 80%
+(Reading database ... 85%
+(Reading database ... 90%
+(Reading database ... 95%
+(Reading database ... 100%
+(Reading database ... 4376 files and directories currently installed.)
+Preparing to unpack .../libpython3.12-minimal_3.12.3-1ubuntu0.17_arm64.deb ...
+Unpacking libpython3.12-minimal:arm64 (3.12.3-1ubuntu0.17) ...
+Selecting previously unselected package libexpat1:arm64.
+Preparing to unpack .../libexpat1_2.6.1-2ubuntu0.6_arm64.deb ...
+Unpacking libexpat1:arm64 (2.6.1-2ubuntu0.6) ...
+Selecting previously unselected package python3.12-minimal.
+Preparing to unpack .../python3.12-minimal_3.12.3-1ubuntu0.17_arm64.deb ...
+Unpacking python3.12-minimal (3.12.3-1ubuntu0.17) ...
+Setting up libpython3.12-minimal:arm64 (3.12.3-1ubuntu0.17) ...
+Setting up libexpat1:arm64 (2.6.1-2ubuntu0.6) ...
+Setting up python3.12-minimal (3.12.3-1ubuntu0.17) ...
+Selecting previously unselected package python3-minimal.
+(Reading database ...
+(Reading database ... 5%
+(Reading database ... 10%
+(Reading database ... 15%
+(Reading database ... 20%
+(Reading database ... 25%
+(Reading database ... 30%
+(Reading database ... 35%
+(Reading database ... 40%
+(Reading database ... 45%
+(Reading database ... 50%
+(Reading database ... 55%
+(Reading database ... 60%
+(Reading database ... 65%
+(Reading database ... 70%
+(Reading database ... 75%
+(Reading database ... 80%
+(Reading database ... 85%
+(Reading database ... 90%
+(Reading database ... 95%
+(Reading database ... 100%
+(Reading database ... 4695 files and directories currently installed.)
+Preparing to unpack .../0-python3-minimal_3.12.3-0ubuntu2.1_arm64.deb ...
+Unpacking python3-minimal (3.12.3-0ubuntu2.1) ...
+Selecting previously unselected package media-types.
+Preparing to unpack .../1-media-types_10.1.0_all.deb ...
+Unpacking media-types (10.1.0) ...
+Selecting previously unselected package netbase.
+Preparing to unpack .../2-netbase_6.4_all.deb ...
+Unpacking netbase (6.4) ...
+Selecting previously unselected package tzdata.
+Preparing to unpack .../3-tzdata_2026c-0ubuntu0.24.04.1_all.deb ...
+Unpacking tzdata (2026c-0ubuntu0.24.04.1) ...
+Selecting previously unselected package readline-common.
+Preparing to unpack .../4-readline-common_8.2-4build1_all.deb ...
+Unpacking readline-common (8.2-4build1) ...
+Selecting previously unselected package libreadline8t64:arm64.
+Preparing to unpack .../5-libreadline8t64_8.2-4build1_arm64.deb ...
+Adding 'diversion of /lib/aarch64-linux-gnu/libhistory.so.8 to /lib/aarch64-linux-gnu/libhistory.so.8.usr-is-merged by libreadline8t64'
+Adding 'diversion of /lib/aarch64-linux-gnu/libhistory.so.8.2 to /lib/aarch64-linux-gnu/libhistory.so.8.2.usr-is-merged by libreadline8t64'
+Adding 'diversion of /lib/aarch64-linux-gnu/libreadline.so.8 to /lib/aarch64-linux-gnu/libreadline.so.8.usr-is-merged by libreadline8t64'
+Adding 'diversion of /lib/aarch64-linux-gnu/libreadline.so.8.2 to /lib/aarch64-linux-gnu/libreadline.so.8.2.usr-is-merged by libreadline8t64'
+Unpacking libreadline8t64:arm64 (8.2-4build1) ...
+Selecting previously unselected package libsqlite3-0:arm64.
+Preparing to unpack .../6-libsqlite3-0_3.45.1-1ubuntu2.8_arm64.deb ...
+Unpacking libsqlite3-0:arm64 (3.45.1-1ubuntu2.8) ...
+Selecting previously unselected package libpython3.12-stdlib:arm64.
+Preparing to unpack .../7-libpython3.12-stdlib_3.12.3-1ubuntu0.17_arm64.deb ...
+Unpacking libpython3.12-stdlib:arm64 (3.12.3-1ubuntu0.17) ...
+Selecting previously unselected package python3.12.
+Preparing to unpack .../8-python3.12_3.12.3-1ubuntu0.17_arm64.deb ...
+Unpacking python3.12 (3.12.3-1ubuntu0.17) ...
+Selecting previously unselected package libpython3-stdlib:arm64.
+Preparing to unpack .../9-libpython3-stdlib_3.12.3-0ubuntu2.1_arm64.deb ...
+Unpacking libpython3-stdlib:arm64 (3.12.3-0ubuntu2.1) ...
+Setting up python3-minimal (3.12.3-0ubuntu2.1) ...
+Selecting previously unselected package python3.
+(Reading database ...
+(Reading database ... 5%
+(Reading database ... 10%
+(Reading database ... 15%
+(Reading database ... 20%
+(Reading database ... 25%
+(Reading database ... 30%
+(Reading database ... 35%
+(Reading database ... 40%
+(Reading database ... 45%
+(Reading database ... 50%
+(Reading database ... 55%
+(Reading database ... 60%
+(Reading database ... 65%
+(Reading database ... 70%
+(Reading database ... 75%
+(Reading database ... 80%
+(Reading database ... 85%
+(Reading database ... 90%
+(Reading database ... 95%
+(Reading database ... 100%
+(Reading database ... 5701 files and directories currently installed.)
+Preparing to unpack .../python3_3.12.3-0ubuntu2.1_arm64.deb ...
+Unpacking python3 (3.12.3-0ubuntu2.1) ...
+Selecting previously unselected package openssl.
+Preparing to unpack .../openssl_3.0.13-0ubuntu3.16_arm64.deb ...
+Unpacking openssl (3.0.13-0ubuntu3.16) ...
+Selecting previously unselected package ca-certificates.
+Preparing to unpack .../ca-certificates_20260601~24.04.1_all.deb ...
+Unpacking ca-certificates (20260601~24.04.1) ...
+Selecting previously unselected package libapparmor1:arm64.
+Preparing to unpack .../libapparmor1_4.0.1really4.0.1-0ubuntu0.24.04.8_arm64.deb ...
+Unpacking libapparmor1:arm64 (4.0.1really4.0.1-0ubuntu0.24.04.8) ...
+Selecting previously unselected package sudo.
+Preparing to unpack .../sudo_1.9.15p5-3ubuntu5.24.04.3_arm64.deb ...
+Unpacking sudo (1.9.15p5-3ubuntu5.24.04.3) ...
+Setting up media-types (10.1.0) ...
+Setting up libapparmor1:arm64 (4.0.1really4.0.1-0ubuntu0.24.04.8) ...
+Setting up libsqlite3-0:arm64 (3.45.1-1ubuntu2.8) ...
+Setting up tzdata (2026c-0ubuntu0.24.04.1) ...
+
+Current default time zone: 'Etc/UTC'
+Local time is now:      Thu Oct  1 19:57:06 UTC 2026.
+Universal Time is now:  Thu Oct  1 19:57:06 UTC 2026.
+Run 'dpkg-reconfigure tzdata' if you wish to change it.
+
+Setting up sudo (1.9.15p5-3ubuntu5.24.04.3) ...
+Setting up netbase (6.4) ...
+Setting up openssl (3.0.13-0ubuntu3.16) ...
+Setting up readline-common (8.2-4build1) ...
+Setting up ca-certificates (20260601~24.04.1) ...
+Updating certificates in /etc/ssl/certs...
+121 added, 0 removed; done.
+Setting up libreadline8t64:arm64 (8.2-4build1) ...
+Setting up libpython3.12-stdlib:arm64 (3.12.3-1ubuntu0.17) ...
+Setting up python3.12 (3.12.3-1ubuntu0.17) ...
+Setting up libpython3-stdlib:arm64 (3.12.3-0ubuntu2.1) ...
+Setting up python3 (3.12.3-0ubuntu2.1) ...
+Processing triggers for libc-bin (2.39-0ubuntu8.9) ...
+Processing triggers for ca-certificates (20260601~24.04.1) ...
+Updating certificates in /etc/ssl/certs...
+0 added, 0 removed; done.
+Running hooks in /etc/ca-certificates/update.d...
+done.

@@ -4,10 +4,13 @@ set -euo pipefail
 
 BASE=${BASE:-http://short.local}
 BASE=${BASE%/}
-curl_args=()
-if [[ -n ${HOST_HEADER:-} ]]; then
-    curl_args+=(-H "Host: $HOST_HEADER")
-fi
+curl_request() {
+    if [[ -n ${HOST_HEADER:-} ]]; then
+        curl -H "Host: $HOST_HEADER" "$@"
+    else
+        curl "$@"
+    fi
+}
 body_file=$(mktemp)
 header_file=$(mktemp)
 failures=0
@@ -32,7 +35,7 @@ check_status() {
 
 request() {
     local status
-    status=$(curl "${curl_args[@]}" -sS --max-time 8 -o "$body_file" -w '%{http_code}' "$@") || status=000
+    status=$(curl_request -sS --max-time 8 -o "$body_file" -w '%{http_code}' "$@") || status=000
     printf '%s' "$status"
 }
 
@@ -61,7 +64,7 @@ import sys
 print(json.load(open(sys.argv[1], encoding="utf-8"))["code"])
 PY
     )
-    status=$(curl "${curl_args[@]}" -sS --max-time 8 -D "$header_file" -o "$body_file" -w '%{http_code}' "$BASE/$code") || status=000
+    status=$(curl_request -sS --max-time 8 -D "$header_file" -o "$body_file" -w '%{http_code}' "$BASE/$code") || status=000
     check_status 'redirect' 302 "$status"
     if [[ $status == 302 ]] && grep -Fqi "location: $destination" "$header_file"; then
         echo 'PASS redirect Location'

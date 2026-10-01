@@ -1,0 +1,8 @@
+profile: production
+offline: false
+exclude_paths:
+  - evidence/
+# Kept because the assignment fixes shared knobs such as deploy_user and
+# tools_enforce_versions; renaming them per role would make its required CLI vars unusable.
+skip_list:
+  - var-naming[no-role-prefix]

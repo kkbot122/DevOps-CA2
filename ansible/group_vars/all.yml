@@ -1,0 +1,75 @@
+---
+# Project choices. Role defaults provide fallback values for reusable roles.
+timezone: Asia/Kolkata # Applied only when systemd is available.
+# Packages installed from apt; python3-debian supports deb822_repository.
+base_packages:
+  - ca-certificates
+  - curl
+  - gnupg
+  - git
+  - jq
+  - make
+  - unzip
+  - python3-pip
+  - python3-venv
+  - apt-transport-https
+  - net-tools
+  - dnsutils
+  - python3-debian # Required by ansible.builtin.deb822_repository.
+
+# Docker paths used when the Engine CLI is absent.
+docker_keyring_dir: /etc/apt/keyrings # Trusted apt key storage directory.
+docker_keyring_path: /etc/apt/keyrings/docker.gpg # Dearmored official Docker key.
+docker_key_download_path: /tmp/docker.asc # Temporary ASCII key download.
+docker_repository_name: docker # Name of the Docker deb822 source file.
+docker_daemon_config: /etc/docker/daemon.json # Managed only when absent or role-owned.
+docker_arch_map: {x86_64: amd64, aarch64: arm64} # Docker repository CPU names.
+
+# Shell completion destination for k8s_tools.
+k8s_tool_completion_dir: /etc/bash_completion.d
+k8s_tool_bin_dir: /usr/local/bin # Destination for checksum-verified tool installs.
+k8s_tool_tmp: /tmp # Staging directory for upstream binaries.
+k8s_tool_arch_map: {x86_64: amd64, aarch64: arm64} # Upstream binary CPU names.
+
+# Dedicated deploy account paths and validation utility.
+deploy_sudoers_file: /etc/sudoers.d/90-deploy # Validated, narrow service-status rules.
+deploy_bashrc_file: "{{ deploy_home }}/.bashrc" # Startup file that sources shortly.sh.
+deploy_shell_snippet: "{{ deploy_home }}/.bashrc.d/shortly.sh" # Deploy aliases and KUBECONFIG.
+systemctl_binary: /usr/bin/systemctl # Command allowed in the deploy sudoers drop-in.
+visudo_binary: /usr/sbin/visudo # Syntax validator for the sudoers file.
+
+# Paths for shortly configuration and its managed host mapping.
+shortly_config_dir: /etc/shortly # Parent for shortly.env.
+shortly_env_file: /etc/shortly/shortly.env # Runtime values; token task is no_log.
+shortly_log_dir: /var/log/shortly # Application log directory and logrotate target.
+shortly_logrotate_file: /etc/logrotate.d/shortly # Managed logrotate policy.
+shortly_hosts_file: /etc/hosts # Contains only the marked short.local block.
+shortly_doctor_file: /usr/local/bin/shortly-doctor # Operator helper destination.
+deploy_minikube_config_file: "{{ deploy_home }}/.minikube/config/config.json" # Created only if absent.
+
+docker_install: auto # auto installs only when docker is absent; true/false force the choice.
+docker_extra_users: [] # Existing accounts to add to docker, in addition to deploy.
+
+# Stable versions checked 2026-10-02 against upstream release pages.
+kubectl_version: v1.36.5
+helm_version: v4.2.2
+minikube_version: v1.39.0
+tools_enforce_versions: false # Replace existing PATH tools with the pins only when true.
+
+deploy_uid: 2001 # Fixed numeric UID for the CI/CD account.
+deploy_gid: 2001 # Fixed numeric GID for the deploy group.
+deploy_user: deploy # Dedicated user created by deploy_user.
+deploy_home: /home/deploy # Dedicated deploy account home.
+deploy_authorized_key: "" # Optional public key; empty skips authorized_key.
+
+project_base: http://short.local # Base address used by shortly-doctor.
+shortly_namespace: urlshortener # Kubernetes namespace exported to deploy environment.
+shortly_image: shortly # Image name written to shortly.env.
+registry: ghcr.io/kkbot122/devops-ca2 # Registry path written to shortly.env.
+minikube_cpus: 4 # Deploy user's minikube CPU default.
+minikube_memory: 6144 # Deploy user's minikube memory default in MiB.
+shortly_admin_token: demo-admin-token # Demo only; override with ansible-vault.
+short_local_ip: auto # auto uses native Linux Docker minikube IP, else loopback.
+manage_hosts: true # Manage the /etc/hosts block; false leaves the file alone.
+runner_dir: /home/deploy/actions-runner # Runner directory; environment files are skipped if absent.
+minikube_profile: shortly # Existing minikube profile used by address selection and doctor.
