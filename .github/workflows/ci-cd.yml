@@ -200,7 +200,7 @@ jobs:
       IMAGE_DIGEST: ${{ needs.build-scan-push.outputs.digest }}
       EXPECTED_VERSION: ${{ needs.build-scan-push.outputs.tag }}
       VARIANT: ${{ needs.build-scan-push.outputs.variant }}
-      AUTO_ROLLBACK: ${{ inputs.auto_rollback != false }}
+      AUTO_ROLLBACK: ${{ github.event_name != 'workflow_dispatch' || inputs.auto_rollback }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v6.0.2 # v6.0.2
