@@ -111,6 +111,10 @@ The first `taken` request returns 201 and the second returns 409. The 410 exampl
 
 The hosted pipeline runs lint, tests, image and configuration scans, and pushes SHA-tagged images to GHCR. Only the protected `main` push path uses the labeled self-hosted runner to update local minikube. See [the pipeline guide](docs/cicd.md) for runner setup, security details, demos, and troubleshooting.
 
+## Report and evidence
+
+The course report is in [docs/REPORT.md](docs/REPORT.md), with the [five-slide deck](report/shortly-devops-slides.pptx), [screenshot manifest](docs/screenshots/MANIFEST.md), and [submission guide](submission/README.md). See [docs/screenshots/README.md](docs/screenshots/README.md) before capturing evidence.
+
 ```mermaid
 flowchart LR
   subgraph Hosted[GitHub-hosted runners]

@@ -1,4 +1,4 @@
-.PHONY: install dev test lint fmt redis k8s-up ingress-config build-all load-all secret deploy release good-release bad-release-crash bad-release-errors rollback history redis-down redis-up status logs pf probe smoke k8s-down k8s-reset monitoring-up monitoring-apply monitoring-status monitoring-down grafana prometheus alertmanager promq alerts traffic check-dashboard load-install load-ui load load-local load-smoke scenario-baseline scenario-latency scenario-errors scenario-redis-down scenario-good-release scenario-bad-release-crash scenario-bad-release-errors scenario-surge scenario-abuse scenario-all scenarios-list ci-local ci-deploy-local runner-check ci-run ci-status ansible-install ansible-lint ansible-check ansible-apply ansible-idempotence ansible-verify ansible-drift-demo ansible-test-container ansible-tags
+.PHONY: install dev test lint fmt redis k8s-up ingress-config build-all load-all secret deploy release good-release bad-release-crash bad-release-errors rollback history redis-down redis-up status logs pf probe smoke k8s-down k8s-reset monitoring-up monitoring-apply monitoring-status monitoring-down grafana prometheus alertmanager promq alerts traffic check-dashboard load-install load-ui load load-local load-smoke scenario-baseline scenario-latency scenario-errors scenario-redis-down scenario-good-release scenario-bad-release-crash scenario-bad-release-errors scenario-surge scenario-abuse scenario-all scenarios-list ci-local ci-deploy-local runner-check ci-run ci-status ansible-install ansible-lint ansible-check ansible-apply ansible-idempotence ansible-verify ansible-drift-demo ansible-test-container ansible-tags report slides screenshots-check screenshots-capture submission report-links
 SHELL := /bin/bash
 
 IMAGE ?= shortly
@@ -31,6 +31,8 @@ ANSIBLE_VENV ?= .venv-ansible
 ANSIBLE_HOME_DIR ?= /tmp/shortly-ansible-home
 ANSIBLE_COLLECTIONS_DIR ?= $(ANSIBLE_DIR)/.ansible/collections
 ANSIBLE_BIN := $(ANSIBLE_VENV)/bin
+SOFFICE ?= soffice
+FONT_CACHE_DIR ?= /tmp/shortly-fontconfig-cache
 
 install:
 	$(PYTHON) -m venv $(VENV)
@@ -254,6 +256,26 @@ ansible-test-container:
 ansible-tags:
 	HOME=$(ANSIBLE_HOME_DIR) ANSIBLE_CONFIG=$(ANSIBLE_DIR)/ansible.cfg $(ANSIBLE_BIN)/ansible-playbook -i $(ANSIBLE_DIR)/inventory/hosts.ini $(ANSIBLE_DIR)/site.yml --list-tags
 	HOME=$(ANSIBLE_HOME_DIR) ANSIBLE_CONFIG=$(ANSIBLE_DIR)/ansible.cfg $(ANSIBLE_BIN)/ansible-playbook -i $(ANSIBLE_DIR)/inventory/hosts.ini $(ANSIBLE_DIR)/site.yml --list-tasks
+
+report: slides report-links
+
+slides:
+	python3 report/build_slides.py
+	rm -f report/shortly-devops-slides.pdf
+	mkdir -p $(FONT_CACHE_DIR)
+	if [ -f /opt/homebrew/etc/fonts/fonts.conf ]; then XDG_CACHE_HOME=$(FONT_CACHE_DIR) FONTCONFIG_FILE=/opt/homebrew/etc/fonts/fonts.conf $(SOFFICE) --headless --convert-to pdf --outdir report report/shortly-devops-slides.pptx; else XDG_CACHE_HOME=$(FONT_CACHE_DIR) $(SOFFICE) --headless --convert-to pdf --outdir report report/shortly-devops-slides.pptx; fi
+
+report-links:
+	python3 scripts/check_report_links.py
+
+screenshots-check:
+	@if [ "$(STRICT)" = "1" ]; then bash scripts/check_screenshots.sh --strict; else bash scripts/check_screenshots.sh; fi
+
+screenshots-capture:
+	python3 scripts/capture_web_screenshots.py
+
+submission:
+	bash scripts/build_submission.sh
 
 ci-local:
 	@set -eu; fail=0; \
