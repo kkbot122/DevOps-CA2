@@ -1,6 +1,6 @@
 [
   {
-    "timestamp": "2026-09-30T19:03:53.502+00:00",
+    "timestamp": "2026-10-04T13:29:14.511+00:00",
     "event": "preflight complete",
     "changes": [
       "chaos reset",
@@ -8,16 +8,16 @@
     ]
   },
   {
-    "timestamp": "2026-09-30T19:03:53.504+00:00",
+    "timestamp": "2026-10-04T13:29:14.514+00:00",
     "event": "load started",
     "users": 30
   },
   {
-    "timestamp": "2026-09-30T19:04:38.511+00:00",
+    "timestamp": "2026-10-04T13:29:59.519+00:00",
     "event": "warmup complete"
   },
   {
-    "timestamp": "2026-09-30T19:04:38.522+00:00",
+    "timestamp": "2026-10-04T13:29:59.538+00:00",
     "event": "fault injected",
     "fault": {
       "latency_ms": 800,
@@ -26,28 +26,28 @@
     "status": 200
   },
   {
-    "timestamp": "2026-09-30T19:04:53.770+00:00",
+    "timestamp": "2026-10-04T13:30:09.738+00:00",
     "event": "alert pending",
     "alert": "ShortlyHighLatencyP95",
-    "seconds": 15.247521792014595
+    "seconds": 10.200306333994376
   },
   {
-    "timestamp": "2026-09-30T19:05:54.490+00:00",
+    "timestamp": "2026-10-04T13:31:25.557+00:00",
     "event": "alert firing",
     "alert": "ShortlyHighLatencyP95",
-    "seconds": 75.96830433301511
+    "seconds": 86.01908624999487
   },
   {
-    "timestamp": "2026-09-30T19:06:24.506+00:00",
+    "timestamp": "2026-10-04T13:31:55.566+00:00",
     "event": "fault reset",
     "status": 200
   },
   {
-    "timestamp": "2026-09-30T19:08:10.297+00:00",
+    "timestamp": "2026-10-04T13:33:51.622+00:00",
     "event": "recovered"
   },
   {
-    "timestamp": "2026-09-30T19:08:10.456+00:00",
+    "timestamp": "2026-10-04T13:33:51.798+00:00",
     "event": "cleanup complete",
     "firing_alerts": []
   }

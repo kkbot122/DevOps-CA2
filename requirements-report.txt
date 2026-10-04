@@ -1,0 +1,4 @@
+python-pptx==1.0.2
+Pillow==12.3.0
+# Optional real-browser capture support: install this line only when needed.
+# playwright==1.55.0
