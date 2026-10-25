@@ -45,6 +45,11 @@ for path in ROOT.rglob("*"):
     for line_number, line in enumerate(text.splitlines(), 1):
         for match in ASSIGNMENT.finditer(line):
             value = (match.group(2) or match.group(3) or "").strip().strip(")}")
+            if match.group(1).lower() == "automountserviceaccounttoken" and value.lower() in {
+                "true",
+                "false",
+            }:
+                continue
             if value in ALLOWED or value in {"str", "string", "-"}:
                 continue
             if value.startswith("${") or value.startswith("{{") or value.startswith(":"):

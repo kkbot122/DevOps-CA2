@@ -1,6 +1,6 @@
 # Marker’s guide
 
-The files below map the course steps to the implementation and planned evidence. Screenshots are not included until real captures are saved under `docs/screenshots/`.
+The files below map the course steps to the implementation and planned evidence. Required captures are included under `docs/screenshots/`. Evidence provenance and reproduction limitations are recorded in `docs/evidence/CURRENT-STATUS.md`.
 
 | Step | Requirement | Files to inspect | Screenshot filenames | How to verify |
 |---|---|---|---|---|
@@ -21,7 +21,7 @@ make submission
 
 This assembles `dist/DevOps-CA2/`, excludes Git internals, virtual environments, cache directories and prior `dist/`, and checks committed credential values against documented demo defaults. Review the assembled folder before copying it.
 
-The source repository containing the self-hosted runner workflow must remain private. The class copy includes `.github/workflows/` as files because Step 1 requires the workflow; check whether the course repository expects a copy or a link before pushing.
+Restrict the self-hosted runner to trusted deployment events and protect its main branch. The class copy includes `.github/workflows/` as files because Step 1 requires the workflow; check whether the course repository expects a copy or a link before pushing.
 
 When ready, run these commands yourself from the assembled folder; they are printed for convenience and are intentionally not executed by the build target:
 
@@ -35,4 +35,4 @@ git remote add origin https://github.com/aditisharmas11/DevOps-CA2_2023_27.git
 git push -u origin main
 ```
 
-Deadline in the supplied assignment: **5 October 2026**.
+Confirm the current course deadline with the instructor. The five supplied steps are required; the external challenge is optional.

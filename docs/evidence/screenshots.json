@@ -1,0 +1,187 @@
+[
+  {
+    "filename": "01-baseline-overview.png",
+    "priority": "SHOULD",
+    "status": "OK",
+    "sha256": "5a8be8422500011621b3ed8a45b3526e2665913fbfbbca3af029975818b73109",
+    "width": 2940
+  },
+  {
+    "filename": "02-baseline-personas.png",
+    "priority": "SHOULD",
+    "status": "OK",
+    "sha256": "4e8729f34020954aa8e3ed70f49d9de528405051448f0263e8c6b8ceae1f2dfd",
+    "width": 2940
+  },
+  {
+    "filename": "03-latency-p95-alert.png",
+    "priority": "SHOULD",
+    "status": "OK",
+    "sha256": "1cd0d2853da501409abc27724c499a766bebe84092d83b25df1bdab2a1628dc8",
+    "width": 2940
+  },
+  {
+    "filename": "04-errors-5xx-alert.png",
+    "priority": "SHOULD",
+    "status": "OK",
+    "sha256": "1f5e16f2de5e9e3f86a42f37cf7c0b9e68862b6afa58c6785e80c7c58b1d1dc7",
+    "width": 2940
+  },
+  {
+    "filename": "05-good-release-versions.png",
+    "priority": "SHOULD",
+    "status": "OK",
+    "sha256": "2680a46a9bb382b0455db6bf8f8f71c98d3c8e62d6e2bc69bfc1d850a5e9368e",
+    "width": 2940
+  },
+  {
+    "filename": "06-bad-release-errors.png",
+    "priority": "SHOULD",
+    "status": "MISSING"
+  },
+  {
+    "filename": "07-bad-release-crash.png",
+    "priority": "SHOULD",
+    "status": "MISSING"
+  },
+  {
+    "filename": "08-redis-outage.png",
+    "priority": "SHOULD",
+    "status": "MISSING"
+  },
+  {
+    "filename": "09-surge-hpa.png",
+    "priority": "SHOULD",
+    "status": "MISSING"
+  },
+  {
+    "filename": "10-pipeline-green.png",
+    "priority": "MUST",
+    "status": "OK",
+    "sha256": "decaee345506777b14e0be6675c375ba8aeb2b63365efebc0f834ab1f30cf7dd",
+    "width": 1265
+  },
+  {
+    "filename": "11-pipeline-autorollback.png",
+    "priority": "MUST",
+    "status": "OK",
+    "sha256": "50a1b766a8f653c395c38c61e2feffadc485d9929d9884aef5a7e33a10da3974",
+    "width": 2940
+  },
+  {
+    "filename": "12-deploy-job-summary.png",
+    "priority": "SHOULD",
+    "status": "OK",
+    "sha256": "78c979b6bcfbed06d5a73f432c2b4e0266480638bef95ab4807c964e607708e3",
+    "width": 2940
+  },
+  {
+    "filename": "13-ghcr-package.png",
+    "priority": "SHOULD",
+    "status": "MISSING"
+  },
+  {
+    "filename": "14-runner-online.png",
+    "priority": "SHOULD",
+    "status": "OK",
+    "sha256": "28504e9d62e8f675cdebc535eb03d0071f95fe1d51a910f30b720b5323b574ca",
+    "width": 2940
+  },
+  {
+    "filename": "15-environments.png",
+    "priority": "NICE",
+    "status": "OK",
+    "sha256": "7674bb0086c7623e445e01927cb945fdb40642f8f68c21c296efd17d6ad94e43",
+    "width": 2940
+  },
+  {
+    "filename": "16-kubectl-pods.png",
+    "priority": "MUST",
+    "status": "OK",
+    "sha256": "736b60b4aee8696a0d2a55c2591d5b475ab48e728e57b06de98ed9d80827c203",
+    "width": 1802
+  },
+  {
+    "filename": "17-rolling-update-probe.png",
+    "priority": "MUST",
+    "status": "OK",
+    "sha256": "fd2ffb2457a650def5618856c2def673a63af7469c4735cd44318e78c7b31e72",
+    "width": 1280
+  },
+  {
+    "filename": "18-rollback-history.png",
+    "priority": "MUST",
+    "status": "OK",
+    "sha256": "f7a615e220f4018493111b9383a14d13b2f62d8b05b77f08996c991b74f2ce4b",
+    "width": 1265
+  },
+  {
+    "filename": "19-grafana-dashboard.png",
+    "priority": "MUST",
+    "status": "OK",
+    "sha256": "d1913937198c8f731e65242f7e3bec89c71919274732f135ab23a633c5780f64",
+    "width": 1280
+  },
+  {
+    "filename": "20-alert-firing.png",
+    "priority": "MUST",
+    "status": "OK",
+    "sha256": "31107b7d5db7a5a8e05c03504f89299a901562a58d4cc6532a114f7451c79657",
+    "width": 1265
+  },
+  {
+    "filename": "21-ansible-check-diff.png",
+    "priority": "MUST",
+    "status": "OK",
+    "sha256": "e0cb2a771f89ba0afdcbad3f6f39e4f0799ddd71f0e211a8398a5633cd2ff1ce",
+    "width": 1265
+  },
+  {
+    "filename": "22-ansible-first-run-recap.png",
+    "priority": "MUST",
+    "status": "OK",
+    "sha256": "4107d1b89a02ff032aa4cbff38bb2c4c163bead348335077b60c734d2e4223c5",
+    "width": 1265
+  },
+  {
+    "filename": "23-ansible-idempotent-recap.png",
+    "priority": "MUST",
+    "status": "OK",
+    "sha256": "e4af11ef9de71dd9f59a5c627caa5d15c0296fdb0c5108b60cc7824de128268d",
+    "width": 1265
+  },
+  {
+    "filename": "24-ansible-verify-pass.png",
+    "priority": "MUST",
+    "status": "OK",
+    "sha256": "de25830324badeaf5da31146be9420ba4b6a8cb16546a30b81a2254c48071a0e",
+    "width": 1265
+  },
+  {
+    "filename": "25-ansible-drift-corrected.png",
+    "priority": "SHOULD",
+    "status": "MISSING"
+  },
+  {
+    "filename": "26-managed-files-listing.png",
+    "priority": "NICE",
+    "status": "MISSING"
+  },
+  {
+    "filename": "27-pipeline-diagram.png",
+    "priority": "MUST",
+    "status": "OK",
+    "sha256": "aefce8123986ef2b2abf1f010619cd27ecfa6f850b5fcb07130f6c9f4dcf4e9a",
+    "width": 2086
+  },
+  {
+    "filename": "28-prometheus-targets.png",
+    "priority": "NICE",
+    "status": "MISSING"
+  },
+  {
+    "filename": "29-locust-baseline.png",
+    "priority": "NICE",
+    "status": "MISSING"
+  }
+]

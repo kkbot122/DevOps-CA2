@@ -1,0 +1,19 @@
+NAME                      READY   UP-TO-DATE   AVAILABLE   AGE     CONTAINERS   IMAGES             SELECTOR
+deployment.apps/redis     1/1     1            1           3m49s   redis        redis:7-alpine     app.kubernetes.io/component=redis,app.kubernetes.io/name=shortly,app.kubernetes.io/part-of=shortly
+deployment.apps/shortly   2/2     2            2           3m49s   shortly      python:3.12-slim   app.kubernetes.io/component=api,app.kubernetes.io/name=shortly,app.kubernetes.io/part-of=shortly
+
+NAME                             READY   STATUS    RESTARTS   AGE     IP            NODE                    NOMINATED NODE   READINESS GATES
+pod/redis-6cc7879cdb-rvt42       1/1     Running   0          3m49s   10.244.0.17   desktop-control-plane   <none>           <none>
+pod/shortly-ansible-demo-nktxb   1/1     Running   0          2m2s    10.244.0.19   desktop-control-plane   <none>           <none>
+pod/shortly-d67d78bc6-p2x6x      1/1     Running   0          66s     10.244.0.21   desktop-control-plane   <none>           <none>
+pod/shortly-d67d78bc6-wm2fr      1/1     Running   0          87s     10.244.0.20   desktop-control-plane   <none>           <none>
+
+NAME              TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)    AGE     SELECTOR
+service/redis     ClusterIP   10.96.11.19    <none>        6379/TCP   3m49s   app.kubernetes.io/component=redis,app.kubernetes.io/name=shortly,app.kubernetes.io/part-of=shortly
+service/shortly   ClusterIP   10.96.166.30   <none>        80/TCP     3m49s   app.kubernetes.io/component=api,app.kubernetes.io/name=shortly,app.kubernetes.io/part-of=shortly
+
+NAME                                          REFERENCE            TARGETS              MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/shortly   Deployment/shortly   cpu: <unknown>/60%   2         5         2          3m49s
+
+NAME                                 MIN AVAILABLE   MAX UNAVAILABLE   ALLOWED DISRUPTIONS   AGE
+poddisruptionbudget.policy/shortly   1               N/A               1                     3m49s

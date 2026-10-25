@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import base64
+import os
 import sys
 import urllib.error
 import urllib.request
@@ -23,12 +24,17 @@ def main() -> int:
 
     targets = [
         (
-            "01-baseline-overview.png",
+            "19-grafana-dashboard.png",
             "http://localhost:3000/d/shortly-overview/shortly-overview?var-datasource=prometheus&kiosk",
             "admin",
             "demo-grafana-pass",
         ),
-        ("20-alert-firing.png", "http://localhost:9093", None, None),
+        (
+            "20-alert-firing.png",
+            os.environ.get("PROMETHEUS_URL", "http://localhost:9090") + "/alerts?search=Shortly",
+            None,
+            None,
+        ),
         ("28-prometheus-targets.png", "http://localhost:9090/targets", None, None),
     ]
     OUT.mkdir(parents=True, exist_ok=True)

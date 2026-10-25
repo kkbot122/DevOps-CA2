@@ -11,14 +11,20 @@
     state: present
   tags: [common, packages]
 
-- name: Set the configured system timezone when systemd is available
+- name: Detect a running systemd instance rather than installed binaries
+  ansible.builtin.stat:
+    path: /run/systemd/system
+  register: systemd_runtime
+  tags: [common]
+
+- name: Set the configured system timezone when systemd is running
   community.general.timezone:
     name: "{{ timezone }}"
-  when: ansible_facts.service_mgr == 'systemd'
+  when: systemd_runtime.stat.isdir | default(false)
   tags: [common]
 
 - name: Explain timezone skip on systems without systemd
   ansible.builtin.debug:
-    msg: "Skipping timezone management because {{ ansible_facts.service_mgr }} is not systemd."
-  when: ansible_facts.service_mgr != 'systemd'
+    msg: "Skipping timezone management because systemd is not running in this target."
+  when: not (systemd_runtime.stat.isdir | default(false))
   tags: [common]

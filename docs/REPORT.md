@@ -1,5 +1,18 @@
 # Shortly DevOps: reflection and evidence report
 
+**Project:** Shortly - DevOps CA2
+
+| Group member | Roll number |
+|---|---|
+| Harsh Ledwani | 23070122100 |
+| Shivam Kapure | 23070122113 |
+| Kashyup Gaud | 23070122114 |
+| Kisna Kanti | 23070122116 |
+
+## Current verification
+
+Fresh Windows checks and capture provenance are recorded in [CURRENT-STATUS.md](evidence/CURRENT-STATUS.md). The current local demo uses Docker Desktop Kubernetes and the explicit source-demo overlay; historical image-based Minikube results remain separate.
+
 ## 1. Summary
 
 Shortly is a FastAPI URL shortener whose shared link state and counters live in Redis. [README.md](../README.md)
@@ -74,15 +87,15 @@ flowchart LR
 
 The runbook estimates a typical complete pipeline at **7–15 minutes**; this is the documented estimate, not an independently measured `gh run list` sample. Deployment verifies the registry digest, checks the kubectl context, loads the matching image into Minikube, applies a temporary CI overlay, waits for the rollout and checks requests/version. A failed deploy or verification invokes one rollback helper; a successful undo still leaves the release job failed. PR events do not deploy to the self-hosted runner. Details: [docs/cicd.md](cicd.md).
 
-## 4. Assignment steps 1–6
+## 4. Assignment steps 1–5 and optional bonus
 
 | Step | Requirement quoted from the supplied assignment | What was built | Files | Evidence filenames | Key result |
 |---|---|---|---|---|---|
-| 1 | “workflow file and pipeline diagram” | Hosted lint/test/build/scan/push and guarded self-hosted deploy/rollback workflow with a pipeline diagram. | `.github/workflows/ci-cd.yml`, `.github/workflows/rollback.yml`, `docs/diagrams/pipeline.mmd`, `scripts/ci/` | `10-pipeline-green.png`, `11-pipeline-autorollback.png`, `27-pipeline-diagram.png` | Workflow and local deployment tooling are committed; GitHub captures remain pending. |
+| 1 | “workflow file and pipeline diagram” | Hosted lint/test/build/scan/push and guarded self-hosted deploy/rollback workflow with a pipeline diagram. | `.github/workflows/ci-cd.yml`, `.github/workflows/rollback.yml`, `docs/diagrams/pipeline.mmd`, `scripts/ci/` | `10-pipeline-green.png`, `11-pipeline-autorollback.png`, `27-pipeline-diagram.png` | Run 37209744711 completed successfully, including lint, test, build-scan-push and deploy. See 10-pipeline-green.png and CURRENT-STATUS.md. |
 | 2 | “playbook/manifest and inventory” | Ansible site and verification playbooks, role-based host setup and local/remote inventory examples. | `ansible/site.yml`, `ansible/verify.yml`, `ansible/inventory/`, `ansible/roles/` | `21-ansible-check-diff.png` through `24-ansible-verify-pass.png` | Ubuntu 24.04 first apply: changed=31; second apply and verify: changed=0; macOS host correctly refused before changes. |
 | 3 | “Dockerfile and Kubernetes YAMLs plus screenshots of rolling update and rollback” | Multi-stage Docker image, Minikube manifests, HPA, PDB, probes, Ingress, Redis PVC and rollout scripts. | `Dockerfile`, `k8s/`, `scripts/probe.sh`, `scripts/smoke.sh` | `16-kubectl-pods.png`, `17-rolling-update-probe.png`, `18-rollback-history.png` | Saved good-release report observed v1 and v2, then v2 only, with 0 unexpected failures. |
 | 4 | “Prometheus/Grafana dashboard screenshots (uptime, latency, error rate)” | ServiceMonitor, six alert rules, provisioned dashboard, stack configuration and nine Locust scenarios. | `monitoring/`, `docs/monitoring.md`, `loadtest/`, `loadtest/reports/` | `19-grafana-dashboard.png`, `20-alert-firing.png`, plus scenario shots 01–09 | Saved tests show latency and error alerts, Redis outage and scaling; initial full suite had one abuse failure, then focused abuse rerun passed. |
-| 5 | “Reflection & Report (1.5 marks): 4 to 5 slides: Architecture, pipeline flow, challenges, lessons learned. Documentation (Architecture, pipeline flow, challenges, lessons learned).” | This report, evidence-backed challenge log, five-slide deck, VIVA preparation and marker guide. | `docs/REPORT.md`, `docs/CHALLENGES.md`, `docs/VIVA.md`, `report/` | Slide slots are declared in `docs/screenshots/MANIFEST.md` | Five slides are built from repository evidence; missing screenshots stay marked pending. |
+| 5 | “Reflection & Report (1.5 marks): 4 to 5 slides: Architecture, pipeline flow, challenges, lessons learned. Documentation (Architecture, pipeline flow, challenges, lessons learned).” | This report, evidence-backed challenge log, five-slide deck, VIVA preparation and marker guide. | `docs/REPORT.md`, `docs/CHALLENGES.md`, `docs/VIVA.md`, `report/` | Slide slots are declared in `docs/screenshots/MANIFEST.md` | Five slides cover architecture, pipeline, verification, challenges and lessons. Required captures are present; optional captures are tracked separately. |
 | 6 | “external DevOps challenge proof” | Not evidenced in the repo; stub added for later proof. | `docs/bonus/README.md` | `docs/bonus/proof-*.png` (to add) | **PENDING**. Choose a challenge, attach its original proof, and fill the five-line record. |
 
 ## 5. Testing and failure scenarios
@@ -109,11 +122,11 @@ The full run lasted 55.7 minutes on 2026-09-30 and logged eight PASS plus one FA
 |---:|---|---|---|
 | 1 | A bad release stayed Ready while serving errors | Use request/error alerts plus rollout verification and rollback. | [Challenge 1](CHALLENGES.md#1--ready-pods-can-still-serve-a-broken-release) |
 | 2 | Kustomize restricted a nested parent reference | Generate a temporary sibling overlay and apply one rendered manifest set. | [Challenge 2](CHALLENGES.md#2--the-nested-ci-overlay-could-not-use-the-parent-kustomize-base) |
-| 3 | Grafana was OOM-killed at lower memory limits | Raise the limit to 512 MiB based on the observed chart behavior. | [Challenge 3](CHALLENGES.md#3--grafana-was-oom-killed-at-lower-memory-limits) |
+| 3 | Grafana was OOM-killed at lower memory limits | Raise the limit after observed OOM restarts; the current manifest sets 768 MiB. | [Challenge 3](CHALLENGES.md#3--grafana-was-oom-killed-at-lower-memory-limits) |
 | 4 | Redis outage affected readiness and requests | Keep liveness independent; verify no app restart and link recovery. | [Challenge 4](CHALLENGES.md#4--redis-outage-should-remove-readiness-without-restarting-app-pods) |
 | 5 | Ansible host did not match supported OS | Stop safely on macOS and prove the positive path on Ubuntu 24.04. | [Challenge 5](CHALLENGES.md#5--the-laptops-ansible-target-was-unsupported) |
 
-See the [full challenge log](CHALLENGES.md) for symptoms, root causes, source evidence, lessons and confidence. Challenge 9 requires confirmation before presentation.
+See the [full challenge log](CHALLENGES.md) for symptoms, root causes, source evidence, lessons and confidence. The unconfirmed runner-context anecdote has been removed from the presentation material.
 
 ## 7. Lessons learned, limitations and future work
 

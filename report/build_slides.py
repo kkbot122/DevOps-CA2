@@ -4,11 +4,13 @@
 from __future__ import annotations
 
 import importlib.util
+import json
 import os
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+TEAM = json.loads((ROOT / "submission/team.json").read_text(encoding="utf-8"))
 
 
 def ensure_pptx_runtime() -> None:
@@ -120,7 +122,17 @@ def add_header(slide, title, subtitle):
 
 
 def add_footer(slide, number):
-    add_text(slide, "Shortly DevOps · CA2 · <Group members>", 0.55, 7.12, 10.8, 0.18, 9, GRAY)
+    add_text(
+        slide,
+        "Shortly · CA2 · "
+        + " / ".join(f"{member['name']} ({member['roll']})" for member in TEAM["members"]),
+        0.55,
+        7.12,
+        10.8,
+        0.18,
+        9,
+        GRAY,
+    )
     add_text(slide, str(number), 12.25, 7.1, 0.45, 0.2, 10, GRAY, align=PP_ALIGN.RIGHT)
 
 
@@ -185,7 +197,7 @@ def slide_architecture(prs):
     slide = prs.slides.add_slide(prs.slide_layouts[6])
     add_header(
         slide,
-        "Shortly keeps request state in Redis and releases under observation",
+        "Shortly: architecture and deployment",
         "Shortly · URL short links · FastAPI / Redis / Minikube / Prometheus / Locust / Ansible",
     )
     add_box(slide, "User", 0.5, 2.1, 1.05, 0.72, WHITE, MID, size=15, bold=True)
@@ -295,7 +307,7 @@ def slide_pipeline(prs):
     slide = prs.slides.add_slide(prs.slide_layouts[6])
     add_header(
         slide,
-        "A scanned image must pass local-cluster gates before it deploys",
+        "GitHub Actions: build, scan, deploy and verify",
         "Hosted checks protect builds; a guarded self-hosted runner updates Minikube.",
     )
     hosted = [
@@ -381,13 +393,13 @@ def slide_evidence(prs):
     slide = prs.slides.add_slide(prs.slide_layouts[6])
     add_header(
         slide,
-        "Saved scenarios show resilience, with one suite caveat",
-        "Committed load-test and Ansible evidence; missing UI captures remain pending.",
+        "Evidence from deployments and failure scenarios",
+        "Fresh Windows checks; full-size captures and original records accompany this deck.",
     )
     slots = [
-        ("01-baseline-overview.png", "Grafana overview under baseline traffic"),
+        ("19-grafana-dashboard.png", "Grafana: uptime, latency and error rate"),
         ("17-rolling-update-probe.png", "Rolling update: v1 and v2 seen; 0 failures"),
-        ("07-bad-release-crash.png", "CrashLoopBackOff observed, then rollback"),
+        ("18-rollback-history.png", "CrashLoopBackOff observed, then rollback"),
         ("23-ansible-idempotent-recap.png", "Ansible second apply: changed=0"),
     ]
     positions = [(0.6, 1.72), (6.85, 1.72), (0.6, 3.47), (6.85, 3.47)]
@@ -395,9 +407,9 @@ def slide_evidence(prs):
         add_capture_slot(slide, filename, x, y, 5.88, 1.16, caption)
     add_box(
         slide,
-        "Saved run: 8/9 PASS, 1 FAIL; focused abuse rerun PASS\n"
-        "Baseline 3,753 requests / 0 failures · "
-        "Surge 2→3 replicas · full suite 55.7 min",
+        "Fresh checks: 31 tests / 96.97% app coverage\n"
+        "240 rollout requests / 0 failures · "
+        "Ansible changes: 31 then 0",
         0.64,
         5.6,
         12.05,
@@ -422,8 +434,7 @@ def slide_evidence(prs):
     add_footer(slide, 3)
     add_notes(
         slide,
-        "These are evidence slots, not simulated screenshots. The repository had no actual UI "
-        "images when this deck was built, so the frames are pending and should be replaced only "
+        "These are evidence slots, not simulated screenshots. Missing images are marked pending. "
         "with real captures. The numbers come from saved results. The original full scenario run "
         "lasted 55.7 minutes and recorded eight passes and one failure: abuse. A later focused "
         "abuse rerun passed with 6,309 requests and no unexpected failures, but the complete "
@@ -440,7 +451,7 @@ def slide_challenges(prs):
     slide = prs.slides.add_slide(prs.slide_layouts[6])
     add_header(
         slide,
-        "The hardest failures crossed component boundaries",
+        "Challenges and fixes",
         "Top evidence-backed challenges · details and sources: docs/CHALLENGES.md",
     )
     rows = [
@@ -448,7 +459,7 @@ def slide_challenges(prs):
         "alert on 5xx and roll back",
         "2  Nested Kustomize base was blocked → path restriction → "
         "render a temporary sibling overlay",
-        "3  Grafana OOM at 256/384 MiB → limits were too low → use the evidenced 512 MiB setting",
+        "3  Grafana OOM at 256/384 MiB → limits were too low → current limit 768 MiB",
         "4  Redis outage broke readiness → API depends on Redis → "
         "separate liveness and verify recovery",
         "5  Ansible laptop was macOS → playbook supports Debian/Ubuntu → "
@@ -477,7 +488,7 @@ def slide_challenges(prs):
         "was packaging the Kubernetes deployment. The nested Kustomize overlay could not safely "
         "refer to its parent directory, so the deploy script generates a temporary sibling "
         "overlay, renders it, and applies the full result together. Third, Grafana was OOM-killed "
-        "at two lower memory limits, so chart values were raised to 512 MiB. Fourth, Redis outage "
+        "at two lower memory limits, the current chart values allow 768 MiB. Fourth, Redis outage "
         "handling needed readiness to fall without restarting the API; the scenario confirmed "
         "zero app restarts and link recovery. Finally, the macOS machine was deliberately "
         "rejected by the Ubuntu/Debian-only Ansible playbook; positive proof came from Ubuntu "
@@ -490,7 +501,7 @@ def slide_lessons(prs):
     slide = prs.slides.add_slide(prs.slide_layouts[6])
     add_header(
         slide,
-        "We learned to verify behavior, not only health",
+        "Lessons learned and next steps",
         "Each lesson links to the challenge log; production work is future work.",
     )
     lessons = [
@@ -629,7 +640,9 @@ def main() -> int:
     presentation.slide_height = Inches(SLIDE_H)
     presentation.core_properties.title = "Shortly DevOps — CA2 report"
     presentation.core_properties.subject = "Architecture, pipeline, challenges and lessons learned"
-    presentation.core_properties.author = "<Group members>"
+    presentation.core_properties.author = "; ".join(
+        f"{member['name']} ({member['roll']})" for member in TEAM["members"]
+    )
     slide_builders = [
         slide_architecture,
         slide_pipeline,

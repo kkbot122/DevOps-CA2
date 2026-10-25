@@ -1,0 +1,17 @@
+uid=2001(deploy) gid=2001(deploy) groups=2001(deploy),1001(docker)
+drwxr-xr-x 2 root   root   4096 Oct 25 06:58 /etc/shortly
+drwx------ 2 deploy deploy 4096 Oct 25 06:58 /home/deploy/.kube
+drwxr-xr-x 2 deploy deploy 4096 Oct 25 06:58 /home/deploy/.local/bin
+drwxr-xr-x 2 root   root   4096 Oct 25 06:58 /var/log/shortly
+-r--r----- 1 root root  190 Oct 25 06:58 /etc/sudoers.d/90-deploy
+
+/etc/shortly:
+total 4
+-rw-r----- 1 root deploy 232 Oct 25 06:58 shortly.env
+Client Version: v1.36.5
+Kustomize Version: v5.8.1
+version.BuildInfo{Version:"v4.2.2", GitCommit:"b05881cf967a5a09e19866799d0edfd40675803a", GitTreeState:"clean", GoVersion:"go1.26.4", KubeClientVersion:"v1.36"}
+minikube version: v1.39.0
+commit: 7a9f6a841470a207de8cf4bafcccee0969d8ba10
+
+PASS: Ubuntu configuration, check/diff, idempotence and verification.

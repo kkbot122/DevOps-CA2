@@ -154,7 +154,7 @@
   when:
     - docker_should_install
     - not docker_daemon_stat.stat.exists or 'managed by ansible' in (docker_daemon_content.content | default('') | b64decode)
-  notify: "{{ ['restart docker after daemon config change'] if ansible_facts.service_mgr == 'systemd' else [] }}"
+  notify: "{{ ['restart docker after daemon config change'] if systemd_runtime.stat.isdir | default(false) else [] }}"
   tags: [docker, files]
 
 - name: Mark managed Docker daemon configuration ownership
@@ -177,7 +177,7 @@
     state: started
   when:
     - docker_should_install
-    - ansible_facts.service_mgr == 'systemd'
+    - systemd_runtime.stat.isdir | default(false)
   tags: [docker]
 
 - name: Add configured existing users to the Docker group

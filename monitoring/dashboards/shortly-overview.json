@@ -63,7 +63,7 @@
       "gridPos": {
         "x": 0,
         "y": 1,
-        "w": 3,
+        "w": 4,
         "h": 5
       },
       "fieldConfig": {
@@ -119,16 +119,16 @@
     {
       "id": 3,
       "type": "stat",
-      "title": "Availability (5m)",
+      "title": "Availability",
       "description": "Share of real requests that did not return 5xx in the last five minutes.",
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
       },
       "gridPos": {
-        "x": 3,
+        "x": 4,
         "y": 1,
-        "w": 3,
+        "w": 4,
         "h": 5
       },
       "fieldConfig": {
@@ -195,9 +195,9 @@
         "uid": "prometheus"
       },
       "gridPos": {
-        "x": 6,
+        "x": 8,
         "y": 1,
-        "w": 3,
+        "w": 4,
         "h": 5
       },
       "fieldConfig": {
@@ -249,16 +249,16 @@
     {
       "id": 5,
       "type": "stat",
-      "title": "Error rate (5xx %)",
+      "title": "5xx errors",
       "description": "Percentage of real requests returning 5xx over the last minute; no traffic is shown as zero.",
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
       },
       "gridPos": {
-        "x": 9,
+        "x": 12,
         "y": 1,
-        "w": 3,
+        "w": 4,
         "h": 5
       },
       "fieldConfig": {
@@ -325,9 +325,9 @@
         "uid": "prometheus"
       },
       "gridPos": {
-        "x": 12,
+        "x": 16,
         "y": 1,
-        "w": 3,
+        "w": 4,
         "h": 5
       },
       "fieldConfig": {
@@ -387,16 +387,16 @@
     {
       "id": 7,
       "type": "stat",
-      "title": "Redis up",
+      "title": "Redis",
       "description": "Lowest Redis reachability gauge among active app scrape targets.",
       "datasource": {
         "type": "prometheus",
         "uid": "prometheus"
       },
       "gridPos": {
-        "x": 15,
+        "x": 20,
         "y": 1,
-        "w": 3,
+        "w": 4,
         "h": 5
       },
       "fieldConfig": {
@@ -473,10 +473,10 @@
         "uid": "prometheus"
       },
       "gridPos": {
-        "x": 18,
-        "y": 1,
-        "w": 6,
-        "h": 5
+        "x": 8,
+        "y": 5,
+        "w": 16,
+        "h": 3
       },
       "fieldConfig": {
         "defaults": {
@@ -532,7 +532,7 @@
       "collapsed": false,
       "gridPos": {
         "x": 0,
-        "y": 6,
+        "y": 9,
         "w": 24,
         "h": 1
       },
@@ -549,7 +549,7 @@
       },
       "gridPos": {
         "x": 0,
-        "y": 7,
+        "y": 10,
         "w": 12,
         "h": 8
       },
@@ -623,7 +623,7 @@
       },
       "gridPos": {
         "x": 12,
-        "y": 7,
+        "y": 10,
         "w": 6,
         "h": 8
       },
@@ -679,7 +679,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "sum(rate(http_requests_total{job=\"shortly\",namespace=\"urlshortener\",handler!~\"/healthz|/readyz\",status=~\"4..\"}[1m]))",
+          "expr": "sum(rate(http_requests_total{job=\"shortly\",namespace=\"urlshortener\",handler!~\"/healthz|/readyz\",status=~\"4..\"}[1m])) or vector(0)",
           "legendFormat": "4xx",
           "range": true,
           "refId": "A"
@@ -697,7 +697,7 @@
       },
       "gridPos": {
         "x": 18,
-        "y": 7,
+        "y": 10,
         "w": 6,
         "h": 8
       },
@@ -757,7 +757,7 @@
             "uid": "prometheus"
           },
           "editorMode": "code",
-          "expr": "sum(rate(http_requests_total{job=\"shortly\",namespace=\"urlshortener\",handler!~\"/healthz|/readyz\",status=~\"5..\"}[1m]))",
+          "expr": "sum(rate(http_requests_total{job=\"shortly\",namespace=\"urlshortener\",handler!~\"/healthz|/readyz\",status=~\"5..\"}[1m])) or vector(0)",
           "legendFormat": "5xx",
           "range": true,
           "refId": "A"
@@ -775,7 +775,7 @@
       },
       "gridPos": {
         "x": 0,
-        "y": 15,
+        "y": 18,
         "w": 12,
         "h": 8
       },
@@ -875,7 +875,7 @@
       },
       "gridPos": {
         "x": 12,
-        "y": 15,
+        "y": 18,
         "w": 12,
         "h": 8
       },
@@ -954,7 +954,7 @@
       "collapsed": false,
       "gridPos": {
         "x": 0,
-        "y": 23,
+        "y": 26,
         "w": 24,
         "h": 1
       },
@@ -971,7 +971,7 @@
       },
       "gridPos": {
         "x": 0,
-        "y": 24,
+        "y": 27,
         "w": 12,
         "h": 8
       },
@@ -1045,7 +1045,7 @@
       },
       "gridPos": {
         "x": 12,
-        "y": 24,
+        "y": 27,
         "w": 12,
         "h": 8
       },
@@ -1119,7 +1119,7 @@
       },
       "gridPos": {
         "x": 0,
-        "y": 32,
+        "y": 35,
         "w": 12,
         "h": 8
       },
@@ -1193,7 +1193,7 @@
       },
       "gridPos": {
         "x": 12,
-        "y": 32,
+        "y": 35,
         "w": 12,
         "h": 8
       },
@@ -1268,7 +1268,7 @@
       "collapsed": false,
       "gridPos": {
         "x": 0,
-        "y": 41,
+        "y": 44,
         "w": 24,
         "h": 1
       },
@@ -1285,7 +1285,7 @@
       },
       "gridPos": {
         "x": 0,
-        "y": 42,
+        "y": 45,
         "w": 12,
         "h": 8
       },
@@ -1396,7 +1396,7 @@
       },
       "gridPos": {
         "x": 12,
-        "y": 42,
+        "y": 45,
         "w": 12,
         "h": 8
       },
@@ -1489,7 +1489,7 @@
       },
       "gridPos": {
         "x": 0,
-        "y": 50,
+        "y": 53,
         "w": 24,
         "h": 8
       },
@@ -1584,6 +1584,50 @@
           "refId": "D"
         }
       ]
+    },
+    {
+      "id": 24,
+      "title": "Pod uptime",
+      "type": "stat",
+      "gridPos": {
+        "x": 0,
+        "y": 5,
+        "w": 8,
+        "h": 3
+      },
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "min(time() - process_start_time_seconds{job=\"shortly\",namespace=\"urlshortener\"})"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s",
+          "color": {
+            "mode": "fixed",
+            "fixedColor": "green"
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "orientation": "auto",
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto"
+      }
     }
   ],
   "refresh": "5s",

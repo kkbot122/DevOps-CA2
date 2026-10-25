@@ -1,0 +1,20 @@
+{
+  "recorded_at": "2026-10-25T07:01:04.710138+00:00",
+  "pass": true,
+  "alert": {
+    "labels": {
+      "alertname": "ShortlyHighLatencyP95",
+      "app": "shortly",
+      "severity": "warning"
+    },
+    "annotations": {
+      "description": "Real request p95 latency exceeded 0.5 seconds with sustained traffic. Check Redis and reset demo chaos with `curl -X DELETE \"$BASE/admin/chaos\" -H \"X-Admin-Token: $ADMIN_TOKEN\"`.",
+      "summary": "Shortly p95 latency is above 500 ms"
+    },
+    "state": "firing",
+    "activeAt": "2026-10-25T06:59:49.10181991Z",
+    "value": "9.749999999999999e-01"
+  },
+  "elapsed_seconds": 95.5,
+  "requests": 624
+}

@@ -1,0 +1,58 @@
+# Explicit fallback when the host Docker engine cannot be accessed.
+# The regular k8s/ deployment uses the built Dockerfile image.
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../00-namespace.yaml
+  - ../../configmap.yaml
+  - ../../redis.yaml
+  - ../../app-deployment.yaml
+  - ../../app-service.yaml
+  - ../../hpa.yaml
+  - ../../pdb.yaml
+patches:
+  - target:
+      kind: Deployment
+      name: shortly
+    patch: |-
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: shortly
+      spec:
+        template:
+          spec:
+            securityContext:
+              fsGroup: 10001
+            initContainers:
+              - name: prepare-source
+                image: python:3.12-slim
+                command: [sh, -ec]
+                args:
+                  - mkdir -p /tmp/project /tmp/site; tar -xzf /source/app-source.tar.gz -C /tmp/project; pip install --no-cache-dir --target /tmp/site -r /tmp/project/requirements.txt
+                env:
+                  - {name: HOME, value: /tmp}
+                resources:
+                  requests: {cpu: 100m, memory: 128Mi}
+                  limits: {cpu: '1', memory: 512Mi}
+                securityContext:
+                  readOnlyRootFilesystem: true
+                  allowPrivilegeEscalation: false
+                  capabilities: {drop: [ALL]}
+                volumeMounts:
+                  - {name: tmp, mountPath: /tmp}
+                  - {name: app-source, mountPath: /source, readOnly: true}
+            containers:
+              - name: shortly
+                image: python:3.12-slim
+                command: [python, -m, uvicorn, app.main:app, --host, 0.0.0.0, --port, '8000']
+                workingDir: /tmp/project
+                env:
+                  - {name: PYTHONPATH, value: '/tmp/site:/tmp/project'}
+                  - {name: PYTHONDONTWRITEBYTECODE, value: '1'}
+                  - {name: APP_VERSION, value: v1}
+                  - {name: BAD_RELEASE_MODE, value: none}
+            volumes:
+              - name: app-source
+                configMap:
+                  name: shortly-app-source

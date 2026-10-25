@@ -1,0 +1,6 @@
+NAME                                                       READY   STATUS    RESTARTS   AGE     IP            NODE                    NOMINATED NODE   READINESS GATES
+alertmanager-kube-prometheus-stack-alertmanager-0          2/2     Running   0          7m46s   10.244.0.11   desktop-control-plane   <none>           <none>
+kube-prometheus-stack-grafana-57c58c6475-fxxhv             3/3     Running   0          8m2s    10.244.0.9    desktop-control-plane   <none>           <none>
+kube-prometheus-stack-kube-state-metrics-c9888b4fc-2t4d5   1/1     Running   0          8m2s    10.244.0.10   desktop-control-plane   <none>           <none>
+kube-prometheus-stack-operator-6d558fc44-25l4q             1/1     Running   0          8m2s    10.244.0.8    desktop-control-plane   <none>           <none>
+prometheus-kube-prometheus-stack-prometheus-0              2/2     Running   0          7m45s   10.244.0.13   desktop-control-plane   <none>           <none>

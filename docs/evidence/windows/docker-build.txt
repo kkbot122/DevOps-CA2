@@ -1,0 +1,52 @@
+**********************
+Windows PowerShell transcript start
+Start time: 20261025130436
+Username: KASHYUP-PC\Asus
+RunAs User: KASHYUP-PC\Asus
+Configuration Name: 
+Machine: KASHYUP-PC (Microsoft Windows NT 10.0.26300.0)
+Host Application: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts\prepare-images.ps1
+Process ID: 40728
+PSVersion: 5.1.26100.9711
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.9711
+BuildVersion: 10.0.26100.9711
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+Transcript started, output file is C:\Users\Asus\Documents\Codex\2026-10-25\https-github-com-kkbot122-devops-ca2\DevOps-CA2\.runtime\prepare-images.log
+> docker info --format {{.ServerVersion}}
+
+> docker compose up -d --build --wait
+
+> docker build -t shortly:v1 --build-arg APP_VERSION=v1 --build-arg BAD_RELEASE_MODE=none .
+
+> docker build -t shortly:v2 --build-arg APP_VERSION=v2 --build-arg BAD_RELEASE_MODE=none .
+
+> docker build -t shortly:v2-bad-crash --build-arg APP_VERSION=v2-bad-crash --build-arg BAD_RELEASE_MODE=crash .
+
+> docker image save -o C:\Users\Asus\Documents\Codex\2026-10-25\https-github-com-kkbot122-devops-ca2\DevOps-CA2\.runtime\shortly-images.tar shortly:v1 shortly:v2 shortly:v2-bad-crash
+
+> Loading Dockerfile images into desktop-control-plane via binary stdin
+docker.io/library/shortly:v1            	saved	
+application/vnd.oci.image.index.v1+json sha256:dc6775c49a46d6ad714f6aee2692dad677d0109fc5aa978d48bf7a6a397164ce
+Importing	elapsed: 3.3 s	total:   0.0 B	(0.0 B/s)	
+docker.io/library/shortly:v1            	saved	
+docker.io/library/shortly:v2            	saved	
+application/vnd.oci.image.index.v1+json sha256:dc6775c49a46d6ad714f6aee2692dad677d0109fc5aa978d48bf7a6a397164ce
+application/vnd.oci.image.index.v1+json sha256:f60a76fcd346074627791c657a6aa0cbcb3b7364738d43f6cba0477f0175184b
+Importing	elapsed: 3.3 s	total:   0.0 B	(0.0 B/s)	
+docker.io/library/shortly:v1            	saved	
+docker.io/library/shortly:v2            	saved	
+docker.io/library/shortly:v2 bad crash  	saved	
+application/vnd.oci.image.index.v1+json sha256:dc6775c49a46d6ad714f6aee2692dad677d0109fc5aa978d48bf7a6a397164ce
+application/vnd.oci.image.index.v1+json sha256:f60a76fcd346074627791c657a6aa0cbcb3b7364738d43f6cba0477f0175184b
+application/vnd.oci.image.index.v1+json sha256:289b292ff811fb9bedf7f09baa2b66129d2ef5fcb3ddb0bcb05a6fd405da3ffc
+Importing	elapsed: 3.3 s	total:   0.0 B	(0.0 B/s)
+PASS: Dockerfile images built and imported. The Kubernetes rollout can now be started.
+**********************
+Windows PowerShell transcript end
+End time: 20261025130448
+**********************

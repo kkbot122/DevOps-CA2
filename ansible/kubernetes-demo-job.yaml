@@ -1,0 +1,35 @@
+# Reproducible Ubuntu target for Windows users with Docker Desktop Kubernetes.
+# Create shortly-ansible-source from the source archive before applying this Job.
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: shortly-ansible-demo
+  namespace: urlshortener
+  labels:
+    app.kubernetes.io/part-of: shortly
+    app.kubernetes.io/component: ansible-demo
+spec:
+  backoffLimit: 0
+  activeDeadlineSeconds: 1200
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/component: ansible-demo
+    spec:
+      restartPolicy: Never
+      automountServiceAccountToken: false
+      containers:
+        - name: ubuntu-target
+          image: ubuntu:24.04
+          command: [bash, -c]
+          args:
+            - mkdir -p /project && tar -xzf /source/ansible-source.tar.gz -C /project && bash /project/scripts/ansible-k8s-demo.sh
+          resources:
+            requests: {cpu: 250m, memory: 512Mi}
+            limits: {cpu: '2', memory: 2Gi}
+          volumeMounts:
+            - {name: source, mountPath: /source, readOnly: true}
+      volumes:
+        - name: source
+          configMap:
+            name: shortly-ansible-source

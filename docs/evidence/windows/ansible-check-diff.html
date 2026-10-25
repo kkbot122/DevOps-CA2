@@ -1,0 +1,18 @@
+<!doctype html><meta charset="utf-8"><title>Ansible check and diff preview</title><style>body{font:18px Arial,sans-serif;margin:36px;color:#18313f;background:#f5f8fa}main{background:white;padding:26px;max-width:1250px;margin:auto}h1{font-size:30px;margin:0 0 10px}p{line-height:1.5;color:#465d6a}pre{font:15px Consolas,monospace;line-height:1.3;white-space:pre-wrap;background:#edf3f5;padding:20px;border-left:5px solid #1a8c8c}a{color:#126c70}.result{font-size:25px;font-weight:bold;color:#116450}</style><main><h1>Ansible check and diff preview</h1><p>Windows / Docker Desktop Kubernetes · 25 October 2026<br>Evidence report of real captured output. This is not a terminal screenshot.</p><p>Original stdout, final 18 lines. Target: a disposable Ubuntu 24.04 pod; the Windows host is not configured.</p><pre>TASK [shortly_config : Check whether the GitHub Actions runner directory exists] ***
+ok: [localhost]
+
+TASK [shortly_config : Configure GitHub Actions runner PATH and environment files] ***
+skipping: [localhost] =&gt; (item={&#x27;src&#x27;: &#x27;runner.path.j2&#x27;, &#x27;dest&#x27;: &#x27;.path&#x27;}) 
+skipping: [localhost] =&gt; (item={&#x27;src&#x27;: &#x27;runner.env.j2&#x27;, &#x27;dest&#x27;: &#x27;.env&#x27;}) 
+skipping: [localhost]
+
+TASK [shortly_config : Explain skipped runner environment because the runner is not installed] ***
+ok: [localhost] =&gt; {
+    &quot;msg&quot;: &quot;Skipping GitHub runner environment because /home/deploy/actions-runner does not exist.&quot;
+}
+
+TASK [shortly_config : Install shortly-doctor operator helper] *****************
+ok: [localhost]
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=44   changed=0    unreachable=0    failed=0    skipped=30   rescued=0    ignored=0</pre><p>Full original record: <a href="ansible-check-diff.txt">ansible-check-diff.txt</a></p></main>

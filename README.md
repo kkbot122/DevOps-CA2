@@ -14,15 +14,37 @@
 
 ## Quickstart
 
+With Docker Desktop running (PowerShell, CMD, Linux or macOS):
+
+```sh
+docker compose up -d --build --wait
+```
+
+Open <http://localhost:8001>. The app uses the repository Dockerfile; Redis is
+persisted in a named volume and both services have health checks. Redis has no
+host port. Set `APP_PORT` to choose another host port if 8001 is occupied.
+
+```powershell
+$env:APP_PORT = '8002'
+docker compose up -d --build --wait
+```
+
+Run the full Windows demonstrations with
+`powershell -NoProfile -ExecutionPolicy Bypass -File scripts/windows-demo.ps1`.
+See [the Windows guide](docs/windows.md) for stages, prerequisites, screenshots,
+and how to stop only the port-forward processes started by the script.
+
+For native development on Debian/Ubuntu, Python 3.12 and GNU Make:
+
 ```sh
 make redis
 make install
 make dev
 ```
 
-Open <http://localhost:8000>. Or run `docker compose up` to start the app and Redis together. `make test`, `make lint`, and `make fmt` run the test, lint, and formatting workflows.
-
-`make install` creates `.venv` with Python 3.12 and installs the pinned runtime and development dependencies. Set `PYTHON` when your Python 3.12 executable has a different name or path.
+The native development server uses <http://localhost:8000>. `make test`,
+`make lint`, and `make fmt` run application checks. Docker Compose alone does
+not install Kubernetes, Ansible, Prometheus, or Grafana.
 
 ## Endpoints
 

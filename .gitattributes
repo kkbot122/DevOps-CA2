@@ -1,0 +1,15 @@
+* text=auto
+*.sh text eol=lf
+*.py text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+Dockerfile text eol=lf
+Makefile text eol=lf
+*.ps1 text eol=crlf
+*.png binary
+*.pptx binary
+*.pdf binary
+
+# Preserve original stdout and browser reports without whitespace warnings.
+docs/evidence/windows/*.txt -whitespace
+docs/evidence/windows/*.html -whitespace

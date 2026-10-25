@@ -1,0 +1,2400 @@
+Get:1 http://archive.ubuntu.com/ubuntu noble InRelease [256 kB]
+Get:2 http://security.ubuntu.com/ubuntu noble-security InRelease [126 kB]
+Get:3 http://archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
+Get:4 http://security.ubuntu.com/ubuntu noble-security/universe amd64 Packages [1549 kB]
+Get:5 http://archive.ubuntu.com/ubuntu noble-backports InRelease [126 kB]
+Get:6 http://archive.ubuntu.com/ubuntu noble/restricted amd64 Packages [117 kB]
+Get:7 http://archive.ubuntu.com/ubuntu noble/multiverse amd64 Packages [331 kB]
+Get:8 http://archive.ubuntu.com/ubuntu noble/main amd64 Packages [1808 kB]
+Get:9 http://archive.ubuntu.com/ubuntu noble/universe amd64 Packages [19.3 MB]
+Get:10 http://security.ubuntu.com/ubuntu noble-security/main amd64 Packages [1411 kB]
+Get:11 http://security.ubuntu.com/ubuntu noble-security/restricted amd64 Packages [2122 kB]
+Get:12 http://security.ubuntu.com/ubuntu noble-security/multiverse amd64 Packages [55.6 kB]
+Get:13 http://archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [2170 kB]
+Get:14 http://archive.ubuntu.com/ubuntu noble-updates/restricted amd64 Packages [2231 kB]
+Get:15 http://archive.ubuntu.com/ubuntu noble-updates/multiverse amd64 Packages [61.7 kB]
+Get:16 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [1733 kB]
+Get:17 http://archive.ubuntu.com/ubuntu noble-backports/universe amd64 Packages [36.0 kB]
+Get:18 http://archive.ubuntu.com/ubuntu noble-backports/multiverse amd64 Packages [669 B]
+Get:19 http://archive.ubuntu.com/ubuntu noble-backports/main amd64 Packages [49.0 kB]
+Fetched 33.6 MB in 5s (6474 kB/s)
+Reading package lists...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+tar is already the newest version (1.35+dfsg-3ubuntu0.4).
+The following additional packages will be installed:
+  libapparmor1 libexpat1 libpython3-stdlib libpython3.12-minimal
+  libpython3.12-stdlib libreadline8t64 libsqlite3-0 media-types netbase
+  openssl python3-minimal python3-pip-whl python3-setuptools-whl python3.12
+  python3.12-minimal python3.12-venv readline-common tzdata
+Suggested packages:
+  python3-doc python3-tk python3.12-doc binutils binfmt-support readline-doc
+The following NEW packages will be installed:
+  ca-certificates libapparmor1 libexpat1 libpython3-stdlib
+  libpython3.12-minimal libpython3.12-stdlib libreadline8t64 libsqlite3-0
+  media-types netbase openssl python3 python3-minimal python3-pip-whl
+  python3-setuptools-whl python3-venv python3.12 python3.12-minimal
+  python3.12-venv readline-common sudo tzdata
+0 upgraded, 22 newly installed, 0 to remove and 4 not upgraded.
+Need to get 11.9 MB of archives.
+After this operation, 36.7 MB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libpython3.12-minimal amd64 3.12.3-1ubuntu0.17 [839 kB]
+Get:2 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libexpat1 amd64 2.6.1-2ubuntu0.6 [98.9 kB]
+Get:3 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 python3.12-minimal amd64 3.12.3-1ubuntu0.17 [2335 kB]
+Get:4 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 python3-minimal amd64 3.12.3-0ubuntu2.1 [27.4 kB]
+Get:5 http://archive.ubuntu.com/ubuntu noble/main amd64 media-types all 10.1.0 [27.5 kB]
+Get:6 http://archive.ubuntu.com/ubuntu noble/main amd64 netbase all 6.4 [13.1 kB]
+Get:7 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 tzdata all 2026e-0ubuntu0.24.04.1 [282 kB]
+Get:8 http://archive.ubuntu.com/ubuntu noble/main amd64 readline-common all 8.2-4build1 [56.5 kB]
+Get:9 http://archive.ubuntu.com/ubuntu noble/main amd64 libreadline8t64 amd64 8.2-4build1 [153 kB]
+Get:10 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libsqlite3-0 amd64 3.45.1-1ubuntu2.8 [702 kB]
+Get:11 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libpython3.12-stdlib amd64 3.12.3-1ubuntu0.17 [2071 kB]
+Get:12 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 python3.12 amd64 3.12.3-1ubuntu0.17 [651 kB]
+Get:13 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libpython3-stdlib amd64 3.12.3-0ubuntu2.1 [10.1 kB]
+Get:14 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 python3 amd64 3.12.3-0ubuntu2.1 [23.0 kB]
+Get:15 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 openssl amd64 3.0.13-0ubuntu3.16 [1004 kB]
+Get:16 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 ca-certificates all 20260816ubuntu0.24.04.1 [139 kB]
+Get:17 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libapparmor1 amd64 4.0.1really4.0.1-0ubuntu0.24.04.9 [51.5 kB]
+Get:18 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 sudo amd64 1.9.15p5-3ubuntu5.24.04.4 [949 kB]
+Get:19 http://archive.ubuntu.com/ubuntu noble-updates/universe amd64 python3-pip-whl all 24.0+dfsg-1ubuntu1.3 [1707 kB]
+Get:20 http://archive.ubuntu.com/ubuntu noble-updates/universe amd64 python3-setuptools-whl all 68.1.2-2ubuntu1.2 [716 kB]
+Get:21 http://archive.ubuntu.com/ubuntu noble-updates/universe amd64 python3.12-venv amd64 3.12.3-1ubuntu0.17 [5684 B]
+Get:22 http://archive.ubuntu.com/ubuntu noble-updates/universe amd64 python3-venv amd64 3.12.3-0ubuntu2.1 [1032 B]
+debconf: delaying package configuration, since apt-utils is not installed
+Fetched 11.9 MB in 4s (2701 kB/s)
+Selecting previously unselected package libpython3.12-minimal:amd64.
+(Reading database ... 
+(Reading database ... 5%
+(Reading database ... 10%
+(Reading database ... 15%
+(Reading database ... 20%
+(Reading database ... 25%
+(Reading database ... 30%
+(Reading database ... 35%
+(Reading database ... 40%
+(Reading database ... 45%
+(Reading database ... 50%
+(Reading database ... 55%
+(Reading database ... 60%
+(Reading database ... 65%
+(Reading database ... 70%
+(Reading database ... 75%
+(Reading database ... 80%
+(Reading database ... 85%
+(Reading database ... 90%
+(Reading database ... 95%
+(Reading database ... 100%
+(Reading database ... 4381 files and directories currently installed.)
+Preparing to unpack .../libpython3.12-minimal_3.12.3-1ubuntu0.17_amd64.deb ...
+Unpacking libpython3.12-minimal:amd64 (3.12.3-1ubuntu0.17) ...
+Selecting previously unselected package libexpat1:amd64.
+Preparing to unpack .../libexpat1_2.6.1-2ubuntu0.6_amd64.deb ...
+Unpacking libexpat1:amd64 (2.6.1-2ubuntu0.6) ...
+Selecting previously unselected package python3.12-minimal.
+Preparing to unpack .../python3.12-minimal_3.12.3-1ubuntu0.17_amd64.deb ...
+Unpacking python3.12-minimal (3.12.3-1ubuntu0.17) ...
+Setting up libpython3.12-minimal:amd64 (3.12.3-1ubuntu0.17) ...
+Setting up libexpat1:amd64 (2.6.1-2ubuntu0.6) ...
+Setting up python3.12-minimal (3.12.3-1ubuntu0.17) ...
+Selecting previously unselected package python3-minimal.
+(Reading database ... 
+(Reading database ... 5%
+(Reading database ... 10%
+(Reading database ... 15%
+(Reading database ... 20%
+(Reading database ... 25%
+(Reading database ... 30%
+(Reading database ... 35%
+(Reading database ... 40%
+(Reading database ... 45%
+(Reading database ... 50%
+(Reading database ... 55%
+(Reading database ... 60%
+(Reading database ... 65%
+(Reading database ... 70%
+(Reading database ... 75%
+(Reading database ... 80%
+(Reading database ... 85%
+(Reading database ... 90%
+(Reading database ... 95%
+(Reading database ... 100%
+(Reading database ... 4700 files and directories currently installed.)
+Preparing to unpack .../0-python3-minimal_3.12.3-0ubuntu2.1_amd64.deb ...
+Unpacking python3-minimal (3.12.3-0ubuntu2.1) ...
+Selecting previously unselected package media-types.
+Preparing to unpack .../1-media-types_10.1.0_all.deb ...
+Unpacking media-types (10.1.0) ...
+Selecting previously unselected package netbase.
+Preparing to unpack .../2-netbase_6.4_all.deb ...
+Unpacking netbase (6.4) ...
+Selecting previously unselected package tzdata.
+Preparing to unpack .../3-tzdata_2026e-0ubuntu0.24.04.1_all.deb ...
+Unpacking tzdata (2026e-0ubuntu0.24.04.1) ...
+Selecting previously unselected package readline-common.
+Preparing to unpack .../4-readline-common_8.2-4build1_all.deb ...
+Unpacking readline-common (8.2-4build1) ...
+Selecting previously unselected package libreadline8t64:amd64.
+Preparing to unpack .../5-libreadline8t64_8.2-4build1_amd64.deb ...
+Adding 'diversion of /lib/x86_64-linux-gnu/libhistory.so.8 to /lib/x86_64-linux-gnu/libhistory.so.8.usr-is-merged by libreadline8t64'
+Adding 'diversion of /lib/x86_64-linux-gnu/libhistory.so.8.2 to /lib/x86_64-linux-gnu/libhistory.so.8.2.usr-is-merged by libreadline8t64'
+Adding 'diversion of /lib/x86_64-linux-gnu/libreadline.so.8 to /lib/x86_64-linux-gnu/libreadline.so.8.usr-is-merged by libreadline8t64'
+Adding 'diversion of /lib/x86_64-linux-gnu/libreadline.so.8.2 to /lib/x86_64-linux-gnu/libreadline.so.8.2.usr-is-merged by libreadline8t64'
+Unpacking libreadline8t64:amd64 (8.2-4build1) ...
+Selecting previously unselected package libsqlite3-0:amd64.
+Preparing to unpack .../6-libsqlite3-0_3.45.1-1ubuntu2.8_amd64.deb ...
+Unpacking libsqlite3-0:amd64 (3.45.1-1ubuntu2.8) ...
+Selecting previously unselected package libpython3.12-stdlib:amd64.
+Preparing to unpack .../7-libpython3.12-stdlib_3.12.3-1ubuntu0.17_amd64.deb ...
+Unpacking libpython3.12-stdlib:amd64 (3.12.3-1ubuntu0.17) ...
+Selecting previously unselected package python3.12.
+Preparing to unpack .../8-python3.12_3.12.3-1ubuntu0.17_amd64.deb ...
+Unpacking python3.12 (3.12.3-1ubuntu0.17) ...
+Selecting previously unselected package libpython3-stdlib:amd64.
+Preparing to unpack .../9-libpython3-stdlib_3.12.3-0ubuntu2.1_amd64.deb ...
+Unpacking libpython3-stdlib:amd64 (3.12.3-0ubuntu2.1) ...
+Setting up python3-minimal (3.12.3-0ubuntu2.1) ...
+Selecting previously unselected package python3.
+(Reading database ... 
+(Reading database ... 5%
+(Reading database ... 10%
+(Reading database ... 15%
+(Reading database ... 20%
+(Reading database ... 25%
+(Reading database ... 30%
+(Reading database ... 35%
+(Reading database ... 40%
+(Reading database ... 45%
+(Reading database ... 50%
+(Reading database ... 55%
+(Reading database ... 60%
+(Reading database ... 65%
+(Reading database ... 70%
+(Reading database ... 75%
+(Reading database ... 80%
+(Reading database ... 85%
+(Reading database ... 90%
+(Reading database ... 95%
+(Reading database ... 100%
+(Reading database ... 5706 files and directories currently installed.)
+Preparing to unpack .../0-python3_3.12.3-0ubuntu2.1_amd64.deb ...
+Unpacking python3 (3.12.3-0ubuntu2.1) ...
+Selecting previously unselected package openssl.
+Preparing to unpack .../1-openssl_3.0.13-0ubuntu3.16_amd64.deb ...
+Unpacking openssl (3.0.13-0ubuntu3.16) ...
+Selecting previously unselected package ca-certificates.
+Preparing to unpack .../2-ca-certificates_20260816ubuntu0.24.04.1_all.deb ...
+Unpacking ca-certificates (20260816ubuntu0.24.04.1) ...
+Selecting previously unselected package libapparmor1:amd64.
+Preparing to unpack .../3-libapparmor1_4.0.1really4.0.1-0ubuntu0.24.04.9_amd64.deb ...
+Unpacking libapparmor1:amd64 (4.0.1really4.0.1-0ubuntu0.24.04.9) ...
+Selecting previously unselected package sudo.
+Preparing to unpack .../4-sudo_1.9.15p5-3ubuntu5.24.04.4_amd64.deb ...
+Unpacking sudo (1.9.15p5-3ubuntu5.24.04.4) ...
+Selecting previously unselected package python3-pip-whl.
+Preparing to unpack .../5-python3-pip-whl_24.0+dfsg-1ubuntu1.3_all.deb ...
+Unpacking python3-pip-whl (24.0+dfsg-1ubuntu1.3) ...
+Selecting previously unselected package python3-setuptools-whl.
+Preparing to unpack .../6-python3-setuptools-whl_68.1.2-2ubuntu1.2_all.deb ...
+Unpacking python3-setuptools-whl (68.1.2-2ubuntu1.2) ...
+Selecting previously unselected package python3.12-venv.
+Preparing to unpack .../7-python3.12-venv_3.12.3-1ubuntu0.17_amd64.deb ...
+Unpacking python3.12-venv (3.12.3-1ubuntu0.17) ...
+Selecting previously unselected package python3-venv.
+Preparing to unpack .../8-python3-venv_3.12.3-0ubuntu2.1_amd64.deb ...
+Unpacking python3-venv (3.12.3-0ubuntu2.1) ...
+Setting up media-types (10.1.0) ...
+Setting up python3-setuptools-whl (68.1.2-2ubuntu1.2) ...
+Setting up libapparmor1:amd64 (4.0.1really4.0.1-0ubuntu0.24.04.9) ...
+Setting up libsqlite3-0:amd64 (3.45.1-1ubuntu2.8) ...
+Setting up tzdata (2026e-0ubuntu0.24.04.1) ...
+
+Current default time zone: 'Etc/UTC'
+Local time is now:      Sun Oct 25 06:55:02 UTC 2026.
+Universal Time is now:  Sun Oct 25 06:55:02 UTC 2026.
+Run 'dpkg-reconfigure tzdata' if you wish to change it.
+
+Setting up sudo (1.9.15p5-3ubuntu5.24.04.4) ...
+Setting up netbase (6.4) ...
+Setting up openssl (3.0.13-0ubuntu3.16) ...
+Setting up readline-common (8.2-4build1) ...
+Setting up ca-certificates (20260816ubuntu0.24.04.1) ...
+Updating certificates in /etc/ssl/certs...
+120 added, 0 removed; done.
+Setting up libreadline8t64:amd64 (8.2-4build1) ...
+Setting up libpython3.12-stdlib:amd64 (3.12.3-1ubuntu0.17) ...
+Setting up python3-pip-whl (24.0+dfsg-1ubuntu1.3) ...
+Setting up python3.12 (3.12.3-1ubuntu0.17) ...
+Setting up libpython3-stdlib:amd64 (3.12.3-0ubuntu2.1) ...
+Setting up python3.12-venv (3.12.3-1ubuntu0.17) ...
+Setting up python3 (3.12.3-0ubuntu2.1) ...
+Setting up python3-venv (3.12.3-0ubuntu2.1) ...
+Processing triggers for libc-bin (2.39-0ubuntu8.9) ...
+Processing triggers for ca-certificates (20260816ubuntu0.24.04.1) ...
+Updating certificates in /etc/ssl/certs...
+0 added, 0 removed; done.
+Running hooks in /etc/ca-certificates/update.d...
+done.
+Collecting ansible==14.4.0 (from -r requirements-ansible.txt (line 1))
+  Downloading ansible-14.4.0-py3-none-any.whl.metadata (8.1 kB)
+Collecting ansible-lint==26.9.0 (from -r requirements-ansible.txt (line 2))
+  Downloading ansible_lint-26.9.0-py3-none-any.whl.metadata (6.2 kB)
+Collecting yamllint==1.38.0 (from -r requirements-ansible.txt (line 3))
+  Downloading yamllint-1.38.0-py3-none-any.whl.metadata (4.2 kB)
+Collecting ansible-core~=2.21.4 (from ansible==14.4.0->-r requirements-ansible.txt (line 1))
+  Downloading ansible_core-2.21.5-py3-none-any.whl.metadata (7.8 kB)
+Collecting ansible-compat>=26.3.0 (from ansible-lint==26.9.0->-r requirements-ansible.txt (line 2))
+  Downloading ansible_compat-26.10.0-py3-none-any.whl.metadata (3.5 kB)
+Collecting black>=25.2.0 (from ansible-lint==26.9.0->-r requirements-ansible.txt (line 2))
+  Downloading black-26.10.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (108 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 108.9/108.9 kB 4.1 MB/s eta 0:00:00
+Collecting cffi>=1.15.1 (from ansible-lint==26.9.0->-r requirements-ansible.txt (line 2))
+  Downloading cffi-2.1.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (2.5 kB)
+Collecting cryptography>=50.0.0 (from ansible-lint==26.9.0->-r requirements-ansible.txt (line 2))
+  Downloading cryptography-50.0.2-cp311-abi3-manylinux_2_34_x86_64.whl.metadata (4.4 kB)
+Collecting distro>=1.9.0 (from ansible-lint==26.9.0->-r requirements-ansible.txt (line 2))
+  Downloading distro-1.9.0-py3-none-any.whl.metadata (6.8 kB)
+Collecting filelock>=3.8.2 (from ansible-lint==26.9.0->-r requirements-ansible.txt (line 2))
+  Downloading filelock-4.2.4-py3-none-any.whl.metadata (2.0 kB)
+Collecting jsonschema>=4.10.0 (from ansible-lint==26.9.0->-r requirements-ansible.txt (line 2))
+  Downloading jsonschema-4.26.0-py3-none-any.whl.metadata (7.6 kB)
+Collecting packaging>=22.0 (from ansible-lint==26.9.0->-r requirements-ansible.txt (line 2))
+  Downloading packaging-26.3-py3-none-any.whl.metadata (3.5 kB)
+Collecting pathspec<1.2.0,>=1.0.3 (from ansible-lint==26.9.0->-r requirements-ansible.txt (line 2))
+  Downloading pathspec-1.1.1-py3-none-any.whl.metadata (14 kB)
+Collecting pyyaml>=6.0.1 (from ansible-lint==26.9.0->-r requirements-ansible.txt (line 2))
+  Downloading pyyaml-6.0.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.4 kB)
+Collecting referencing>=0.36.2 (from ansible-lint==26.9.0->-r requirements-ansible.txt (line 2))
+  Downloading referencing-0.37.0-py3-none-any.whl.metadata (2.8 kB)
+Collecting ruamel-yaml>=0.18.11 (from ansible-lint==26.9.0->-r requirements-ansible.txt (line 2))
+  Downloading ruamel_yaml-0.19.1-py3-none-any.whl.metadata (16 kB)
+Collecting subprocess-tee>=0.4.1 (from ansible-lint==26.9.0->-r requirements-ansible.txt (line 2))
+  Downloading subprocess_tee-0.4.2-py3-none-any.whl.metadata (3.3 kB)
+Collecting wcmatch>=8.5.0 (from ansible-lint==26.9.0->-r requirements-ansible.txt (line 2))
+  Downloading wcmatch-11.2-py3-none-any.whl.metadata (6.0 kB)
+Collecting jinja2>=3.1.0 (from ansible-core~=2.21.4->ansible==14.4.0->-r requirements-ansible.txt (line 1))
+  Downloading jinja2-3.1.6-py3-none-any.whl.metadata (2.9 kB)
+Collecting resolvelib<2.0.0,>=0.8.0 (from ansible-core~=2.21.4->ansible==14.4.0->-r requirements-ansible.txt (line 1))
+  Downloading resolvelib-1.2.1-py3-none-any.whl.metadata (3.7 kB)
+Collecting click>=8.0.0 (from black>=25.2.0->ansible-lint==26.9.0->-r requirements-ansible.txt (line 2))
+  Downloading click-8.5.0-py3-none-any.whl.metadata (2.6 kB)
+Collecting mypy-extensions>=0.4.3 (from black>=25.2.0->ansible-lint==26.9.0->-r requirements-ansible.txt (line 2))
+  Downloading mypy_extensions-1.1.0-py3-none-any.whl.metadata (1.1 kB)
+Collecting platformdirs>=2 (from black>=25.2.0->ansible-lint==26.9.0->-r requirements-ansible.txt (line 2))
+  Downloading platformdirs-4.13.5-py3-none-any.whl.metadata (5.5 kB)
+Collecting pytokens~=0.4.0 (from black>=25.2.0->ansible-lint==26.9.0->-r requirements-ansible.txt (line 2))
+  Downloading pytokens-0.4.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (3.8 kB)
+Collecting pycparser (from cffi>=1.15.1->ansible-lint==26.9.0->-r requirements-ansible.txt (line 2))
+  Downloading pycparser-3.12-py3-none-any.whl.metadata (9.7 kB)
+Collecting attrs>=22.2.0 (from jsonschema>=4.10.0->ansible-lint==26.9.0->-r requirements-ansible.txt (line 2))
+  Downloading attrs-26.1.0-py3-none-any.whl.metadata (8.8 kB)
+Collecting jsonschema-specifications>=2023.03.6 (from jsonschema>=4.10.0->ansible-lint==26.9.0->-r requirements-ansible.txt (line 2))
+  Downloading jsonschema_specifications-2025.9.1-py3-none-any.whl.metadata (2.9 kB)
+Collecting rpds-py>=0.25.0 (from jsonschema>=4.10.0->ansible-lint==26.9.0->-r requirements-ansible.txt (line 2))
+  Downloading rpds_py-2026.9.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (4.1 kB)
+Collecting typing-extensions>=4.4.0 (from referencing>=0.36.2->ansible-lint==26.9.0->-r requirements-ansible.txt (line 2))
+  Downloading typing_extensions-4.16.0-py3-none-any.whl.metadata (3.3 kB)
+Collecting bracex>=3.2 (from wcmatch>=8.5.0->ansible-lint==26.9.0->-r requirements-ansible.txt (line 2))
+  Downloading bracex-3.2-py3-none-any.whl.metadata (3.3 kB)
+Collecting MarkupSafe>=2.0 (from jinja2>=3.1.0->ansible-core~=2.21.4->ansible==14.4.0->-r requirements-ansible.txt (line 1))
+  Downloading markupsafe-3.0.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.7 kB)
+Downloading ansible-14.4.0-py3-none-any.whl (51.0 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 51.0/51.0 MB 8.2 MB/s eta 0:00:00
+Downloading ansible_lint-26.9.0-py3-none-any.whl (341 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 341.7/341.7 kB 9.2 MB/s eta 0:00:00
+Downloading yamllint-1.38.0-py3-none-any.whl (68 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 68.9/68.9 kB 22.0 MB/s eta 0:00:00
+Downloading ansible_compat-26.10.0-py3-none-any.whl (28 kB)
+Downloading ansible_core-2.21.5-py3-none-any.whl (2.5 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.5/2.5 MB 10.5 MB/s eta 0:00:00
+Downloading black-26.10.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (2.1 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.1/2.1 MB 8.1 MB/s eta 0:00:00
+Downloading cffi-2.1.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (221 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 221.8/221.8 kB 10.1 MB/s eta 0:00:00
+Downloading cryptography-50.0.2-cp311-abi3-manylinux_2_34_x86_64.whl (4.8 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 4.8/4.8 MB 8.2 MB/s eta 0:00:00
+Downloading distro-1.9.0-py3-none-any.whl (20 kB)
+Downloading filelock-4.2.4-py3-none-any.whl (162 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 162.5/162.5 kB 10.3 MB/s eta 0:00:00
+Downloading jsonschema-4.26.0-py3-none-any.whl (90 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 90.6/90.6 kB 94.6 MB/s eta 0:00:00
+Downloading packaging-26.3-py3-none-any.whl (129 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 130.0/130.0 kB 14.5 MB/s eta 0:00:00
+Downloading pathspec-1.1.1-py3-none-any.whl (57 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 57.3/57.3 kB 22.2 MB/s eta 0:00:00
+Downloading pyyaml-6.0.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (807 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 807.9/807.9 kB 10.2 MB/s eta 0:00:00
+Downloading referencing-0.37.0-py3-none-any.whl (26 kB)
+Downloading ruamel_yaml-0.19.1-py3-none-any.whl (118 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 118.1/118.1 kB 11.5 MB/s eta 0:00:00
+Downloading subprocess_tee-0.4.2-py3-none-any.whl (5.2 kB)
+Downloading wcmatch-11.2-py3-none-any.whl (44 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 44.4/44.4 kB 24.5 MB/s eta 0:00:00
+Downloading attrs-26.1.0-py3-none-any.whl (67 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 67.5/67.5 kB 29.9 MB/s eta 0:00:00
+Downloading bracex-3.2-py3-none-any.whl (12 kB)
+Downloading click-8.5.0-py3-none-any.whl (125 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 125.3/125.3 kB 14.2 MB/s eta 0:00:00
+Downloading jinja2-3.1.6-py3-none-any.whl (134 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 134.9/134.9 kB 15.8 MB/s eta 0:00:00
+Downloading jsonschema_specifications-2025.9.1-py3-none-any.whl (18 kB)
+Downloading mypy_extensions-1.1.0-py3-none-any.whl (5.0 kB)
+Downloading platformdirs-4.13.5-py3-none-any.whl (32 kB)
+Downloading pytokens-0.4.1-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (269 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 269.8/269.8 kB 9.0 MB/s eta 0:00:00
+Downloading resolvelib-1.2.1-py3-none-any.whl (18 kB)
+Downloading rpds_py-2026.9.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (371 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 371.3/371.3 kB 11.3 MB/s eta 0:00:00
+Downloading typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 45.6/45.6 kB 41.4 MB/s eta 0:00:00
+Downloading pycparser-3.12-py3-none-any.whl (62 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 62.6/62.6 kB 16.9 MB/s eta 0:00:00
+Downloading markupsafe-3.0.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (22 kB)
+Installing collected packages: typing-extensions, subprocess-tee, ruamel-yaml, rpds-py, resolvelib, pyyaml, pytokens, pycparser, platformdirs, pathspec, packaging, mypy-extensions, MarkupSafe, filelock, distro, click, bracex, attrs, yamllint, wcmatch, referencing, jinja2, cffi, black, jsonschema-specifications, cryptography, jsonschema, ansible-core, ansible-compat, ansible, ansible-lint
+Successfully installed MarkupSafe-3.0.4 ansible-14.4.0 ansible-compat-26.10.0 ansible-core-2.21.5 ansible-lint-26.9.0 attrs-26.1.0 black-26.10.1 bracex-3.2 cffi-2.1.1 click-8.5.0 cryptography-50.0.2 distro-1.9.0 filelock-4.2.4 jinja2-3.1.6 jsonschema-4.26.0 jsonschema-specifications-2025.9.1 mypy-extensions-1.1.0 packaging-26.3 pathspec-1.1.1 platformdirs-4.13.5 pycparser-3.12 pytokens-0.4.1 pyyaml-6.0.3 referencing-0.37.0 resolvelib-1.2.1 rpds-py-2026.9.1 ruamel-yaml-0.19.1 subprocess-tee-0.4.2 typing-extensions-4.16.0 wcmatch-11.2 yamllint-1.38.0
+Starting galaxy collection install process
+Nothing to do. All requested collections are already installed. If you want to reinstall them, consider using `--force`.
+
+===== CA2-EVIDENCE: ansible-first-run.txt =====
+
+PLAY [Preflight operating system support without privilege escalation] *********
+
+TASK [Gathering Facts] *********************************************************
+ok: [localhost]
+
+TASK [Resolve effective OS values while allowing the documented negative-test override] ***
+ok: [localhost]
+
+TASK [Refuse unsupported operating systems before configuration starts] ********
+ok: [localhost] => {
+    "changed": false,
+    "msg": "Supported target: Ubuntu 24.04"
+}
+
+PLAY [Configure shortly runtime on supported Debian and Ubuntu hosts] **********
+
+TASK [Record existing runtime tools without modifying the host] ****************
+ok: [localhost] => (item=docker)
+ok: [localhost] => (item=kubectl)
+ok: [localhost] => (item=helm)
+ok: [localhost] => (item=minikube)
+
+TASK [Save discovered runtime tool paths for role decisions] *******************
+ok: [localhost]
+
+TASK [common : Refresh apt metadata when cache is older than one hour] *********
+ok: [localhost]
+
+TASK [common : Install required base and troubleshooting packages] *************
+changed: [localhost]
+
+TASK [common : Detect a running systemd instance rather than installed binaries] ***
+ok: [localhost]
+
+TASK [common : Set the configured system timezone when systemd is running] *****
+skipping: [localhost]
+
+TASK [common : Explain timezone skip on systems without systemd] ***************
+ok: [localhost] => {
+    "msg": "Skipping timezone management because systemd is not running in this target."
+}
+
+TASK [docker : Check whether Docker is already on PATH] ************************
+ok: [localhost]
+
+TASK [docker : Check whether the Docker daemon package exists] *****************
+ok: [localhost]
+
+TASK [docker : Detect Docker Desktop WSL integration] **************************
+ok: [localhost]
+
+TASK [docker : Explain Docker Desktop WSL integration detection] ***************
+skipping: [localhost]
+
+TASK [docker : Decide whether this play should install Docker Engine] **********
+ok: [localhost]
+
+TASK [docker : Ensure the Docker group exists for the deploy account] **********
+changed: [localhost]
+
+TASK [docker : Map supported Debian architectures to Docker repository names] ***
+ok: [localhost]
+
+TASK [docker : Refuse Docker installation on an unsupported CPU architecture] ***
+ok: [localhost] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+
+TASK [docker : Create apt keyring directory for Docker's signing key] **********
+ok: [localhost]
+
+TASK [docker : Download Docker's official signing key] *************************
+changed: [localhost]
+
+TASK [docker : Read the downloaded Docker signing key fingerprint] *************
+ok: [localhost]
+
+TASK [docker : Show public Docker key fingerprint records for audit evidence] ***
+ok: [localhost] => {
+    "msg": "Docker key fingerprint records: ['fpr:::::::::9DC858229FC7DD38854AE2D88D81803C0EBFCD88:', 'fpr:::::::::D3306A018370199E527AE7997EA0A9C3F273FCD8:']"
+}
+
+TASK [docker : Verify Docker's official signing key fingerprint] ***************
+ok: [localhost] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+
+TASK [docker : Dearmor Docker's verified apt signing key] **********************
+changed: [localhost]
+
+TASK [docker : Set permissions on Docker apt keyring] **************************
+ok: [localhost]
+
+TASK [docker : Add Docker's signed deb822 apt repository] **********************
+changed: [localhost]
+
+TASK [docker : Install Docker Engine packages without upgrading existing packages] ***
+changed: [localhost]
+
+TASK [docker : Inspect existing Docker daemon configuration] *******************
+ok: [localhost]
+
+TASK [docker : Read existing Docker daemon configuration for ownership marker] ***
+skipping: [localhost]
+
+TASK [docker : Manage Docker daemon log rotation only when absent or owned by this role] ***
+changed: [localhost]
+
+TASK [docker : Mark managed Docker daemon configuration ownership] *************
+changed: [localhost]
+
+TASK [docker : Ensure Docker service is enabled and running under systemd] *****
+skipping: [localhost]
+
+TASK [docker : Add configured existing users to the Docker group] **************
+skipping: [localhost]
+
+TASK [k8s_tools : Map the host CPU architecture to upstream binary names] ******
+ok: [localhost]
+
+TASK [k8s_tools : Refuse tool installation for an unsupported CPU architecture] ***
+ok: [localhost] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+
+TASK [k8s_tools : Download pinned kubectl with its published checksum when needed] ***
+changed: [localhost]
+
+TASK [k8s_tools : Install pinned kubectl binary with executable permissions] ***
+changed: [localhost]
+
+TASK [k8s_tools : Download pinned Helm tarball with its published checksum when needed] ***
+changed: [localhost]
+
+TASK [k8s_tools : Extract pinned Helm binary under a temporary versioned directory] ***
+changed: [localhost]
+
+TASK [k8s_tools : Install pinned Helm binary with executable permissions] ******
+changed: [localhost]
+
+TASK [k8s_tools : Download pinned minikube with its published checksum when needed] ***
+changed: [localhost]
+
+TASK [k8s_tools : Install pinned minikube binary with executable permissions] ***
+changed: [localhost]
+
+TASK [k8s_tools : Ensure bash completion directory exists] *********************
+ok: [localhost]
+
+TASK [k8s_tools : Generate kubectl bash completion only when kubectl is executable] ***
+changed: [localhost]
+
+TASK [k8s_tools : Generate Helm bash completion only when Helm is executable] ***
+changed: [localhost]
+
+TASK [k8s_tools : Generate minikube bash completion only when minikube is executable] ***
+changed: [localhost]
+
+TASK [k8s_tools : Read kubectl client version without changing host state] *****
+ok: [localhost]
+
+TASK [k8s_tools : Read Helm version without changing host state] ***************
+ok: [localhost]
+
+TASK [k8s_tools : Read minikube version without changing host state] ***********
+ok: [localhost]
+
+TASK [k8s_tools : Print the detected tool versions] ****************************
+ok: [localhost] => {
+    "msg": [
+        "kubectl: clientVersion:\n  buildDate: \"2026-09-23T17:10:05Z\"\n  compiler: gc\n  gitCommit: ad950d1cc78b0183c476bd4d3f1934c104229727\n  gitTreeState: clean\n  gitVersion: v1.36.5\n  goVersion: go1.26.8\n  major: \"1\"\n  minor: \"36\"\n  platform: linux/amd64\nkustomizeVersion: v5.8.1",
+        "helm: v4.2.2+gb05881c",
+        "minikube: v1.39.0"
+    ]
+}
+
+TASK [deploy_user : Create the dedicated deploy group with its fixed GID] ******
+changed: [localhost]
+
+TASK [deploy_user : Create the locked deploy account without changing any existing user] ***
+changed: [localhost]
+
+TASK [deploy_user : Ensure deploy user's Kubernetes and project directories exist] ***
+changed: [localhost] => (item={'path': '/home/deploy/.kube', 'mode': '0700'})
+changed: [localhost] => (item={'path': '/home/deploy/.local/bin', 'mode': '0755'})
+changed: [localhost] => (item={'path': '/home/deploy/shortly', 'mode': '0755'})
+changed: [localhost] => (item={'path': '/home/deploy/.ssh', 'mode': '0700'})
+changed: [localhost] => (item={'path': '/home/deploy/.bashrc.d', 'mode': '0755'})
+changed: [localhost] => (item={'path': '/home/deploy/.minikube/config', 'mode': '0700'})
+
+TASK [deploy_user : Install an optional deploy SSH public key] *****************
+skipping: [localhost]
+
+TASK [deploy_user : Install validated narrow sudoers permissions for deploy] ***
+changed: [localhost]
+
+TASK [deploy_user : Install deploy user's shortly shell environment snippet] ***
+changed: [localhost]
+
+TASK [deploy_user : Load the shortly shell snippet from deploy user's bashrc] ***
+changed: [localhost]
+
+TASK [shortly_config : Ensure shortly configuration directory exists] **********
+changed: [localhost]
+
+TASK [shortly_config : Install shortly environment values without exposing token diffs or logs] ***
+changed: [localhost]
+
+TASK [shortly_config : Check whether deploy already has a minikube configuration] ***
+ok: [localhost]
+
+TASK [shortly_config : Create deploy user's minikube defaults only when its config is absent] ***
+changed: [localhost]
+
+TASK [shortly_config : Explain preservation of an existing deploy minikube configuration] ***
+skipping: [localhost]
+
+TASK [shortly_config : Ensure shortly log directory exists] ********************
+changed: [localhost]
+
+TASK [shortly_config : Install shortly logrotate policy] ***********************
+changed: [localhost]
+
+TASK [shortly_config : Read minikube profile details for short.local address selection] ***
+skipping: [localhost]
+
+TASK [shortly_config : Read minikube profile IP for short.local address selection] ***
+skipping: [localhost]
+
+TASK [shortly_config : Detect a Linux-native Docker driver from minikube profile data] ***
+ok: [localhost]
+
+TASK [shortly_config : Choose the short.local address] *************************
+ok: [localhost]
+
+TASK [shortly_config : Manage the short.local hosts entry using a marked block] ***
+changed: [localhost]
+
+TASK [shortly_config : Explain disabled short.local hosts management] **********
+skipping: [localhost]
+
+TASK [shortly_config : Check whether the GitHub Actions runner directory exists] ***
+ok: [localhost]
+
+TASK [shortly_config : Configure GitHub Actions runner PATH and environment files] ***
+skipping: [localhost] => (item={'src': 'runner.path.j2', 'dest': '.path'}) 
+skipping: [localhost] => (item={'src': 'runner.env.j2', 'dest': '.env'}) 
+skipping: [localhost]
+
+TASK [shortly_config : Explain skipped runner environment because the runner is not installed] ***
+ok: [localhost] => {
+    "msg": "Skipping GitHub runner environment because /home/deploy/actions-runner does not exist."
+}
+
+TASK [shortly_config : Install shortly-doctor operator helper] *****************
+changed: [localhost]
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=63   changed=31   unreachable=0    failed=0    skipped=11   rescued=0    ignored=0   
+
+recap: ok=63 changed=31 unreachable=0 failed=0
+
+===== CA2-EVIDENCE: ansible-check-diff.txt =====
+
+PLAY [Preflight operating system support without privilege escalation] *********
+
+TASK [Gathering Facts] *********************************************************
+ok: [localhost]
+
+TASK [Resolve effective OS values while allowing the documented negative-test override] ***
+ok: [localhost]
+
+TASK [Refuse unsupported operating systems before configuration starts] ********
+ok: [localhost] => {
+    "changed": false,
+    "msg": "Supported target: Ubuntu 24.04"
+}
+
+PLAY [Configure shortly runtime on supported Debian and Ubuntu hosts] **********
+
+TASK [Record existing runtime tools without modifying the host] ****************
+ok: [localhost] => (item=docker)
+ok: [localhost] => (item=kubectl)
+ok: [localhost] => (item=helm)
+ok: [localhost] => (item=minikube)
+
+TASK [Save discovered runtime tool paths for role decisions] *******************
+ok: [localhost]
+
+TASK [common : Refresh apt metadata when cache is older than one hour] *********
+ok: [localhost]
+
+TASK [common : Install required base and troubleshooting packages] *************
+ok: [localhost]
+
+TASK [common : Detect a running systemd instance rather than installed binaries] ***
+ok: [localhost]
+
+TASK [common : Set the configured system timezone when systemd is running] *****
+skipping: [localhost]
+
+TASK [common : Explain timezone skip on systems without systemd] ***************
+ok: [localhost] => {
+    "msg": "Skipping timezone management because systemd is not running in this target."
+}
+
+TASK [docker : Check whether Docker is already on PATH] ************************
+ok: [localhost]
+
+TASK [docker : Check whether the Docker daemon package exists] *****************
+ok: [localhost]
+
+TASK [docker : Detect Docker Desktop WSL integration] **************************
+ok: [localhost]
+
+TASK [docker : Explain Docker Desktop WSL integration detection] ***************
+skipping: [localhost]
+
+TASK [docker : Decide whether this play should install Docker Engine] **********
+ok: [localhost]
+
+TASK [docker : Ensure the Docker group exists for the deploy account] **********
+ok: [localhost]
+
+TASK [docker : Map supported Debian architectures to Docker repository names] ***
+skipping: [localhost]
+
+TASK [docker : Refuse Docker installation on an unsupported CPU architecture] ***
+skipping: [localhost]
+
+TASK [docker : Create apt keyring directory for Docker's signing key] **********
+skipping: [localhost]
+
+TASK [docker : Download Docker's official signing key] *************************
+skipping: [localhost]
+
+TASK [docker : Read the downloaded Docker signing key fingerprint] *************
+skipping: [localhost]
+
+TASK [docker : Show public Docker key fingerprint records for audit evidence] ***
+skipping: [localhost]
+
+TASK [docker : Verify Docker's official signing key fingerprint] ***************
+skipping: [localhost]
+
+TASK [docker : Dearmor Docker's verified apt signing key] **********************
+skipping: [localhost]
+
+TASK [docker : Set permissions on Docker apt keyring] **************************
+skipping: [localhost]
+
+TASK [docker : Add Docker's signed deb822 apt repository] **********************
+skipping: [localhost]
+
+TASK [docker : Install Docker Engine packages without upgrading existing packages] ***
+skipping: [localhost]
+
+TASK [docker : Inspect existing Docker daemon configuration] *******************
+skipping: [localhost]
+
+TASK [docker : Read existing Docker daemon configuration for ownership marker] ***
+skipping: [localhost]
+
+TASK [docker : Manage Docker daemon log rotation only when absent or owned by this role] ***
+skipping: [localhost]
+
+TASK [docker : Mark managed Docker daemon configuration ownership] *************
+skipping: [localhost]
+
+TASK [docker : Ensure Docker service is enabled and running under systemd] *****
+skipping: [localhost]
+
+TASK [docker : Add configured existing users to the Docker group] **************
+skipping: [localhost]
+
+TASK [k8s_tools : Map the host CPU architecture to upstream binary names] ******
+ok: [localhost]
+
+TASK [k8s_tools : Refuse tool installation for an unsupported CPU architecture] ***
+ok: [localhost] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+
+TASK [k8s_tools : Download pinned kubectl with its published checksum when needed] ***
+skipping: [localhost]
+
+TASK [k8s_tools : Install pinned kubectl binary with executable permissions] ***
+skipping: [localhost]
+
+TASK [k8s_tools : Download pinned Helm tarball with its published checksum when needed] ***
+skipping: [localhost]
+
+TASK [k8s_tools : Extract pinned Helm binary under a temporary versioned directory] ***
+skipping: [localhost]
+
+TASK [k8s_tools : Install pinned Helm binary with executable permissions] ******
+skipping: [localhost]
+
+TASK [k8s_tools : Download pinned minikube with its published checksum when needed] ***
+skipping: [localhost]
+
+TASK [k8s_tools : Install pinned minikube binary with executable permissions] ***
+skipping: [localhost]
+
+TASK [k8s_tools : Ensure bash completion directory exists] *********************
+ok: [localhost]
+
+TASK [k8s_tools : Generate kubectl bash completion only when kubectl is executable] ***
+ok: [localhost]
+
+TASK [k8s_tools : Generate Helm bash completion only when Helm is executable] ***
+ok: [localhost]
+
+TASK [k8s_tools : Generate minikube bash completion only when minikube is executable] ***
+ok: [localhost]
+
+TASK [k8s_tools : Read kubectl client version without changing host state] *****
+ok: [localhost]
+
+TASK [k8s_tools : Read Helm version without changing host state] ***************
+ok: [localhost]
+
+TASK [k8s_tools : Read minikube version without changing host state] ***********
+ok: [localhost]
+
+TASK [k8s_tools : Print the detected tool versions] ****************************
+ok: [localhost] => {
+    "msg": [
+        "kubectl: clientVersion:\n  buildDate: \"2026-09-23T17:10:05Z\"\n  compiler: gc\n  gitCommit: ad950d1cc78b0183c476bd4d3f1934c104229727\n  gitTreeState: clean\n  gitVersion: v1.36.5\n  goVersion: go1.26.8\n  major: \"1\"\n  minor: \"36\"\n  platform: linux/amd64\nkustomizeVersion: v5.8.1",
+        "helm: v4.2.2+gb05881c",
+        "minikube: v1.39.0"
+    ]
+}
+
+TASK [deploy_user : Create the dedicated deploy group with its fixed GID] ******
+ok: [localhost]
+
+TASK [deploy_user : Create the locked deploy account without changing any existing user] ***
+ok: [localhost]
+
+TASK [deploy_user : Ensure deploy user's Kubernetes and project directories exist] ***
+ok: [localhost] => (item={'path': '/home/deploy/.kube', 'mode': '0700'})
+ok: [localhost] => (item={'path': '/home/deploy/.local/bin', 'mode': '0755'})
+ok: [localhost] => (item={'path': '/home/deploy/shortly', 'mode': '0755'})
+ok: [localhost] => (item={'path': '/home/deploy/.ssh', 'mode': '0700'})
+ok: [localhost] => (item={'path': '/home/deploy/.bashrc.d', 'mode': '0755'})
+ok: [localhost] => (item={'path': '/home/deploy/.minikube/config', 'mode': '0700'})
+
+TASK [deploy_user : Install an optional deploy SSH public key] *****************
+skipping: [localhost]
+
+TASK [deploy_user : Install validated narrow sudoers permissions for deploy] ***
+ok: [localhost]
+
+TASK [deploy_user : Install deploy user's shortly shell environment snippet] ***
+ok: [localhost]
+
+TASK [deploy_user : Load the shortly shell snippet from deploy user's bashrc] ***
+ok: [localhost]
+
+TASK [shortly_config : Ensure shortly configuration directory exists] **********
+ok: [localhost]
+
+TASK [shortly_config : Install shortly environment values without exposing token diffs or logs] ***
+ok: [localhost]
+
+TASK [shortly_config : Check whether deploy already has a minikube configuration] ***
+ok: [localhost]
+
+TASK [shortly_config : Create deploy user's minikube defaults only when its config is absent] ***
+skipping: [localhost]
+
+TASK [shortly_config : Explain preservation of an existing deploy minikube configuration] ***
+ok: [localhost] => {
+    "msg": "Preserving existing /home/deploy/.minikube/config/config.json."
+}
+
+TASK [shortly_config : Ensure shortly log directory exists] ********************
+ok: [localhost]
+
+TASK [shortly_config : Install shortly logrotate policy] ***********************
+ok: [localhost]
+
+TASK [shortly_config : Read minikube profile details for short.local address selection] ***
+ok: [localhost]
+
+TASK [shortly_config : Read minikube profile IP for short.local address selection] ***
+ok: [localhost]
+
+TASK [shortly_config : Detect a Linux-native Docker driver from minikube profile data] ***
+ok: [localhost]
+
+TASK [shortly_config : Choose the short.local address] *************************
+ok: [localhost]
+
+TASK [shortly_config : Manage the short.local hosts entry using a marked block] ***
+ok: [localhost]
+
+TASK [shortly_config : Explain disabled short.local hosts management] **********
+skipping: [localhost]
+
+TASK [shortly_config : Check whether the GitHub Actions runner directory exists] ***
+ok: [localhost]
+
+TASK [shortly_config : Configure GitHub Actions runner PATH and environment files] ***
+skipping: [localhost] => (item={'src': 'runner.path.j2', 'dest': '.path'}) 
+skipping: [localhost] => (item={'src': 'runner.env.j2', 'dest': '.env'}) 
+skipping: [localhost]
+
+TASK [shortly_config : Explain skipped runner environment because the runner is not installed] ***
+ok: [localhost] => {
+    "msg": "Skipping GitHub runner environment because /home/deploy/actions-runner does not exist."
+}
+
+TASK [shortly_config : Install shortly-doctor operator helper] *****************
+ok: [localhost]
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=44   changed=0    unreachable=0    failed=0    skipped=30   rescued=0    ignored=0   
+
+
+===== CA2-EVIDENCE: ansible-idempotence.txt =====
+
+PLAY [Preflight operating system support without privilege escalation] *********
+
+TASK [Gathering Facts] *********************************************************
+ok: [localhost]
+
+TASK [Resolve effective OS values while allowing the documented negative-test override] ***
+ok: [localhost]
+
+TASK [Refuse unsupported operating systems before configuration starts] ********
+ok: [localhost] => {
+    "changed": false,
+    "msg": "Supported target: Ubuntu 24.04"
+}
+
+PLAY [Configure shortly runtime on supported Debian and Ubuntu hosts] **********
+
+TASK [Record existing runtime tools without modifying the host] ****************
+ok: [localhost] => (item=docker)
+ok: [localhost] => (item=kubectl)
+ok: [localhost] => (item=helm)
+ok: [localhost] => (item=minikube)
+
+TASK [Save discovered runtime tool paths for role decisions] *******************
+ok: [localhost]
+
+TASK [common : Refresh apt metadata when cache is older than one hour] *********
+ok: [localhost]
+
+TASK [common : Install required base and troubleshooting packages] *************
+ok: [localhost]
+
+TASK [common : Detect a running systemd instance rather than installed binaries] ***
+ok: [localhost]
+
+TASK [common : Set the configured system timezone when systemd is running] *****
+skipping: [localhost]
+
+TASK [common : Explain timezone skip on systems without systemd] ***************
+ok: [localhost] => {
+    "msg": "Skipping timezone management because systemd is not running in this target."
+}
+
+TASK [docker : Check whether Docker is already on PATH] ************************
+ok: [localhost]
+
+TASK [docker : Check whether the Docker daemon package exists] *****************
+ok: [localhost]
+
+TASK [docker : Detect Docker Desktop WSL integration] **************************
+ok: [localhost]
+
+TASK [docker : Explain Docker Desktop WSL integration detection] ***************
+skipping: [localhost]
+
+TASK [docker : Decide whether this play should install Docker Engine] **********
+ok: [localhost]
+
+TASK [docker : Ensure the Docker group exists for the deploy account] **********
+ok: [localhost]
+
+TASK [docker : Map supported Debian architectures to Docker repository names] ***
+skipping: [localhost]
+
+TASK [docker : Refuse Docker installation on an unsupported CPU architecture] ***
+skipping: [localhost]
+
+TASK [docker : Create apt keyring directory for Docker's signing key] **********
+skipping: [localhost]
+
+TASK [docker : Download Docker's official signing key] *************************
+skipping: [localhost]
+
+TASK [docker : Read the downloaded Docker signing key fingerprint] *************
+skipping: [localhost]
+
+TASK [docker : Show public Docker key fingerprint records for audit evidence] ***
+skipping: [localhost]
+
+TASK [docker : Verify Docker's official signing key fingerprint] ***************
+skipping: [localhost]
+
+TASK [docker : Dearmor Docker's verified apt signing key] **********************
+skipping: [localhost]
+
+TASK [docker : Set permissions on Docker apt keyring] **************************
+skipping: [localhost]
+
+TASK [docker : Add Docker's signed deb822 apt repository] **********************
+skipping: [localhost]
+
+TASK [docker : Install Docker Engine packages without upgrading existing packages] ***
+skipping: [localhost]
+
+TASK [docker : Inspect existing Docker daemon configuration] *******************
+skipping: [localhost]
+
+TASK [docker : Read existing Docker daemon configuration for ownership marker] ***
+skipping: [localhost]
+
+TASK [docker : Manage Docker daemon log rotation only when absent or owned by this role] ***
+skipping: [localhost]
+
+TASK [docker : Mark managed Docker daemon configuration ownership] *************
+skipping: [localhost]
+
+TASK [docker : Ensure Docker service is enabled and running under systemd] *****
+skipping: [localhost]
+
+TASK [docker : Add configured existing users to the Docker group] **************
+skipping: [localhost]
+
+TASK [k8s_tools : Map the host CPU architecture to upstream binary names] ******
+ok: [localhost]
+
+TASK [k8s_tools : Refuse tool installation for an unsupported CPU architecture] ***
+ok: [localhost] => {
+    "changed": false,
+    "msg": "All assertions passed"
+}
+
+TASK [k8s_tools : Download pinned kubectl with its published checksum when needed] ***
+skipping: [localhost]
+
+TASK [k8s_tools : Install pinned kubectl binary with executable permissions] ***
+skipping: [localhost]
+
+TASK [k8s_tools : Download pinned Helm tarball with its published checksum when needed] ***
+skipping: [localhost]
+
+TASK [k8s_tools : Extract pinned Helm binary under a temporary versioned directory] ***
+skipping: [localhost]
+
+TASK [k8s_tools : Install pinned Helm binary with executable permissions] ******
+skipping: [localhost]
+
+TASK [k8s_tools : Download pinned minikube with its published checksum when needed] ***
+skipping: [localhost]
+
+TASK [k8s_tools : Install pinned minikube binary with executable permissions] ***
+skipping: [localhost]
+
+TASK [k8s_tools : Ensure bash completion directory exists] *********************
+ok: [localhost]
+
+TASK [k8s_tools : Generate kubectl bash completion only when kubectl is executable] ***
+ok: [localhost]
+
+TASK [k8s_tools : Generate Helm bash completion only when Helm is executable] ***
+ok: [localhost]
+
+TASK [k8s_tools : Generate minikube bash completion only when minikube is executable] ***
+ok: [localhost]
+
+TASK [k8s_tools : Read kubectl client version without changing host state] *****
+ok: [localhost]
+
+TASK [k8s_tools : Read Helm version without changing host state] ***************
+ok: [localhost]
+
+TASK [k8s_tools : Read minikube version without changing host state] ***********
+ok: [localhost]
+
+TASK [k8s_tools : Print the detected tool versions] ****************************
+ok: [localhost] => {
+    "msg": [
+        "kubectl: clientVersion:\n  buildDate: \"2026-09-23T17:10:05Z\"\n  compiler: gc\n  gitCommit: ad950d1cc78b0183c476bd4d3f1934c104229727\n  gitTreeState: clean\n  gitVersion: v1.36.5\n  goVersion: go1.26.8\n  major: \"1\"\n  minor: \"36\"\n  platform: linux/amd64\nkustomizeVersion: v5.8.1",
+        "helm: v4.2.2+gb05881c",
+        "minikube: v1.39.0"
+    ]
+}
+
+TASK [deploy_user : Create the dedicated deploy group with its fixed GID] ******
+ok: [localhost]
+
+TASK [deploy_user : Create the locked deploy account without changing any existing user] ***
+ok: [localhost]
+
+TASK [deploy_user : Ensure deploy user's Kubernetes and project directories exist] ***
+ok: [localhost] => (item={'path': '/home/deploy/.kube', 'mode': '0700'})
+ok: [localhost] => (item={'path': '/home/deploy/.local/bin', 'mode': '0755'})
+ok: [localhost] => (item={'path': '/home/deploy/shortly', 'mode': '0755'})
+ok: [localhost] => (item={'path': '/home/deploy/.ssh', 'mode': '0700'})
+ok: [localhost] => (item={'path': '/home/deploy/.bashrc.d', 'mode': '0755'})
+ok: [localhost] => (item={'path': '/home/deploy/.minikube/config', 'mode': '0700'})
+
+TASK [deploy_user : Install an optional deploy SSH public key] *****************
+skipping: [localhost]
+
+TASK [deploy_user : Install validated narrow sudoers permissions for deploy] ***
+ok: [localhost]
+
+TASK [deploy_user : Install deploy user's shortly shell environment snippet] ***
+ok: [localhost]
+
+TASK [deploy_user : Load the shortly shell snippet from deploy user's bashrc] ***
+ok: [localhost]
+
+TASK [shortly_config : Ensure shortly configuration directory exists] **********
+ok: [localhost]
+
+TASK [shortly_config : Install shortly environment values without exposing token diffs or logs] ***
+ok: [localhost]
+
+TASK [shortly_config : Check whether deploy already has a minikube configuration] ***
+ok: [localhost]
+
+TASK [shortly_config : Create deploy user's minikube defaults only when its config is absent] ***
+skipping: [localhost]
+
+TASK [shortly_config : Explain preservation of an existing deploy minikube configuration] ***
+ok: [localhost] => {
+    "msg": "Preserving existing /home/deploy/.minikube/config/config.json."
+}
+
+TASK [shortly_config : Ensure shortly log directory exists] ********************
+ok: [localhost]
+
+TASK [shortly_config : Install shortly logrotate policy] ***********************
+ok: [localhost]
+
+TASK [shortly_config : Read minikube profile details for short.local address selection] ***
+ok: [localhost]
+
+TASK [shortly_config : Read minikube profile IP for short.local address selection] ***
+ok: [localhost]
+
+TASK [shortly_config : Detect a Linux-native Docker driver from minikube profile data] ***
+ok: [localhost]
+
+TASK [shortly_config : Choose the short.local address] *************************
+ok: [localhost]
+
+TASK [shortly_config : Manage the short.local hosts entry using a marked block] ***
+ok: [localhost]
+
+TASK [shortly_config : Explain disabled short.local hosts management] **********
+skipping: [localhost]
+
+TASK [shortly_config : Check whether the GitHub Actions runner directory exists] ***
+ok: [localhost]
+
+TASK [shortly_config : Configure GitHub Actions runner PATH and environment files] ***
+skipping: [localhost] => (item={'src': 'runner.path.j2', 'dest': '.path'}) 
+skipping: [localhost] => (item={'src': 'runner.env.j2', 'dest': '.env'}) 
+skipping: [localhost]
+
+TASK [shortly_config : Explain skipped runner environment because the runner is not installed] ***
+ok: [localhost] => {
+    "msg": "Skipping GitHub runner environment because /home/deploy/actions-runner does not exist."
+}
+
+TASK [shortly_config : Install shortly-doctor operator helper] *****************
+ok: [localhost]
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=44   changed=0    unreachable=0    failed=0    skipped=30   rescued=0    ignored=0   
+
+recap: ok=44 changed=0 unreachable=0 failed=0
+
+===== CA2-EVIDENCE: ansible-verify.txt =====
+
+PLAY [Preflight verification OS support without privilege escalation] **********
+
+TASK [Gathering Facts] *********************************************************
+ok: [localhost]
+
+TASK [Resolve effective OS values while allowing the documented negative-test override] ***
+ok: [localhost]
+
+TASK [Refuse unsupported operating systems before verification starts] *********
+ok: [localhost] => {
+    "changed": false,
+    "msg": "Supported target: Ubuntu 24.04"
+}
+
+PLAY [Verify shortly runtime state without changing it] ************************
+
+TASK [Gathering Facts] *********************************************************
+ok: [localhost]
+
+TASK [Gather installed package facts] ******************************************
+ok: [localhost]
+
+TASK [Assert base packages are installed] **************************************
+ok: [localhost] => (item=ca-certificates) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": "ca-certificates",
+    "msg": "PASS package ca-certificates installed"
+}
+ok: [localhost] => (item=curl) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": "curl",
+    "msg": "PASS package curl installed"
+}
+ok: [localhost] => (item=gnupg) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": "gnupg",
+    "msg": "PASS package gnupg installed"
+}
+ok: [localhost] => (item=git) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": "git",
+    "msg": "PASS package git installed"
+}
+ok: [localhost] => (item=jq) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": "jq",
+    "msg": "PASS package jq installed"
+}
+ok: [localhost] => (item=make) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": "make",
+    "msg": "PASS package make installed"
+}
+ok: [localhost] => (item=unzip) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": "unzip",
+    "msg": "PASS package unzip installed"
+}
+ok: [localhost] => (item=python3-pip) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": "python3-pip",
+    "msg": "PASS package python3-pip installed"
+}
+ok: [localhost] => (item=python3-venv) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": "python3-venv",
+    "msg": "PASS package python3-venv installed"
+}
+ok: [localhost] => (item=apt-transport-https) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": "apt-transport-https",
+    "msg": "PASS package apt-transport-https installed"
+}
+ok: [localhost] => (item=net-tools) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": "net-tools",
+    "msg": "PASS package net-tools installed"
+}
+ok: [localhost] => (item=dnsutils) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": "dnsutils",
+    "msg": "PASS package dnsutils installed"
+}
+ok: [localhost] => (item=python3-debian) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": "python3-debian",
+    "msg": "PASS package python3-debian installed"
+}
+
+TASK [Read deploy account identity] ********************************************
+ok: [localhost]
+
+TASK [Read deploy group memberships] *******************************************
+ok: [localhost]
+
+TASK [Read locked deploy account shadow status without logging it] *************
+ok: [localhost]
+
+TASK [Assert deploy user identity and locked password state] *******************
+ok: [localhost]
+
+TASK [Inspect managed paths for ownership and mode verification] ***************
+ok: [localhost] => (item={'path': '/etc/shortly', 'owner': 'root', 'group': 'root', 'mode': '0755', 'kind': 'directory'})
+ok: [localhost] => (item={'path': '/etc/shortly/shortly.env', 'owner': 'root', 'group': 'deploy', 'mode': '0640', 'kind': 'file'})
+ok: [localhost] => (item={'path': '/etc/sudoers.d/90-deploy', 'owner': 'root', 'group': 'root', 'mode': '0440', 'kind': 'file'})
+ok: [localhost] => (item={'path': '/home/deploy/.kube', 'owner': 'deploy', 'group': 'deploy', 'mode': '0700', 'kind': 'directory'})
+ok: [localhost] => (item={'path': '/home/deploy/.local/bin', 'owner': 'deploy', 'group': 'deploy', 'mode': '0755', 'kind': 'directory'})
+ok: [localhost] => (item={'path': '/home/deploy/shortly', 'owner': 'deploy', 'group': 'deploy', 'mode': '0755', 'kind': 'directory'})
+ok: [localhost] => (item={'path': '/home/deploy/.ssh', 'owner': 'deploy', 'group': 'deploy', 'mode': '0700', 'kind': 'directory'})
+ok: [localhost] => (item={'path': '/home/deploy/.bashrc', 'owner': 'deploy', 'group': 'deploy', 'mode': '0644', 'kind': 'file'})
+ok: [localhost] => (item={'path': '/home/deploy/.bashrc.d/shortly.sh', 'owner': 'deploy', 'group': 'deploy', 'mode': '0644', 'kind': 'file'})
+ok: [localhost] => (item={'path': '/home/deploy/.minikube/config/config.json', 'owner': 'deploy', 'group': 'deploy', 'mode': '0600', 'kind': 'file'})
+ok: [localhost] => (item={'path': '/var/log/shortly', 'owner': 'root', 'group': 'root', 'mode': '0755', 'kind': 'directory'})
+ok: [localhost] => (item={'path': '/etc/logrotate.d/shortly', 'owner': 'root', 'group': 'root', 'mode': '0644', 'kind': 'file'})
+ok: [localhost] => (item={'path': '/usr/local/bin/shortly-doctor', 'owner': 'root', 'group': 'root', 'mode': '0755', 'kind': 'file'})
+
+TASK [Assert every managed path has its expected type, owner, group, and mode] ***
+ok: [localhost] => (item=/etc/shortly) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": {
+        "ansible_loop_var": "item",
+        "changed": false,
+        "failed": false,
+        "item": {
+            "group": "root",
+            "kind": "directory",
+            "mode": "0755",
+            "owner": "root",
+            "path": "/etc/shortly"
+        },
+        "stat": {
+            "atime": 1792911517.1660447,
+            "attr_flags": "",
+            "attributes": [],
+            "block_size": 4096,
+            "blocks": 8,
+            "charset": "unknown",
+            "ctime": 1792911507.6849093,
+            "dev": 2097187,
+            "device_type": 0,
+            "disk_usage_bytes": 4096,
+            "executable": true,
+            "exists": true,
+            "gid": 0,
+            "gr_name": "root",
+            "inode": 2355591,
+            "isblk": false,
+            "ischr": false,
+            "isdir": true,
+            "isfifo": false,
+            "isgid": false,
+            "islnk": false,
+            "isreg": false,
+            "issock": false,
+            "isuid": false,
+            "mimetype": "unknown",
+            "mode": "0755",
+            "mtime": 1792911507.6849093,
+            "nlink": 2,
+            "path": "/etc/shortly",
+            "pw_name": "root",
+            "readable": true,
+            "rgrp": true,
+            "roth": true,
+            "rusr": true,
+            "size": 4096,
+            "uid": 0,
+            "version": null,
+            "wgrp": false,
+            "woth": false,
+            "writeable": true,
+            "wusr": true,
+            "xgrp": true,
+            "xoth": true,
+            "xusr": true
+        }
+    },
+    "msg": "PASS /etc/shortly owner/mode/type"
+}
+ok: [localhost] => (item=/etc/shortly/shortly.env) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": {
+        "ansible_loop_var": "item",
+        "changed": false,
+        "failed": false,
+        "item": {
+            "group": "deploy",
+            "kind": "file",
+            "mode": "0640",
+            "owner": "root",
+            "path": "/etc/shortly/shortly.env"
+        },
+        "stat": {
+            "atime": 1792911529.8665702,
+            "attr_flags": "",
+            "attributes": [],
+            "block_size": 4096,
+            "blocks": 8,
+            "charset": "unknown",
+            "checksum": "17164c8327affce357d1b7e6f5d07112a96a9db6",
+            "ctime": 1792911507.6849093,
+            "dev": 2097187,
+            "device_type": 0,
+            "disk_usage_bytes": 4096,
+            "executable": false,
+            "exists": true,
+            "gid": 2001,
+            "gr_name": "deploy",
+            "inode": 2355590,
+            "isblk": false,
+            "ischr": false,
+            "isdir": false,
+            "isfifo": false,
+            "isgid": false,
+            "islnk": false,
+            "isreg": true,
+            "issock": false,
+            "isuid": false,
+            "mimetype": "unknown",
+            "mode": "0640",
+            "mtime": 1792911507.488901,
+            "nlink": 1,
+            "path": "/etc/shortly/shortly.env",
+            "pw_name": "root",
+            "readable": true,
+            "rgrp": true,
+            "roth": false,
+            "rusr": true,
+            "size": 232,
+            "uid": 0,
+            "version": null,
+            "wgrp": false,
+            "woth": false,
+            "writeable": true,
+            "wusr": true,
+            "xgrp": false,
+            "xoth": false,
+            "xusr": false
+        }
+    },
+    "msg": "PASS /etc/shortly/shortly.env owner/mode/type"
+}
+ok: [localhost] => (item=/etc/sudoers.d/90-deploy) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": {
+        "ansible_loop_var": "item",
+        "changed": false,
+        "failed": false,
+        "item": {
+            "group": "root",
+            "kind": "file",
+            "mode": "0440",
+            "owner": "root",
+            "path": "/etc/sudoers.d/90-deploy"
+        },
+        "stat": {
+            "atime": 1792911528.00649,
+            "attr_flags": "",
+            "attributes": [],
+            "block_size": 4096,
+            "blocks": 8,
+            "charset": "unknown",
+            "checksum": "a002d3e94a2ec27bb88d5650ad640f191ee46c73",
+            "ctime": 1792911505.9528348,
+            "dev": 2097187,
+            "device_type": 0,
+            "disk_usage_bytes": 4096,
+            "executable": false,
+            "exists": true,
+            "gid": 0,
+            "gr_name": "root",
+            "inode": 2355568,
+            "isblk": false,
+            "ischr": false,
+            "isdir": false,
+            "isfifo": false,
+            "isgid": false,
+            "islnk": false,
+            "isreg": true,
+            "issock": false,
+            "isuid": false,
+            "mimetype": "unknown",
+            "mode": "0440",
+            "mtime": 1792911505.7528262,
+            "nlink": 1,
+            "path": "/etc/sudoers.d/90-deploy",
+            "pw_name": "root",
+            "readable": true,
+            "rgrp": true,
+            "roth": false,
+            "rusr": true,
+            "size": 190,
+            "uid": 0,
+            "version": null,
+            "wgrp": false,
+            "woth": false,
+            "writeable": true,
+            "wusr": false,
+            "xgrp": false,
+            "xoth": false,
+            "xusr": false
+        }
+    },
+    "msg": "PASS /etc/sudoers.d/90-deploy owner/mode/type"
+}
+ok: [localhost] => (item=/home/deploy/.kube) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": {
+        "ansible_loop_var": "item",
+        "changed": false,
+        "failed": false,
+        "item": {
+            "group": "deploy",
+            "kind": "directory",
+            "mode": "0700",
+            "owner": "deploy",
+            "path": "/home/deploy/.kube"
+        },
+        "stat": {
+            "atime": 1792911507.188888,
+            "attr_flags": "",
+            "attributes": [],
+            "block_size": 4096,
+            "blocks": 8,
+            "charset": "unknown",
+            "ctime": 1792911504.2927632,
+            "dev": 2097187,
+            "device_type": 0,
+            "disk_usage_bytes": 4096,
+            "executable": true,
+            "exists": true,
+            "gid": 2001,
+            "gr_name": "deploy",
+            "inode": 2355575,
+            "isblk": false,
+            "ischr": false,
+            "isdir": true,
+            "isfifo": false,
+            "isgid": false,
+            "islnk": false,
+            "isreg": false,
+            "issock": false,
+            "isuid": false,
+            "mimetype": "unknown",
+            "mode": "0700",
+            "mtime": 1792911504.2927632,
+            "nlink": 2,
+            "path": "/home/deploy/.kube",
+            "pw_name": "deploy",
+            "readable": true,
+            "rgrp": false,
+            "roth": false,
+            "rusr": true,
+            "size": 4096,
+            "uid": 2001,
+            "version": null,
+            "wgrp": false,
+            "woth": false,
+            "writeable": true,
+            "wusr": true,
+            "xgrp": false,
+            "xoth": false,
+            "xusr": true
+        }
+    },
+    "msg": "PASS /home/deploy/.kube owner/mode/type"
+}
+ok: [localhost] => (item=/home/deploy/.local/bin) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": {
+        "ansible_loop_var": "item",
+        "changed": false,
+        "failed": false,
+        "item": {
+            "group": "deploy",
+            "kind": "directory",
+            "mode": "0755",
+            "owner": "deploy",
+            "path": "/home/deploy/.local/bin"
+        },
+        "stat": {
+            "atime": 1792911507.188888,
+            "attr_flags": "",
+            "attributes": [],
+            "block_size": 4096,
+            "blocks": 8,
+            "charset": "unknown",
+            "ctime": 1792911504.540774,
+            "dev": 2097187,
+            "device_type": 0,
+            "disk_usage_bytes": 4096,
+            "executable": true,
+            "exists": true,
+            "gid": 2001,
+            "gr_name": "deploy",
+            "inode": 2355582,
+            "isblk": false,
+            "ischr": false,
+            "isdir": true,
+            "isfifo": false,
+            "isgid": false,
+            "islnk": false,
+            "isreg": false,
+            "issock": false,
+            "isuid": false,
+            "mimetype": "unknown",
+            "mode": "0755",
+            "mtime": 1792911504.540774,
+            "nlink": 2,
+            "path": "/home/deploy/.local/bin",
+            "pw_name": "deploy",
+            "readable": true,
+            "rgrp": true,
+            "roth": true,
+            "rusr": true,
+            "size": 4096,
+            "uid": 2001,
+            "version": null,
+            "wgrp": false,
+            "woth": false,
+            "writeable": true,
+            "wusr": true,
+            "xgrp": true,
+            "xoth": true,
+            "xusr": true
+        }
+    },
+    "msg": "PASS /home/deploy/.local/bin owner/mode/type"
+}
+ok: [localhost] => (item=/home/deploy/shortly) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": {
+        "ansible_loop_var": "item",
+        "changed": false,
+        "failed": false,
+        "item": {
+            "group": "deploy",
+            "kind": "directory",
+            "mode": "0755",
+            "owner": "deploy",
+            "path": "/home/deploy/shortly"
+        },
+        "stat": {
+            "atime": 1792911507.188888,
+            "attr_flags": "",
+            "attributes": [],
+            "block_size": 4096,
+            "blocks": 8,
+            "charset": "unknown",
+            "ctime": 1792911504.7647836,
+            "dev": 2097187,
+            "device_type": 0,
+            "disk_usage_bytes": 4096,
+            "executable": true,
+            "exists": true,
+            "gid": 2001,
+            "gr_name": "deploy",
+            "inode": 2355583,
+            "isblk": false,
+            "ischr": false,
+            "isdir": true,
+            "isfifo": false,
+            "isgid": false,
+            "islnk": false,
+            "isreg": false,
+            "issock": false,
+            "isuid": false,
+            "mimetype": "unknown",
+            "mode": "0755",
+            "mtime": 1792911504.7647836,
+            "nlink": 2,
+            "path": "/home/deploy/shortly",
+            "pw_name": "deploy",
+            "readable": true,
+            "rgrp": true,
+            "roth": true,
+            "rusr": true,
+            "size": 4096,
+            "uid": 2001,
+            "version": null,
+            "wgrp": false,
+            "woth": false,
+            "writeable": true,
+            "wusr": true,
+            "xgrp": true,
+            "xoth": true,
+            "xusr": true
+        }
+    },
+    "msg": "PASS /home/deploy/shortly owner/mode/type"
+}
+ok: [localhost] => (item=/home/deploy/.ssh) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": {
+        "ansible_loop_var": "item",
+        "changed": false,
+        "failed": false,
+        "item": {
+            "group": "deploy",
+            "kind": "directory",
+            "mode": "0700",
+            "owner": "deploy",
+            "path": "/home/deploy/.ssh"
+        },
+        "stat": {
+            "atime": 1792911507.188888,
+            "attr_flags": "",
+            "attributes": [],
+            "block_size": 4096,
+            "blocks": 8,
+            "charset": "unknown",
+            "ctime": 1792911504.9887934,
+            "dev": 2097187,
+            "device_type": 0,
+            "disk_usage_bytes": 4096,
+            "executable": true,
+            "exists": true,
+            "gid": 2001,
+            "gr_name": "deploy",
+            "inode": 2355584,
+            "isblk": false,
+            "ischr": false,
+            "isdir": true,
+            "isfifo": false,
+            "isgid": false,
+            "islnk": false,
+            "isreg": false,
+            "issock": false,
+            "isuid": false,
+            "mimetype": "unknown",
+            "mode": "0700",
+            "mtime": 1792911504.9887934,
+            "nlink": 2,
+            "path": "/home/deploy/.ssh",
+            "pw_name": "deploy",
+            "readable": true,
+            "rgrp": false,
+            "roth": false,
+            "rusr": true,
+            "size": 4096,
+            "uid": 2001,
+            "version": null,
+            "wgrp": false,
+            "woth": false,
+            "writeable": true,
+            "wusr": true,
+            "xgrp": false,
+            "xoth": false,
+            "xusr": true
+        }
+    },
+    "msg": "PASS /home/deploy/.ssh owner/mode/type"
+}
+ok: [localhost] => (item=/home/deploy/.bashrc) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": {
+        "ansible_loop_var": "item",
+        "changed": false,
+        "failed": false,
+        "item": {
+            "group": "deploy",
+            "kind": "file",
+            "mode": "0644",
+            "owner": "deploy",
+            "path": "/home/deploy/.bashrc"
+        },
+        "stat": {
+            "atime": 1792911529.3225467,
+            "attr_flags": "",
+            "attributes": [],
+            "block_size": 4096,
+            "blocks": 8,
+            "charset": "unknown",
+            "checksum": "e658de437ea6158b38c21e1307370c95dddee776",
+            "ctime": 1792911506.8688743,
+            "dev": 2097187,
+            "device_type": 0,
+            "disk_usage_bytes": 4096,
+            "executable": false,
+            "exists": true,
+            "gid": 2001,
+            "gr_name": "deploy",
+            "inode": 2355592,
+            "isblk": false,
+            "ischr": false,
+            "isdir": false,
+            "isfifo": false,
+            "isgid": false,
+            "islnk": false,
+            "isreg": true,
+            "issock": false,
+            "isuid": false,
+            "mimetype": "unknown",
+            "mode": "0644",
+            "mtime": 1792911506.8713357,
+            "nlink": 1,
+            "path": "/home/deploy/.bashrc",
+            "pw_name": "deploy",
+            "readable": true,
+            "rgrp": true,
+            "roth": true,
+            "rusr": true,
+            "size": 3956,
+            "uid": 2001,
+            "version": null,
+            "wgrp": false,
+            "woth": false,
+            "writeable": true,
+            "wusr": true,
+            "xgrp": false,
+            "xoth": false,
+            "xusr": false
+        }
+    },
+    "msg": "PASS /home/deploy/.bashrc owner/mode/type"
+}
+ok: [localhost] => (item=/home/deploy/.bashrc.d/shortly.sh) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": {
+        "ansible_loop_var": "item",
+        "changed": false,
+        "failed": false,
+        "item": {
+            "group": "deploy",
+            "kind": "file",
+            "mode": "0644",
+            "owner": "deploy",
+            "path": "/home/deploy/.bashrc.d/shortly.sh"
+        },
+        "stat": {
+            "atime": 1792911528.5985155,
+            "attr_flags": "",
+            "attributes": [],
+            "block_size": 4096,
+            "blocks": 8,
+            "charset": "unknown",
+            "checksum": "5bbf9de05c3cbbbf07494d685294815dfc8acaa0",
+            "ctime": 1792911506.4288552,
+            "dev": 2097187,
+            "device_type": 0,
+            "disk_usage_bytes": 4096,
+            "executable": false,
+            "exists": true,
+            "gid": 2001,
+            "gr_name": "deploy",
+            "inode": 2355588,
+            "isblk": false,
+            "ischr": false,
+            "isdir": false,
+            "isfifo": false,
+            "isgid": false,
+            "islnk": false,
+            "isreg": true,
+            "issock": false,
+            "isuid": false,
+            "mimetype": "unknown",
+            "mode": "0644",
+            "mtime": 1792911506.2248466,
+            "nlink": 1,
+            "path": "/home/deploy/.bashrc.d/shortly.sh",
+            "pw_name": "deploy",
+            "readable": true,
+            "rgrp": true,
+            "roth": true,
+            "rusr": true,
+            "size": 162,
+            "uid": 2001,
+            "version": null,
+            "wgrp": false,
+            "woth": false,
+            "writeable": true,
+            "wusr": true,
+            "xgrp": false,
+            "xoth": false,
+            "xusr": false
+        }
+    },
+    "msg": "PASS /home/deploy/.bashrc.d/shortly.sh owner/mode/type"
+}
+ok: [localhost] => (item=/home/deploy/.minikube/config/config.json) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": {
+        "ansible_loop_var": "item",
+        "changed": false,
+        "failed": false,
+        "item": {
+            "group": "deploy",
+            "kind": "file",
+            "mode": "0600",
+            "owner": "deploy",
+            "path": "/home/deploy/.minikube/config/config.json"
+        },
+        "stat": {
+            "atime": 1792911530.5706005,
+            "attr_flags": "",
+            "attributes": [],
+            "block_size": 4096,
+            "blocks": 8,
+            "charset": "unknown",
+            "checksum": "677eaff1177db2a1ab36f08eeb67f005b9c58cc0",
+            "ctime": 1792911508.5529466,
+            "dev": 2097187,
+            "device_type": 0,
+            "disk_usage_bytes": 4096,
+            "executable": false,
+            "exists": true,
+            "gid": 2001,
+            "gr_name": "deploy",
+            "inode": 2355593,
+            "isblk": false,
+            "ischr": false,
+            "isdir": false,
+            "isfifo": false,
+            "isgid": false,
+            "islnk": false,
+            "isreg": true,
+            "issock": false,
+            "isuid": false,
+            "mimetype": "unknown",
+            "mode": "0600",
+            "mtime": 1792911508.3529382,
+            "nlink": 1,
+            "path": "/home/deploy/.minikube/config/config.json",
+            "pw_name": "deploy",
+            "readable": true,
+            "rgrp": false,
+            "roth": false,
+            "rusr": true,
+            "size": 164,
+            "uid": 2001,
+            "version": null,
+            "wgrp": false,
+            "woth": false,
+            "writeable": true,
+            "wusr": true,
+            "xgrp": false,
+            "xoth": false,
+            "xusr": false
+        }
+    },
+    "msg": "PASS /home/deploy/.minikube/config/config.json owner/mode/type"
+}
+ok: [localhost] => (item=/var/log/shortly) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": {
+        "ansible_loop_var": "item",
+        "changed": false,
+        "failed": false,
+        "item": {
+            "group": "root",
+            "kind": "directory",
+            "mode": "0755",
+            "owner": "root",
+            "path": "/var/log/shortly"
+        },
+        "stat": {
+            "atime": 1792911517.6500645,
+            "attr_flags": "",
+            "attributes": [],
+            "block_size": 4096,
+            "blocks": 8,
+            "charset": "unknown",
+            "ctime": 1792911508.8209581,
+            "dev": 2097187,
+            "device_type": 0,
+            "disk_usage_bytes": 4096,
+            "executable": true,
+            "exists": true,
+            "gid": 0,
+            "gr_name": "root",
+            "inode": 2355596,
+            "isblk": false,
+            "ischr": false,
+            "isdir": true,
+            "isfifo": false,
+            "isgid": false,
+            "islnk": false,
+            "isreg": false,
+            "issock": false,
+            "isuid": false,
+            "mimetype": "unknown",
+            "mode": "0755",
+            "mtime": 1792911508.8209581,
+            "nlink": 2,
+            "path": "/var/log/shortly",
+            "pw_name": "root",
+            "readable": true,
+            "rgrp": true,
+            "roth": true,
+            "rusr": true,
+            "size": 4096,
+            "uid": 0,
+            "version": null,
+            "wgrp": false,
+            "woth": false,
+            "writeable": true,
+            "wusr": true,
+            "xgrp": true,
+            "xoth": true,
+            "xusr": true
+        }
+    },
+    "msg": "PASS /var/log/shortly owner/mode/type"
+}
+ok: [localhost] => (item=/etc/logrotate.d/shortly) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": {
+        "ansible_loop_var": "item",
+        "changed": false,
+        "failed": false,
+        "item": {
+            "group": "root",
+            "kind": "file",
+            "mode": "0644",
+            "owner": "root",
+            "path": "/etc/logrotate.d/shortly"
+        },
+        "stat": {
+            "atime": 1792911531.1266243,
+            "attr_flags": "",
+            "attributes": [],
+            "block_size": 4096,
+            "blocks": 8,
+            "charset": "unknown",
+            "checksum": "8c74d4e1870ec4f81024abd3162aeb8222573298",
+            "ctime": 1792911509.32498,
+            "dev": 2097187,
+            "device_type": 0,
+            "disk_usage_bytes": 4096,
+            "executable": false,
+            "exists": true,
+            "gid": 0,
+            "gr_name": "root",
+            "inode": 2355595,
+            "isblk": false,
+            "ischr": false,
+            "isdir": false,
+            "isfifo": false,
+            "isgid": false,
+            "islnk": false,
+            "isreg": true,
+            "issock": false,
+            "isuid": false,
+            "mimetype": "unknown",
+            "mode": "0644",
+            "mtime": 1792911509.140972,
+            "nlink": 1,
+            "path": "/etc/logrotate.d/shortly",
+            "pw_name": "root",
+            "readable": true,
+            "rgrp": true,
+            "roth": true,
+            "rusr": true,
+            "size": 232,
+            "uid": 0,
+            "version": null,
+            "wgrp": false,
+            "woth": false,
+            "writeable": true,
+            "wusr": true,
+            "xgrp": false,
+            "xoth": false,
+            "xusr": false
+        }
+    },
+    "msg": "PASS /etc/logrotate.d/shortly owner/mode/type"
+}
+ok: [localhost] => (item=/usr/local/bin/shortly-doctor) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": {
+        "ansible_loop_var": "item",
+        "changed": false,
+        "failed": false,
+        "item": {
+            "group": "root",
+            "kind": "file",
+            "mode": "0755",
+            "owner": "root",
+            "path": "/usr/local/bin/shortly-doctor"
+        },
+        "stat": {
+            "atime": 1792911533.8947423,
+            "attr_flags": "",
+            "attributes": [],
+            "block_size": 4096,
+            "blocks": 8,
+            "charset": "unknown",
+            "checksum": "a526f5c6b2c5975b88ce5cd06f9d424d3bdade6e",
+            "ctime": 1792911510.557032,
+            "dev": 2097187,
+            "device_type": 0,
+            "disk_usage_bytes": 4096,
+            "executable": true,
+            "exists": true,
+            "gid": 0,
+            "gr_name": "root",
+            "inode": 2355589,
+            "isblk": false,
+            "ischr": false,
+            "isdir": false,
+            "isfifo": false,
+            "isgid": false,
+            "islnk": false,
+            "isreg": true,
+            "issock": false,
+            "isuid": false,
+            "mimetype": "unknown",
+            "mode": "0755",
+            "mtime": 1792911510.3570237,
+            "nlink": 1,
+            "path": "/usr/local/bin/shortly-doctor",
+            "pw_name": "root",
+            "readable": true,
+            "rgrp": true,
+            "roth": true,
+            "rusr": true,
+            "size": 1154,
+            "uid": 0,
+            "version": null,
+            "wgrp": false,
+            "woth": false,
+            "writeable": true,
+            "wusr": true,
+            "xgrp": true,
+            "xoth": true,
+            "xusr": true
+        }
+    },
+    "msg": "PASS /usr/local/bin/shortly-doctor owner/mode/type"
+}
+
+TASK [Validate sudoers drop-in syntax] *****************************************
+ok: [localhost]
+
+TASK [Assert sudoers validates] ************************************************
+ok: [localhost] => {
+    "changed": false,
+    "msg": "PASS sudoers syntax"
+}
+
+TASK [Check required command line tools are executable and report versions] ****
+ok: [localhost] => (item=kubectl version --client --output=yaml)
+ok: [localhost] => (item=helm version --short)
+ok: [localhost] => (item=minikube version --short)
+
+TASK [Assert kubectl, Helm, and minikube report versions] **********************
+ok: [localhost] => (item=kubectl version --client --output=yaml) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": {
+        "ansible_loop_var": "item",
+        "changed": false,
+        "changed_when_result": false,
+        "cmd": [
+            "kubectl",
+            "version",
+            "--client",
+            "--output=yaml"
+        ],
+        "delta": "0:00:00.047831",
+        "end": "2026-10-25 06:59:29.636509",
+        "failed": false,
+        "item": "kubectl version --client --output=yaml",
+        "msg": "",
+        "rc": 0,
+        "start": "2026-10-25 06:59:29.588678",
+        "stderr": "",
+        "stderr_lines": [],
+        "stdout": "clientVersion:\n  buildDate: \"2026-09-23T17:10:05Z\"\n  compiler: gc\n  gitCommit: ad950d1cc78b0183c476bd4d3f1934c104229727\n  gitTreeState: clean\n  gitVersion: v1.36.5\n  goVersion: go1.26.8\n  major: \"1\"\n  minor: \"36\"\n  platform: linux/amd64\nkustomizeVersion: v5.8.1",
+        "stdout_lines": [
+            "clientVersion:",
+            "  buildDate: \"2026-09-23T17:10:05Z\"",
+            "  compiler: gc",
+            "  gitCommit: ad950d1cc78b0183c476bd4d3f1934c104229727",
+            "  gitTreeState: clean",
+            "  gitVersion: v1.36.5",
+            "  goVersion: go1.26.8",
+            "  major: \"1\"",
+            "  minor: \"36\"",
+            "  platform: linux/amd64",
+            "kustomizeVersion: v5.8.1"
+        ]
+    },
+    "msg": "PASS kubectl version --client --output=yaml"
+}
+ok: [localhost] => (item=helm version --short) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": {
+        "ansible_loop_var": "item",
+        "changed": false,
+        "changed_when_result": false,
+        "cmd": [
+            "helm",
+            "version",
+            "--short"
+        ],
+        "delta": "0:00:00.048528",
+        "end": "2026-10-25 06:59:29.897670",
+        "failed": false,
+        "item": "helm version --short",
+        "msg": "",
+        "rc": 0,
+        "start": "2026-10-25 06:59:29.849142",
+        "stderr": "",
+        "stderr_lines": [],
+        "stdout": "v4.2.2+gb05881c",
+        "stdout_lines": [
+            "v4.2.2+gb05881c"
+        ]
+    },
+    "msg": "PASS helm version --short"
+}
+ok: [localhost] => (item=minikube version --short) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": {
+        "ansible_loop_var": "item",
+        "changed": false,
+        "changed_when_result": false,
+        "cmd": [
+            "minikube",
+            "version",
+            "--short"
+        ],
+        "delta": "0:00:00.059841",
+        "end": "2026-10-25 06:59:30.165774",
+        "failed": false,
+        "item": "minikube version --short",
+        "msg": "",
+        "rc": 0,
+        "start": "2026-10-25 06:59:30.105933",
+        "stderr": "",
+        "stderr_lines": [],
+        "stdout": "v1.39.0",
+        "stdout_lines": [
+            "v1.39.0"
+        ]
+    },
+    "msg": "PASS minikube version --short"
+}
+
+TASK [Check managed headers without returning file contents] *******************
+ok: [localhost] => (item=/etc/shortly/shortly.env)
+ok: [localhost] => (item=/etc/logrotate.d/shortly)
+ok: [localhost] => (item=/usr/local/bin/shortly-doctor)
+ok: [localhost] => (item=/home/deploy/.bashrc.d/shortly.sh)
+
+TASK [Assert managed-file header appears in every Ansible-owned file] **********
+ok: [localhost] => (item=/etc/shortly/shortly.env) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": {
+        "ansible_loop_var": "item",
+        "changed": false,
+        "changed_when_result": false,
+        "cmd": [
+            "grep",
+            "-Fq",
+            "Managed by Ansible (role shortly_config)",
+            "/etc/shortly/shortly.env"
+        ],
+        "delta": "0:00:00.004934",
+        "end": "2026-10-25 06:59:30.471466",
+        "failed": false,
+        "failed_when_result": false,
+        "item": {
+            "marker": "Managed by Ansible (role shortly_config)",
+            "path": "/etc/shortly/shortly.env"
+        },
+        "msg": "",
+        "rc": 0,
+        "start": "2026-10-25 06:59:30.466532",
+        "stderr": "",
+        "stderr_lines": [],
+        "stdout": "",
+        "stdout_lines": []
+    },
+    "msg": "PASS managed header /etc/shortly/shortly.env"
+}
+ok: [localhost] => (item=/etc/logrotate.d/shortly) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": {
+        "ansible_loop_var": "item",
+        "changed": false,
+        "changed_when_result": false,
+        "cmd": [
+            "grep",
+            "-Fq",
+            "Managed by Ansible (role shortly_config)",
+            "/etc/logrotate.d/shortly"
+        ],
+        "delta": "0:00:00.004116",
+        "end": "2026-10-25 06:59:30.699157",
+        "failed": false,
+        "failed_when_result": false,
+        "item": {
+            "marker": "Managed by Ansible (role shortly_config)",
+            "path": "/etc/logrotate.d/shortly"
+        },
+        "msg": "",
+        "rc": 0,
+        "start": "2026-10-25 06:59:30.695041",
+        "stderr": "",
+        "stderr_lines": [],
+        "stdout": "",
+        "stdout_lines": []
+    },
+    "msg": "PASS managed header /etc/logrotate.d/shortly"
+}
+ok: [localhost] => (item=/usr/local/bin/shortly-doctor) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": {
+        "ansible_loop_var": "item",
+        "changed": false,
+        "changed_when_result": false,
+        "cmd": [
+            "grep",
+            "-Fq",
+            "Managed by Ansible (role shortly_config)",
+            "/usr/local/bin/shortly-doctor"
+        ],
+        "delta": "0:00:00.004557",
+        "end": "2026-10-25 06:59:30.910010",
+        "failed": false,
+        "failed_when_result": false,
+        "item": {
+            "marker": "Managed by Ansible (role shortly_config)",
+            "path": "/usr/local/bin/shortly-doctor"
+        },
+        "msg": "",
+        "rc": 0,
+        "start": "2026-10-25 06:59:30.905453",
+        "stderr": "",
+        "stderr_lines": [],
+        "stdout": "",
+        "stdout_lines": []
+    },
+    "msg": "PASS managed header /usr/local/bin/shortly-doctor"
+}
+ok: [localhost] => (item=/home/deploy/.bashrc.d/shortly.sh) => {
+    "ansible_loop_var": "item",
+    "changed": false,
+    "item": {
+        "ansible_loop_var": "item",
+        "changed": false,
+        "changed_when_result": false,
+        "cmd": [
+            "grep",
+            "-Fq",
+            "Managed by Ansible (role deploy_user)",
+            "/home/deploy/.bashrc.d/shortly.sh"
+        ],
+        "delta": "0:00:00.004013",
+        "end": "2026-10-25 06:59:31.136870",
+        "failed": false,
+        "failed_when_result": false,
+        "item": {
+            "marker": "Managed by Ansible (role deploy_user)",
+            "path": "/home/deploy/.bashrc.d/shortly.sh"
+        },
+        "msg": "",
+        "rc": 0,
+        "start": "2026-10-25 06:59:31.132857",
+        "stderr": "",
+        "stderr_lines": [],
+        "stdout": "",
+        "stdout_lines": []
+    },
+    "msg": "PASS managed header /home/deploy/.bashrc.d/shortly.sh"
+}
+
+TASK [Confirm the deploy shell loads its marked shortly snippet] ***************
+ok: [localhost]
+
+TASK [Assert the deploy bashrc marker is present] ******************************
+ok: [localhost] => {
+    "changed": false,
+    "msg": "PASS deploy bashrc block"
+}
+
+TASK [Assert managed short.local hosts block exists when enabled] **************
+ok: [localhost]
+
+TASK [Confirm managed hosts marker when enabled] *******************************
+ok: [localhost] => {
+    "changed": false,
+    "msg": "PASS short.local hosts block"
+}
+
+TASK [Print compact verification result table] *********************************
+ok: [localhost] => {
+    "msg": [
+        "PASS packages: 13 base packages",
+        "PASS deploy: uid=2001, shell=/bin/bash, home=/home/deploy, locked",
+        "PASS managed paths: 13 owner/mode/type checks",
+        "PASS tools: kubectl, helm, minikube",
+        "PASS sudoers and managed headers",
+        "PASS short.local hosts block"
+    ]
+}
+
+PLAY RECAP *********************************************************************
+localhost                  : ok=23   changed=0    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+recap: ok=23 changed=0 unreachable=0 failed=0
+
+===== CA2-EVIDENCE: ansible-facts.txt =====
+uid=2001(deploy) gid=2001(deploy) groups=2001(deploy),1001(docker)
+drwxr-xr-x 2 root   root   4096 Oct 25 06:58 /etc/shortly
+drwx------ 2 deploy deploy 4096 Oct 25 06:58 /home/deploy/.kube
+drwxr-xr-x 2 deploy deploy 4096 Oct 25 06:58 /home/deploy/.local/bin
+drwxr-xr-x 2 root   root   4096 Oct 25 06:58 /var/log/shortly
+-r--r----- 1 root root  190 Oct 25 06:58 /etc/sudoers.d/90-deploy
+
+/etc/shortly:
+total 4
+-rw-r----- 1 root deploy 232 Oct 25 06:58 shortly.env
+Client Version: v1.36.5
+Kustomize Version: v5.8.1
+version.BuildInfo{Version:"v4.2.2", GitCommit:"b05881cf967a5a09e19866799d0edfd40675803a", GitTreeState:"clean", GoVersion:"go1.26.4", KubeClientVersion:"v1.36"}
+minikube version: v1.39.0
+commit: 7a9f6a841470a207de8cf4bafcccee0969d8ba10
+
+PASS: Ubuntu configuration, check/diff, idempotence and verification.

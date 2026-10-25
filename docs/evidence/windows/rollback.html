@@ -1,0 +1,13 @@
+<!doctype html><meta charset="utf-8"><title>Rollback and revision history</title><style>body{font:18px Arial,sans-serif;margin:36px;color:#18313f;background:#f5f8fa}main{background:white;padding:26px;max-width:1250px;margin:auto}h1{font-size:30px;margin:0 0 10px}p{line-height:1.5;color:#465d6a}pre{font:15px Consolas,monospace;line-height:1.3;white-space:pre-wrap;background:#edf3f5;padding:20px;border-left:5px solid #1a8c8c}a{color:#126c70}.result{font-size:25px;font-weight:bold;color:#116450}</style><main><h1>Rollback and revision history</h1><p>Windows / Docker Desktop Kubernetes · 25 October 2026<br>Evidence report of real captured output. This is not a terminal screenshot.</p><p class="result">CrashLoopBackOff observed: True · Rollback passed: True</p><p>Restored version: v2. Method: source-demo configuration rollback</p><pre>kubectl --context docker-desktop -n urlshortener rollout undo deployment/shortly --to-revision=2
+deployment.apps/shortly rolled back
+Warning: resource deployments/shortly was previously managed with &#x27;kubectl apply&#x27;. Rolling back will not update the kubectl.kubernetes.io/last-applied-configuration annotation, which may cause unexpected behavior on future &#x27;kubectl apply&#x27; operations. Consider using &#x27;kubectl apply&#x27; with your previous configuration file instead.
+</pre><pre>kubectl --context docker-desktop -n urlshortener rollout status deployment/shortly --timeout=180s
+deployment &quot;shortly&quot; successfully rolled out
+</pre><pre>kubectl --context docker-desktop -n urlshortener rollout history deployment/shortly
+deployment.apps/shortly 
+REVISION  CHANGE-CAUSE
+1         &lt;none&gt;
+3         &lt;none&gt;
+4         &lt;none&gt;
+
+</pre><p>Full original record: <a href="rollback.json">rollback.json</a></p></main>
